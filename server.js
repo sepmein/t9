@@ -1,10 +1,39 @@
+//read file from disk
+//static servers
+//now just response the index.js file to the request
+
+
 var http = require('http');
+var fs = require('fs');
+var url = require('url');
 
-http.createServer(
-	function(req,res){
-		
-		res.writeHead(200,{});
-		res.end('Hello Kokiya');
 
+//	console.log(__dirname);
+//var requestUrl = url.parse(request.url).pathname
+//var filepath = __dirname + requestUrl;
+
+//	console.log(filepath);
+
+fs.stat(__dirname + '/index.js',function(err, stat){
+	if (err) {
+		throw err;
 	}
-).listen(80);
+
+	http.createServer(function(request , response){
+
+		response.writeHead(200,{
+			'content-type' : 'text/plain' , 
+			'content-length' : stat.size
+		});
+
+		console.log(stat.size);
+
+		var data = fs.readFile(__dirname + '/index.js',function(err, data){
+
+			response.end(data);
+
+		});
+
+	}).listen(4000);
+
+});
