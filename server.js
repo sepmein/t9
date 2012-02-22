@@ -14,7 +14,7 @@ var url = require('url');
 
 //	console.log(filepath);
 
-fs.stat(__dirname + '/index.js',function(err, stat){
+fs.stat(__dirname + '/server.js',function(err, stat){
 	if (err) {
 		throw err;
 	}
@@ -28,12 +28,12 @@ fs.stat(__dirname + '/index.js',function(err, stat){
 
 		console.log(stat.size);
 
-		var data = fs.readFile(__dirname + '/index.js',function(err, data){
+		var data = fs.readFile(__dirname + '/server.js',function(err, data){
 
 			response.end(data);
 
 		});
 
-	}).listen(4000);
+	}).listen(80);
 
 });
