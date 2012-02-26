@@ -1,6 +1,6 @@
 {
 	"name"    : "kokiya",
-	"version" : "0.2.0",
+	"version" : "latest",
 	"scripts" : {
 		"start" : "node server.js"
 	},
