@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>socket.io chat server</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+
+</head>
+<body>
+	<h1>Chatting Room</h1>
+	<section id="chatboard">
+		<h2>Welcome</h2>
+	</section id="say">
+	<input type="text" name="sayContent" id="sayContent" placeholder="Say Something Dude!"/ >
+	<button type="submit" id="say" class="btn btn-primary btn-large">Enter</button>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+	<script>
+		var say = $("#say"),
+			sayContent = $('#sayContent'),
+			chatboard = $('#chatboard');
+
+
+
+		var socket = io.connect('http://192.168.1.103:4000');
+		//onConnection
+		socket.on('newComer', function (data) {
+			
+			data.forEach(function(element,index,array){
+				chatboard.append($("<p>"+element+"</p>"));
+			});
+
+		});
+
+		//say something
+
+		//get DOM
+
+		say.click(function(){
+
+			socket.emit('say', sayContent.val());
+			//clear
+			sayContent.val('');
+
+		});
+
+		//got something new
+
+		socket.on('newMessage',function (data) {
+
+			chatboard.append($("<p>"+data+"</p>"));
+
+		});
+
+	</script>
+
+</body>
+</html>
