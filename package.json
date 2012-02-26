@@ -8,5 +8,6 @@
 	"dependencies" : {
 		"mime":"1.2.5",
 		"socket.io":"0.8.7"
+	}
 		
 }
