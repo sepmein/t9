@@ -26,7 +26,7 @@ io.configure('production',function(){
 var messages = [];
 var MAX = 20;
 
-app.listen(46645);
+app.listen(80);
 
 function handler(req,res){
 
