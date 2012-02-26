@@ -1,10 +1,12 @@
 {
 	"name"    : "kokiya",
-	"version" : "0.0.0",
+	"version" : "0.2.0",
 	"scripts" : {
 		"start" : "node server.js"
 	},
+	"author" : "Spencer Zhang <a href='crimde@gmail.com'>crimde@gmail.com</a>",
 	"dependencies" : {
+		"mime":"1.2.5",
+		"socket.io":"0.8.7"
 		
-	}
 }
