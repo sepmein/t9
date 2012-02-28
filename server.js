@@ -116,15 +116,3 @@ io.sockets.on('connection', function(socket) {
 
 
 });
-ion(){
-    users.forEach(function(element,index,array){
-      if(element.queryT === queryT) {
-        //delete and log off
-        array.splice(index,1);
-      }
-    });
-    console.log(users);
-  });
-
-
-});
