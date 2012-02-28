@@ -12,13 +12,6 @@ io.configure('production',function(){
   io.enable('browser client etag');          // apply etag caching logic based on version number
   io.enable('browser client gzip');          // gzip the file
   io.set('log level', 1);                    // reduce logging
-  io.set('transports', [                     // enable all transports (optional if you want flashsocket)
-      'websocket'
-    , 'flashsocket'
-    , 'htmlfile'
-    , 'xhr-polling'
-    , 'jsonp-polling'
-  ]);
 });
 
 var messages = [],
@@ -112,6 +105,18 @@ io.sockets.on('connection', function(socket) {
   });
 
   socket.on('disconnect',function(){
+    users.forEach(function(element,index,array){
+      if(element.queryT === queryT) {
+        //delete and log off
+        array.splice(index,1);
+      }
+    });
+    console.log(users);
+  });
+
+
+});
+ion(){
     users.forEach(function(element,index,array){
       if(element.queryT === queryT) {
         //delete and log off
