@@ -39,7 +39,7 @@ $('#login').click(function(){
 });
 //listen to log event
 socket.on('loginSuccess',function(){
-	console.log('loginSuccess');
+//	console.log('loginSuccess');
 	$('#userName').attr({
 		id : 'sayContent',
 		placeholder : '输入内容',
@@ -67,7 +67,7 @@ socket.on('loginSuccess',function(){
 
 });
 socket.on('loginFailure',function(){
-	console.log('loginFailure');
+//	console.log('loginFailure');
 	$('.alert').show('medium').delay(2000).hide('medium');
 	user = "";
 });
