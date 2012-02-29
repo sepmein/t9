@@ -12,7 +12,7 @@ var Message = function(content,timeStamp){
 };
 var user = "";
 
-var socket = io.connect('http://kokiya.no.de');
+var socket = io.connect('http://192.168.9.155:8080');
 //onConnection
 socket.on('newComer', function (data) {
 	
@@ -40,32 +40,48 @@ $('#login').click(function(){
 //listen to log event
 socket.on('loginSuccess',function(){
 //	console.log('loginSuccess');
-	$('#userName').attr({
-		id : 'sayContent',
-		placeholder : '输入内容',
-		name : 'sayContent'
+	$('#controller>.hiddenFrame').animate({top : "-46px"},function(){
+		$('#sayContent').focus();
 	});
-	$('#login').text('Enter');
-	$('#login').removeClass('btn-danger').addClass('btn-primary');
-	$('#login').attr({
-		id : 'say'
-	}).unbind('click').on('click',function(){
-
-		var content = $('#sayContent').val(),
-			date = new Date().toLocaleString();
-
-		var saySth = new Message(content,date);
-		var sbdSaySth = {	user:user,
-							message:saySth
-						};
-
-		socket.emit('say', sbdSaySth);
-		//clear
-		$('#sayContent').val('');
-
-	});
+	$('#controller .userName').text(user + " : ");
+	//焦点移到发言框
+	//
 
 });
+
+$('#say').on('click',function(){
+
+	var content = $('#sayContent').val(),
+		date = new Date().toLocaleString();
+
+	var saySth = new Message(content,date);
+	var sbdSaySth = {	user:user,
+						message:saySth
+					};
+
+	socket.emit('say', sbdSaySth);
+	//clear
+	$('#sayContent').val('');
+
+});
+
+//键盘回车，出发say的click事件
+//$('#sayContent').keypress(function(e){
+//	console.log(e);
+//	if(e.which === 13) {
+//		console.log('Enter is clicked');
+//		$('#say').trigger('click');
+//	}
+//});
+
+//使用一条jQuery语句绑定多个事件,对于一个数组中的所有元素绑定一个事件：在该元素中点击回车键，会触发紧贴该元素的下一个元素的click事件。
+$('.controls>input').keypress(function(event){
+		if(event.which === 13) {
+			//console.log('Enter is clicked');
+			$(this).next().trigger('click');
+		}
+});
+
 socket.on('loginFailure',function(){
 //	console.log('loginFailure');
 	$('.alert').show('medium').delay(2000).hide('medium');
@@ -87,9 +103,3 @@ socket.on('newMessage',function (data) {
 	chatboard.append($("<p>"+data.user+" : "+data.message.content+"<small>  @ "+data.message.timeStamp+"</small></p>"));
 
 });
-
-
-//exit
-/*$(window).unload(function() {
-  socket.emit('exit',user);
-});*/

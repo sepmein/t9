@@ -18,7 +18,7 @@ var messages = [],
     users = [],
     MAX = 20;
 
-app.listen(80);
+app.listen(8080);
 
 function handler(req,res){
 

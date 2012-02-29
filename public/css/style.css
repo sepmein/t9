@@ -1,0 +1,27 @@
+#sayContent,#userName{
+	padding: 9px;
+	height: 17px;
+	margin: 0px;
+}
+.alert{
+	display: none;
+
+}
+small{
+	display:inline;
+}
+section#chatboard {
+	background-color: rgb(252,252,252);
+	margin-top: 20px;
+}
+
+#controller{
+	height: 46px;
+	overflow: hidden;
+}
+.hiddenFrame{
+	position: relative;
+}
+.control-group>label,.control-group>.controls{
+	display:inline;
+}
