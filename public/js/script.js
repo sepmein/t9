@@ -12,7 +12,7 @@ var Message = function(content,timeStamp){
 };
 var user = "";
 
-var socket = io.connect('http://kokiya.no.de');
+var socket = io.connect('http://localhost:8080');
 //onConnection
 socket.on('newComer', function (data) {
 	
@@ -52,9 +52,25 @@ socket.on('loginSuccess',function(){
 $('#say').on('click',function(){
 
 	var content = $('#sayContent').val(),
-		date = new Date().toLocaleString();
+		date = new Date();
 
-	var saySth = new Message(content,date);
+	//修正不同浏览器返回时间不正常的情况
+	var	parsedDate = function(d){
+
+			function addZero(to){
+				//对于分钟和秒都在前面加个零符合人类的视觉需求
+				if(to < 10){
+					return ( '0' + to);
+				} else {
+					return to;
+				}
+			}
+
+			var result = (d.getMonth()+1)+ '月'+ d.getDate()+ '日'+' , '+d.getHours() + ':' + addZero(d.getMinutes()) + ':' +addZero(d.getSeconds());
+			return result;
+		}(date);
+
+	var saySth = new Message(content,parsedDate);
 	var sbdSaySth = {	user:user,
 						message:saySth
 					};
