@@ -3,6 +3,9 @@
 	height: 17px;
 	margin: 0px;
 }
+#sayContent{
+	width: 400px; 
+}
 .alert{
 	display: none;
 

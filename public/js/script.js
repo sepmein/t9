@@ -41,11 +41,10 @@ $('#login').click(function(){
 socket.on('loginSuccess',function(){
 //	console.log('loginSuccess');
 	$('#controller>.hiddenFrame').animate({top : "-46px"},function(){
+		//焦点移至发言框
 		$('#sayContent').focus();
 	});
 	$('#controller .userName').text(user + " : ");
-	//焦点移到发言框
-	//
 
 });
 
@@ -79,22 +78,30 @@ $('#say').on('click',function(){
 
 //使用一条jQuery语句绑定多个事件,对于一个数组中的所有元素绑定一个事件：在该元素中点击回车键，会触发紧贴该元素的下一个元素的click事件。
 $('.controls>input').keypress(function(event){
-		if(event.which === 13) {
-			//console.log('Enter is clicked');
-			$(this).next().trigger('click');
-		}
+	if(event.which === 13) {
+		//console.log('Enter is clicked');
+		$(this).next().trigger('click');
+	}
 });
+$('#sayContent').change(function(){
+	console.log('change event trigger');
+});
+
+
+
+//超过16个字的话输入框变长，目前还未检测输入内容是否是中英文
+/*if($(this).val().length>16) {
+	//console.log('triggered');
+	//2console.log($(this).val().length);
+	$(this).css('width','400px');
+} 
+*/
 
 socket.on('loginFailure',function(){
 //	console.log('loginFailure');
 	$('.alert').show('medium').delay(2000).hide('medium');
 	user = "";
 });
-
-//manipulate dom when success or failure
-
-
-
 
 //got something new
 
