@@ -59,11 +59,7 @@ $('#say').on('click',function(){
 
 			function addZero(to){
 				//对于分钟和秒都在前面加个零符合人类的视觉需求
-				if(to < 10){
-					return ( '0' + to);
-				} else {
-					return to;
-				}
+				return (to<10)?('0'+to):to;
 			}
 
 			var result = (d.getMonth()+1)+ '月'+ d.getDate()+ '日'+' , '+d.getHours() + ':' + addZero(d.getMinutes()) + ':' +addZero(d.getSeconds());
