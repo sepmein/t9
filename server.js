@@ -20,6 +20,14 @@ var messages = [],
 
 app.listen(8080);
 
+//very crude error handler
+process.on('uncaughtException', function (err) {
+  console.log('Caught exception: ' + err);
+});
+
+
+
+
 function handler(req,res){
 
   //simple router
@@ -113,6 +121,4 @@ io.sockets.on('connection', function(socket) {
     });
     console.log(users);
   });
-
-
 });
