@@ -77,15 +77,6 @@ $('#say').on('click',function(){
 
 });
 
-//键盘回车，出发say的click事件
-//$('#sayContent').keypress(function(e){
-//	console.log(e);
-//	if(e.which === 13) {
-//		console.log('Enter is clicked');
-//		$('#say').trigger('click');
-//	}
-//});
-
 //使用一条jQuery语句绑定多个事件,对于一个数组中的所有元素绑定一个事件：在该元素中点击回车键，会触发紧贴该元素的下一个元素的click事件。
 $('.controls>input').keypress(function(event){
 		if(event.which === 13) {
