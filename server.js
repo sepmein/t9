@@ -18,7 +18,7 @@ var messages = [],
     users = [],
     MAX = 20;
 
-app.listen(80);
+app.listen(8080);
 
 //very crude error handler
 process.on('uncaughtException', function (err) {
@@ -83,6 +83,9 @@ io.sockets.on('connection', function(socket) {
 
   //new to website fetch all messages
   socket.emit('newComer', messages );
+
+  //emit server running time event
+  socket.emit('runningTime', process.uptime());
 
   //login
   socket.on('login', function(requestUserName){

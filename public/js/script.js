@@ -2,7 +2,13 @@ var say = $("#say"),
 	sayContent = $('#sayContent'),
 	chatboard = $('#chatboard'),
 	login = $('#login'),
-	userName = $('#userName');
+	userName = $('#userName'),
+	TIME = {
+		MONTH : 60*60*24*30,
+		DAY : 60*60*24,
+		HOUR : 60*60,
+		MINUTE : 60
+	};
 
 
 //simple constructor for message
@@ -12,7 +18,8 @@ var Message = function(content, timeStamp) {
 	};
 var user = "";
 
-var socket = io.connect('http://kokiya.no.de');
+var socket = io.connect('http://localhost:8080');
+
 //onConnection
 socket.on('newComer', function(data) {
 
@@ -20,6 +27,11 @@ socket.on('newComer', function(data) {
 		chatboard.append($("<p>" + element.user + " : " + element.message.content + "<small>  @ " + element.message.timeStamp + "</small></p>"));
 	});
 
+});
+
+//get server running time and display
+socket.on("runningTime",function(data){
+	//console.log(data);
 });
 
 //say something
