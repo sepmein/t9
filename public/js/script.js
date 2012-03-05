@@ -31,7 +31,26 @@ socket.on('newComer', function(data) {
 
 //get server running time and display
 socket.on("runningTime",function(data){
-	//console.log(data);
+	//console.log('server returned '+ data);
+	var month	= parseInt(data/TIME.MONTH, 10) ,
+		day		= parseInt(data/TIME.DAY, 10) ,
+		hour	= parseInt(data/TIME.HOUR, 10) ,
+		minute	= parseInt(data/TIME.MINUTE, 10) ,
+		parsedRunningTime;
+
+	if(month >= 1){
+		parsedRunningTime = month + '月';
+	} else if(day >= 1) {
+		parsedRunningTime = day + '天';
+	} else if(hour >= 1) {
+		parsedRunningTime = hour + '小时';
+	} else if(minute >= 1) {
+		parsedRunningTime = minute + '分钟';
+	}
+
+	parsedRunningTime += ' +';
+	$('#parsedRunningTime').text(parsedRunningTime);
+	//console.log('parsed '+ parsedRunningTime);
 });
 
 //say something

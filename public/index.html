@@ -36,8 +36,10 @@
          chromium.org/developers/how-tos/chrome-frame-getting-started -->
     <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
     <header class="row">
-      <h1>KOKIYA::CHAT - simplicity and fun</h1>
-      <h6><a href="http://github.com/sepmein/KOKIYA--CHAT" title="github.com源代码">Open Source</a> Chat Room Built By Node.Js</h6>
+      <hgroup class="span12">
+        <h1>KOKIYA::CHAT - simplicity and fun</h1>
+        <h6><a href="http://github.com/sepmein/KOKIYA--CHAT" title="github.com源代码">Open Source</a> Chat Room Built By Node.Js</h6>
+      </hgroup>
     </header>
     <div role="main" class="row">
       
@@ -45,14 +47,14 @@
         <a class="close" data-dismiss="alert">×</a>
         <strong>Oh!No</strong> 该用户名正在使用。
       </div>
-      
-      <section id="chatboard">
+
+      <section id="chatboard" class="span12">
       </section>
       
       <!-- 
         functional group
        -->
-      <section id="controller">
+      <section id="controller" class="span12">
         <div class="hiddenFrame">
 
             <div class="control-group success">
@@ -76,7 +78,14 @@
 
     </div>
     <footer class="row">
-
+      <div class="span4">
+        <ul class="unstyled">
+          <h6>server&nbsp;info</h6>
+          <li>
+            <i class="icon-time"></i>服务器已经运行：&nbsp;<span class="label" id="parsedRunningTime">好久啦~</span>
+          </li>
+        </ul>
+      </div>
     </footer>
 
   </div>

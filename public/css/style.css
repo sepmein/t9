@@ -15,7 +15,7 @@ small{
 }
 section#chatboard {
 	background-color: rgb(252,252,252);
-	margin-top: 20px;
+	margin-top: 30px;
 }
 
 #controller{
@@ -27,4 +27,7 @@ section#chatboard {
 }
 .control-group>label,.control-group>.controls{
 	display:inline;
+}
+footer{
+	margin-top: 30px;
 }
