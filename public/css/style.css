@@ -28,6 +28,18 @@ section#chatboard {
 .control-group>label,.control-group>.controls{
 	display:inline;
 }
+
+hr.inset {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 footer{
 	margin-top: 30px;
+	font-size: 0.8em;
+}
+footer li{
+	margin: 4px;
 }

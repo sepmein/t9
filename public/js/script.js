@@ -2,13 +2,7 @@ var say = $("#say"),
 	sayContent = $('#sayContent'),
 	chatboard = $('#chatboard'),
 	login = $('#login'),
-	userName = $('#userName'),
-	TIME = {
-		MONTH : 60*60*24*30,
-		DAY : 60*60*24,
-		HOUR : 60*60,
-		MINUTE : 60
-	};
+	userName = $('#userName');
 
 
 //simple constructor for message
@@ -30,12 +24,22 @@ socket.on('newComer', function(data) {
 });
 
 //get server running time and display
-socket.on("runningTime",function(data){
+socket.on('serverInfo',function(data){
 	//console.log('server returned '+ data);
-	var month	= parseInt(data/TIME.MONTH, 10) ,
-		day		= parseInt(data/TIME.DAY, 10) ,
-		hour	= parseInt(data/TIME.HOUR, 10) ,
-		minute	= parseInt(data/TIME.MINUTE, 10) ,
+	//console.log(data.upTime);
+	
+	//时间计算
+	var TIME = {
+			MONTH : 60*60*24*30,
+			DAY : 60*60*24,
+			HOUR : 60*60,
+			MINUTE : 60
+		},
+		ut 		= data.upTime,
+		month	= parseInt(ut/TIME.MONTH, 10),
+		day		= parseInt(ut/TIME.DAY, 10),
+		hour	= parseInt(ut/TIME.HOUR, 10),
+		minute	= parseInt(ut/TIME.MINUTE, 10),
 		parsedRunningTime;
 
 	if(month >= 1){
@@ -51,6 +55,11 @@ socket.on("runningTime",function(data){
 	parsedRunningTime += ' +';
 	$('#parsedRunningTime').text(parsedRunningTime);
 	//console.log('parsed '+ parsedRunningTime);
+
+	//处理内存
+	var mm = (Math.round(data.memory/1024/1024*10))/10 + ' MB';
+	//console.log(mm);
+	$('#memoryUsage').text(mm);
 });
 
 //say something

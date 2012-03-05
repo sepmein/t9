@@ -85,7 +85,10 @@ io.sockets.on('connection', function(socket) {
   socket.emit('newComer', messages );
 
   //emit server running time event
-  socket.emit('runningTime', process.uptime());
+  socket.emit('serverInfo', {
+    upTime : process.uptime(),
+    memory : process.memoryUsage().rss
+  });
 
   //login
   socket.on('login', function(requestUserName){
