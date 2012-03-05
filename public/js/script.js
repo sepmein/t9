@@ -12,7 +12,7 @@ var Message = function(content, timeStamp) {
 	};
 var user = "";
 
-var socket = io.connect('http://localhost:8080');
+var socket = io.connect('http://kokiya.no.de');
 
 //onConnection
 socket.on('newComer', function(data) {
