@@ -1,11 +1,6 @@
-var STATICPATH = __dirname + '/public';
-var mime = require('mime');
-var url = require('url');
-var fs = require('fs');
-var querystring = require('querystring');
-
-var app = require('http').createServer(handler)
-    , io = require('socket.io').listen(app);
+var handler = require('./requestHandler').handler,
+    app = require('http').createServer(handler),
+    io = require('socket.io').listen(app);
 
 io.configure('production',function(){
   io.enable('browser client minification');  // send minified client
@@ -14,66 +9,17 @@ io.configure('production',function(){
   io.set('log level', 1);                    // reduce logging
 });
 
+//data section store data in the memory
 var messages = [],
     users = [],
     MAX = 20;
 
-app.listen(80);
+app.listen(8080);
 
 //very crude error handler
 process.on('uncaughtException', function (err) {
   console.log('Caught exception: ' + err);
 });
-
-
-
-
-function handler(req,res){
-
-  //simple router
-
-    var pathname = STATICPATH + url.parse(req.url).pathname;
-
-    console.log("request pathname = " + pathname);
-
-    if (pathname === STATICPATH + '/') {
-
-      pathname = STATICPATH + '/index.html';
-
-    }
-
-    var getMime = mime.lookup(pathname);
-
-
-  //response section
-
-  //get content-length by fs.stat
-    fs.stat(pathname,function(err,stat){
-      if(err){
-        console.log(err);
-        res.writeHead(404);
-        res.end('No Such File error');
-        return;
-      }
-
-      res.writeHead(200,{
-        "content-type" : getMime,
-        "content-length" : stat.size
-      });
-
-      fs.readFile(pathname,function(err,data){
-        if(err){
-          throw err;
-        }
-        res.end(data);
-
-      });
-
-    });
-
-}
-
-
 
 //websocket
 io.sockets.on('connection', function(socket) {

@@ -12,7 +12,7 @@ var Message = function(content, timeStamp) {
 	};
 var user = "";
 
-var socket = io.connect('http://kokiya.no.de');
+var socket = io.connect('http://192.168.1.102:8080');
 
 //onConnection
 socket.on('newComer', function(data) {
@@ -40,6 +40,7 @@ socket.on('serverInfo',function(data){
 		day		= parseInt(ut/TIME.DAY, 10),
 		hour	= parseInt(ut/TIME.HOUR, 10),
 		minute	= parseInt(ut/TIME.MINUTE, 10),
+		second 	= parseInt(ut, 10),
 		parsedRunningTime;
 
 	if(month >= 1){
@@ -50,6 +51,8 @@ socket.on('serverInfo',function(data){
 		parsedRunningTime = hour + '小时';
 	} else if(minute >= 1) {
 		parsedRunningTime = minute + '分钟';
+	} else {
+		parsedRunningTime = second + '秒，WTF，你抢到沙发了！';
 	}
 
 	parsedRunningTime += ' +';
