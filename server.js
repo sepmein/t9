@@ -1,6 +1,8 @@
 var handler = require('./requestHandler').handler,
     app = require('http').createServer(handler),
-    io = require('socket.io').listen(app);
+    io = require('socket.io').listen(app),
+    //data processor
+    db = require('./data/crud');
 
 io.configure('production',function(){
   io.enable('browser client minification');  // send minified client
@@ -28,7 +30,11 @@ io.sockets.on('connection', function(socket) {
 
 
   //new to website fetch all messages
-  socket.emit('newComer', messages );
+  //use mongodb to store & get data!!
+  db.findAllPosts(initiate);
+  function initiate(data){
+    socket.emit('newComer',data);
+  }
 
   //emit server running time event
   socket.emit('serverInfo', {
@@ -51,17 +57,21 @@ io.sockets.on('connection', function(socket) {
     }
   });
 
-  socket.on('say', function (data) {
-    console.log(data);
-    if (messages.length === MAX) {
+  socket.on('say', function(data) {
+    //console.log(data);
+    /*if (messages.length === MAX) {
       messages.shift();    
     }
-    messages.push(data);
+    messages.push(data);*/
+
+
+    //save to db
+    db.post(data);
 
     //planning to inject into client side
-    socket.emit('newMessage',messages[messages.length-1]);
+    socket.emit('newMessage',data);
 
-    socket.broadcast.emit('newMessage',messages[messages.length-1]);
+    socket.broadcast.emit('newMessage',data);
   });
 
   socket.on('disconnect',function(){

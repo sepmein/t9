@@ -16,6 +16,9 @@ var socket = io.connect('http://192.168.1.102:8080');
 
 //onConnection
 socket.on('newComer', function(data) {
+	//for test
+	console.log(data);
+
 
 	data.forEach(function(element, index, array) {
 		chatboard.append($("<p>" + element.user + " : " + element.message.content + "<small>  @ " + element.message.timeStamp + "</small></p>"));
@@ -96,8 +99,8 @@ $('#say').on('click', function() {
 	var content = $('#sayContent').val(),
 		date = new Date();
 
-	//修正不同浏览器返回时间不正常的情况
-	var parsedDate = function(d) {
+	//修正不同浏览器返回时间不正常的情况，暂停使用，存储到db中使用raw Date
+	/*var parsedDate = function(d) {
 
 		function addZero(to) {
 			//对于分钟和秒都在前面加个零符合人类的视觉需求
@@ -106,9 +109,9 @@ $('#say').on('click', function() {
 
 		var result = (d.getMonth() + 1) + '月' + d.getDate() + '日' + ' , ' + d.getHours() + ':' + addZero(d.getMinutes()) + ':' + addZero(d.getSeconds());
 		return result;
-	}(date);
+	}(date);*/
 
-	var saySth = new Message(content, parsedDate);
+	var saySth = new Message(content, date);
 	var sbdSaySth = {
 		user: user,
 		message: saySth
