@@ -8,14 +8,40 @@
 }
 .alert{
 	display: none;
-
 }
 small{
 	display:inline;
 }
+small.ts{
+	float: right;
+}
 section#chatboard {
 	background-color: rgb(252,252,252);
 	margin-top: 30px;
+}
+section#chatboard>p{
+	height : 28px;
+	line-height: 28px;
+}
+section#chatboard>p input{
+	margin : 0;
+}
+section#chatboard i{
+	opacity: 0.2;
+	-moz-opacity: 0.2;
+	filter:alpha(opacity=2);
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+	transition: all 0.2s;
+}
+section#chatboard i:hover{
+	opacity: 0.8;
+	-moz-opacity: 0.8;
+	filter:alpha(opacity=8);
+}
+
+span.comment{
+	display: none;
 }
 
 #controller{

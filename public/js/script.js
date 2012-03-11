@@ -1,4 +1,4 @@
-var say = $("#say"),
+var say = $('#say'),
 	sayContent = $('#sayContent'),
 	chatboard = $('#chatboard'),
 	login = $('#login'),
@@ -10,19 +10,38 @@ var Message = function(content, timeStamp) {
 		this.content = content;
 		this.timeStamp = timeStamp;
 	};
-var user = "";
+var user = '';
 
-var socket = io.connect('http://kokiya.no.de');
+var socket = io.connect('http://localhost:8080');
+
+//将返回数据解析成html，这个部分应该就是传说中的view了，应该想办法把它抽象化。
+function getView(object){
+	return $('<p id='
+			+ object._id
+			+ '>' 
+			+ object.user 
+			+ ' : ' 
+			+ object.message.content
+			+ '<i class="icon-comment"></i>'
+			+ '<span class="comment"><input type="text"><button class="btn">comment</button></span>'
+			+ '<small class="ts">  @ ' 
+			+ object.message.timeStamp 
+			+ '</small></p>');
+}
+function getComments(object){
+	return $();
+}
 
 //onConnection
 socket.on('newComer', function(data) {
 	//for test
-	console.log(data);
+	//console.log(data);
 
 
 	data.forEach(function(element, index, array) {
-		chatboard.append($("<p>" + element.user + " : " + element.message.content + "<small>  @ " + element.message.timeStamp + "</small></p>"));
+		chatboard.append(getView(element));
 	});
+	commentsBindClick();
 
 });
 
@@ -85,12 +104,12 @@ $('#login').click(function() {
 socket.on('loginSuccess', function() {
 	//	console.log('loginSuccess');
 	$('#controller>.hiddenFrame').animate({
-		top: "-46px"
+		top: '-46px'
 	}, function() {
 		//焦点移至发言框
 		$('#sayContent').focus();
 	});
-	$('#controller .userName').text(user + " : ");
+	$('#controller .userName').text(user + ' : ');
 
 });
 
@@ -132,7 +151,12 @@ $('#sayContent').change(function() {
 	console.log('change event trigger');
 });
 
-
+//点击comments图标跳出comments文本框
+function commentsBindClick(){
+	$('#chatboard i').click(function(){
+		$(this).next().toggle();
+	});
+}
 
 //超过16个字的话输入框变长，目前还未检测输入内容是否是中英文
 /*if($(this).val().length>16) {
@@ -145,16 +169,16 @@ $('#sayContent').change(function() {
 socket.on('loginFailure', function() {
 	//	console.log('loginFailure');
 	$('.alert').show('medium').delay(2000).hide('medium');
-	user = "";
+	user = '';
 });
 
 //got something new
 socket.on('newMessage', function(data) {
 	if (chatboard.children().length >= 20) {
 		//remove chatboard's first child
-		$("#chatboard").children(':last').remove();
+		$('#chatboard').children(':last').remove();
 	}
 	//view
-	chatboard.prepend($("<p>" + data.user + " : " + data.message.content + "<small>  @ " + data.message.timeStamp + "</small></p>"));
-
+	chatboard.prepend(getView(data));
+	commentsBindClick();
 });
