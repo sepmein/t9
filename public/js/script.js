@@ -12,7 +12,7 @@ var Message = function(content, timeStamp) {
 	};
 var user = "";
 
-var socket = io.connect('http://192.168.1.102:8080');
+var socket = io.connect('http://kokiya.no.de');
 
 //onConnection
 socket.on('newComer', function(data) {
@@ -96,8 +96,7 @@ socket.on('loginSuccess', function() {
 
 $('#say').on('click', function() {
 
-	var content = $('#sayContent').val(),
-		date = new Date();
+	var content = $('#sayContent').val();
 
 	//修正不同浏览器返回时间不正常的情况，暂停使用，存储到db中使用raw Date
 	/*var parsedDate = function(d) {
@@ -111,10 +110,9 @@ $('#say').on('click', function() {
 		return result;
 	}(date);*/
 
-	var saySth = new Message(content, date);
 	var sbdSaySth = {
 		user: user,
-		message: saySth
+		content: content
 	};
 
 	socket.emit('say', sbdSaySth);
@@ -154,8 +152,9 @@ socket.on('loginFailure', function() {
 socket.on('newMessage', function(data) {
 	if (chatboard.children().length >= 20) {
 		//remove chatboard's first child
-		$("#chatboard").children(':first').remove();
+		$("#chatboard").children(':last').remove();
 	}
-	chatboard.append($("<p>" + data.user + " : " + data.message.content + "<small>  @ " + data.message.timeStamp + "</small></p>"));
+	//view
+	chatboard.prepend($("<p>" + data.user + " : " + data.message.content + "<small>  @ " + data.message.timeStamp + "</small></p>"));
 
 });

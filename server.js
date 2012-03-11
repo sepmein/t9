@@ -16,7 +16,7 @@ var messages = [],
     users = [],
     MAX = 20;
 
-app.listen(8080);
+app.listen(80);
 
 //very crude error handler
 process.on('uncaughtException', function (err) {
@@ -64,14 +64,15 @@ io.sockets.on('connection', function(socket) {
     }
     messages.push(data);*/
 
-
+    //schema and validator
+    var post = new db.Post(data.user,data.content);
     //save to db
-    db.post(data);
+    db.insert(post);
 
     //planning to inject into client side
-    socket.emit('newMessage',data);
+    socket.emit('newMessage',post);
 
-    socket.broadcast.emit('newMessage',data);
+    socket.broadcast.emit('newMessage',post);
   });
 
   socket.on('disconnect',function(){
