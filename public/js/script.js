@@ -12,7 +12,7 @@ var Message = function(content, timeStamp) {
 	};
 var user = '';
 
-var socket = io.connect('http://localhost:8080');
+var socket = io.connect('http://kokiya.no.de');
 
 //将返回数据解析成html，这个部分应该就是传说中的view了，应该想办法把它抽象化。
 function getView(object){
