@@ -16,17 +16,16 @@ var socket = io.connect('http://localhost:8080');
 
 //将返回数据解析成html，这个部分应该就是传说中的view了，应该想办法把它抽象化。
 function getView(object){
-	return $('<p id='
-			+ object._id
-			+ '>' 
-			+ object.user 
-			+ ' : ' 
-			+ object.message.content
-			+ '<i class="icon-comment"></i>'
-			+ '<span class="comment"><input type="text"><button class="btn">comment</button></span>'
-			+ '<small class="ts">  @ ' 
-			+ object.message.timeStamp 
-			+ '</small></p>');
+	return $('<div class="post well" id="'
+			+object._id
+			+'"><aside class="left"><div class="placeholder">头像</div></aside><div><strong class="userName">'
+			+object.user
+            +' : </strong><span>'
+            +object.message.content
+            +'</span></div><footer class="subnav"><small>@ '
+            +object.message.timeStamp
+            +'</small><button class="btn btn-small">评论</button></footer></div>'
+			);
 }
 function getComments(object){
 	return $();
@@ -42,6 +41,7 @@ socket.on('newComer', function(data) {
 		chatboard.append(getView(element));
 	});
 	commentsBindClick();
+	mans();
 
 });
 
@@ -179,6 +179,23 @@ socket.on('newMessage', function(data) {
 		$('#chatboard').children(':last').remove();
 	}
 	//view
-	chatboard.prepend(getView(data));
+	chatboard.prepend(getView(data)).masonry( 'reload');
 	commentsBindClick();
 });
+
+
+
+//masonry
+function mans(){
+	var $container = $('#chatboard');
+	$container.masonry({
+	    itemSelector : '.post',
+	    columnWidth : 15,
+		isAnimated: true,
+	  	animationOptions: {
+		    duration: 400,
+		    easing: 'linear',
+		    queue: false
+		}
+	});
+}
