@@ -16,7 +16,7 @@ var messages = [],
     users = [],
     MAX = 20;
 
-app.listen(80);
+app.listen(8080);
 
 //very crude error handler
 process.on('uncaughtException', function (err) {

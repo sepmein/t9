@@ -12,20 +12,20 @@ var Message = function(content, timeStamp) {
 	};
 var user = '';
 
-var socket = io.connect('http://kokiya.no.de');
+var socket = io.connect('http://192.168.9.155:8080');
 
 //将返回数据解析成html，这个部分应该就是传说中的view了，应该想办法把它抽象化。
 function getView(object){
-	return $('<div class="post well" id="'
+	return $('<div class="post post-type-large"><div class="corner comment"><i class="icon-comment"></i></div><div class="corner plus"><i class="icon-plus"></i></div><div class="corner minus"><i class="icon-minus"></i></div><article id="'
 			+object._id
-			+'"><aside class="left"><div class="placeholder">头像</div></aside><div><strong class="userName">'
-			+object.user
-            +' : </strong><span>'
-            +object.message.content
-            +'</span></div><footer class="subnav"><small>@ '
-            +object.message.timeStamp
-            +'</small><button class="btn btn-small">评论</button></footer></div>'
-			);
+			+'"><section class="bio"><img src="img/avatar.png" alt="You"></section><strong class="user">'
+	        +object.user
+	        +' : </strong><br /><small>'
+        	+object.message.timeStamp
+        	+'</small><p class="content">'
+        	+object.message.content
+        	+'</p></article><div class="clear"></div></div>'
+        	);
 }
 function getComments(object){
 	return $();
@@ -190,8 +190,9 @@ function mans(){
 	var $container = $('#chatboard');
 	$container.masonry({
 	    itemSelector : '.post',
-	    columnWidth : 15,
+	    columnWidth : 30,
 		isAnimated: true,
+		isResizable: true,
 	  	animationOptions: {
 		    duration: 400,
 		    easing: 'linear',

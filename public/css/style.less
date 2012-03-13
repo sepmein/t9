@@ -78,29 +78,110 @@ hr.inset {
 	}
 }
 
-div.post{
+@largepostlength : 250px;
+@biolength : 50px;
+.square(@length){
+	height: @length;
+	width: @length;
+}
+.post-type-large{
+	width: @largepostlength;	
+}
+.bio{
+	.square(@biolength);
 	float: left;
-	max-width: 200px;
-	min-width: 80px;
+	background-color: transparent;
+}
+.clear{
+	clear: both;
+}
+.kokiya-radius(@radius){
+	border-radius: @radius;
+	border-top-left-radius: 0;
+}
+div.post{
 	margin: 20px;
-	aside{
-		width: 30px;
-		float: left;
-	}
-	div{
-		float: left;
-		min-height: 30px;
-	}
-	footer{
-		clear: both;
-		height: 28px;
-		line-height: 28px;
-		background-color: transparent;
-		button{
-			float: right;
+	float: left;
+	position: relative;
+	border: 1px solid rgb(230,230,230);
+	//box shadow
+	-webkit-box-shadow: 0px 3px 5px 0px rgb(175,175,175);
+	-moz-box-shadow: 0px 3px 5px 0px rgb(175,175,175);
+	box-shadow: 0px 3px 5px 0px rgb(175,175,175);
+	article{
+//		.kokiya-radius(5em);
+		overflow: hidden; 
+		//background-color: rgb(240,240,240);
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+
+		strong,small{
+			line-height: 2em;
+			margin-left: 1em;
+		}
+
+		p{
+			position: relative;
+			margin-top: @biolength+5px;
+			margin-left: 3em;
+			margin-right: 3em;
+			margin-bottom: 3em;
+			line-height: 1.6em;
 		}
 	}
-
+	.corner{
+		width: 4em;
+		height: 4em;
+		background-color: #FFF;
+		z-index: 1;
+	}
+	i{
+		position: relative;
+		opacity: 0.2;
+		-moz-opacity: 0.2;
+		filter:alpha(opacity=2);
+	}
+	i.icon-comment{
+		right: -49%;
+		bottom: -43%;
+	}
+	i.icon-plus{
+		right: -49%;
+		top: 26%;
+	}
+	i.icon-minus{
+		left: 32%;
+		bottom: -43%;
+	}
+	.comment{
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		border-radius: 2000px 0px 0px 0px;
+	}
+	.comment:hover{
+		background-color: blue;
+	}
+	.plus{
+		position: absolute;
+		right: 0;
+		top: 0;
+		border-radius: 0px 0px 0px 2000px;
+	}
+	.plus:hover{
+		background-color: red;
+	}
+	.minus{
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		border-radius: 0px 2000px 0px 0px;
+	}
+	.minus:hover{
+		background-color: green;
+	}
 
 
 }
