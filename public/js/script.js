@@ -11,27 +11,23 @@ var author = '';
 var socket = io.connect('http://192.168.9.155:8080');
 
 //将返回数据解析成html，这个部分应该就是传说中的view了，应该想办法把它抽象化。
-function getView(object){
+
+
+function getView(object) {
 	//format date info
-	function formatDate(){
+
+
+	function formatDate() {
 		var now = Date.now();
 		var returnedDate = new Date(object.date).getTime();
-		var secondsPassed = (now - returnedDate)/1000;
+		var secondsPassed = (now - returnedDate) / 1000;
 		return parseDate(secondsPassed);
 	}
 
-	return $('<div class="post post-type-large"><div class="corner comment"><i class="icon-comment"></i></div><div class="corner plus"><i class="icon-plus"></i></div><div class="corner minus"><i class="icon-minus"></i></div><article id="'
-			+object._id
-			+'"><section class="bio"><img src="img/avatar.png" alt="You"></section><strong class="author">'
-	        +object.author
-	        +' : </strong><br /><small>'
-        	+formatDate()
-        	+'</small><p class="content">'
-        	+object.content
-        	+'</p></article><div class="clear"></div></div>'
-        	);
+	return $('<div class="post post-type-large"><div class="corner comment"><i class="icon-comment"></i></div><div class="corner plus"><i class="icon-plus"></i></div><div class="corner minus"><i class="icon-minus"></i></div><article id="' + object._id + '"><section class="bio"><img src="img/avatar.png" alt="You"></section><strong class="author">' + object.author + ' : </strong><br /><small>' + formatDate() + '</small><p class="content">' + object.content + '</p></article><div class="clear"></div></div>');
 }
-function getComments(object){
+
+function getComments(object) {
 	return $();
 }
 
@@ -49,31 +45,31 @@ socket.on('newComer', function(data) {
 
 });
 
-function parseDate(date){
-	if(!date) {
+function parseDate(date) {
+	if (!date) {
 		return "just now";
 	} else {
 		var TIME = {
-			MONTH : 60*60*24*30,
-			DAY : 60*60*24,
-			HOUR : 60*60,
-			MINUTE : 60
+			MONTH: 60 * 60 * 24 * 30,
+			DAY: 60 * 60 * 24,
+			HOUR: 60 * 60,
+			MINUTE: 60
 		},
-		ut 		= date,
-		month	= parseInt(ut/TIME.MONTH, 10),
-		day		= parseInt(ut/TIME.DAY, 10),
-		hour	= parseInt(ut/TIME.HOUR, 10),
-		minute	= parseInt(ut/TIME.MINUTE, 10),
-		second 	= parseInt(ut, 10),
-		parsedRunningTime;
+			ut = date,
+			month = parseInt(ut / TIME.MONTH, 10),
+			day = parseInt(ut / TIME.DAY, 10),
+			hour = parseInt(ut / TIME.HOUR, 10),
+			minute = parseInt(ut / TIME.MINUTE, 10),
+			second = parseInt(ut, 10),
+			parsedRunningTime;
 
-		if(month >= 1){
+		if (month >= 1) {
 			parsedRunningTime = month + '月';
-		} else if(day >= 1) {
+		} else if (day >= 1) {
 			parsedRunningTime = day + '天';
-		} else if(hour >= 1) {
+		} else if (hour >= 1) {
 			parsedRunningTime = hour + '小时';
-		} else if(minute >= 1) {
+		} else if (minute >= 1) {
 			parsedRunningTime = minute + '分钟';
 		} else {
 			parsedRunningTime = second + '秒，WTF，你抢到沙发了！';
@@ -85,18 +81,16 @@ function parseDate(date){
 }
 
 //get server running time and display
-socket.on('serverInfo',function(data){
+socket.on('serverInfo', function(data) {
 	//console.log('server returned '+ data);
 	//console.log(data.upTime);
-	
 	//时间计算
 	var parsedRunningTime = parseDate(data.upTime);
-	
+
 	$('#parsedRunningTime').text(parsedRunningTime);
 	//console.log('parsed '+ parsedRunningTime);
-
 	//处理内存
-	var mm = (Math.round(data.memory/1024/1024*10))/10 + ' MB';
+	var mm = (Math.round(data.memory / 1024 / 1024 * 10)) / 10 + ' MB';
 	//console.log(mm);
 	$('#memoryUsage').text(mm);
 });
@@ -143,8 +137,8 @@ $('#say').on('click', function() {
 	}(date);*/
 
 	var data = {
-		author	: author,
-		content : content
+		author: author,
+		content: content
 	};
 
 	socket.emit('say', data);
@@ -161,8 +155,10 @@ $('.controls>input').keypress(function(event) {
 });
 
 //点击comments图标跳出comments文本框
-function commentsBindClick(){
-	$('#chatboard i').click(function(){
+
+
+function commentsBindClick() {
+	$('#chatboard i').click(function() {
 		$(this).next().toggle();
 	});
 }
@@ -198,17 +194,19 @@ socket.on('newMessage', function(data) {
 
 
 //masonry
-function mans(){
+
+
+function mans() {
 	var $container = $('#chatboard');
 	$container.masonry({
-	    itemSelector : '.post',
-	    columnWidth : 30,
+		itemSelector: '.post',
+		columnWidth: 30,
 		isAnimated: true,
 		isResizable: true,
-	  	animationOptions: {
-		    duration: 400,
-		    easing: 'linear',
-		    queue: false
+		animationOptions: {
+			duration: 400,
+			easing: 'linear',
+			queue: false
 		}
 	});
 }
