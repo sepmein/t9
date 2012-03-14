@@ -47,7 +47,7 @@ var P = mongoose.model('posts', Post);
 
 //temp
 function deleteAll() {
-	P.remove();
+	P.find({}).remove().exec();
 }
 exports.deleteAll = deleteAll;
 function publishPost(object, callback) {
