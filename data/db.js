@@ -86,13 +86,15 @@ Posts.prototype.fetchAll = function(callback) {
 Posts.prototype.newComment = function(id, data, callback) {
 	var conditions = {
 		//iss: objectid could be a problem
-		_id: ObjectId(id)
+		_id: id
 	},
 		update = {
 			$push: {
 				comments: data
 			}
-		};
+		},
+		options = {}
+		;
 	P.update(conditions, update, options, function(err, numAffected) {
 		if (!err) {
 			callback(OK, numAffected);
@@ -105,13 +107,14 @@ Posts.prototype.newComment = function(id, data, callback) {
 Posts.prototype.plus = function(id, callback) {
 	var conditions = {
 		//iss: objectid could be a problem
-		_id: ObjectId(id)
+		_id: id
 	},
 		update = {
 			$inc: {
 				"meta.plus": 1
 			}
-		};
+		},
+		options = {};
 
 	P.update(conditions, update, options, function(err, numAffected) {
 		if (!err) {
@@ -125,13 +128,14 @@ Posts.prototype.plus = function(id, callback) {
 Posts.prototype.minus = function(id, callback) {
 	var conditions = {
 		//iss: objectid could be a problem
-		_id: ObjectId(id)
+		_id: id
 	},
 		update = {
 			$inc: {
 				"meta.minus": 1
 			}
-		};
+		},
+		options = {};
 	P.update(conditions, update, options, function(err, numAffected) {
 		if (!err) {
 			callback(OK, numAffected);
@@ -144,13 +148,14 @@ Posts.prototype.minus = function(id, callback) {
 Posts.prototype.favs = function(id, callback) {
 	var conditions = {
 		//iss: objectid could be a problem
-		_id: ObjectId(id)
+		_id: id
 	},
 		update = {
 			$inc: {
 				"meta.favs": 1
 			}
-		};
+		},
+		options = {};
 	P.update(conditions, update, options, function(err, numAffected) {
 		if (!err) {
 			callback(OK, numAffected);

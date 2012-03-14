@@ -8,7 +8,7 @@ var say = $('#say'),
 //simple constructor for message
 var author = '';
 
-var socket = io.connect('http://kokiya.no.de');
+var socket = io.connect('http://localhost:8080');
 
 //将返回数据解析成html，这个部分应该就是传说中的view了，应该想办法把它抽象化。
 
@@ -27,14 +27,10 @@ function getView(object) {
 	return $('<div class="post post-type-large"><div class="corner comment"><i class="icon-comment"></i></div><div class="corner plus"><i class="icon-plus"></i></div><div class="corner minus"><i class="icon-minus"></i></div><article id="' + object._id + '"><section class="bio"><img src="img/avatar.png" alt="You"></section><strong class="author">' + object.author + ' : </strong><br /><small>' + formatDate() + '</small><p class="content">' + object.content + '</p></article><div class="clear"></div></div>');
 }
 
-function getComments(object) {
-	return $();
-}
-
 //onConnection
 socket.on('newComer', function(data) {
 	//for test
-	console.log(data);
+	//console.log(data);
 
 
 	data.forEach(function(element, index, array) {
@@ -42,6 +38,7 @@ socket.on('newComer', function(data) {
 	});
 	commentsBindClick();
 	mans();
+	comment();
 
 });
 
@@ -155,8 +152,19 @@ $('.controls>input').keypress(function(event) {
 });
 
 //点击comments图标跳出comments文本框
-
-
+function comment(){
+	$('div.comment').click(function(){
+		//controller
+		var id = $(this).siblings('article[id]').attr('id');
+		//var content = $(this).siblings('input.commentContent').val();
+		var content = 'test content';
+		var data = {
+			author: author,
+			content: content
+		};
+		socket.emit('comment',id,data);
+	});
+}
 function commentsBindClick() {
 	$('#chatboard i').click(function() {
 		$(this).next().toggle();
@@ -188,7 +196,7 @@ socket.on('newMessage', function(data) {
 	}
 	//view
 	chatboard.prepend(getView(data)).masonry('reload');
-	commentsBindClick();
+	comment();
 });
 
 

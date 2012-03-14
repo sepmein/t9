@@ -14,7 +14,7 @@ io.configure('production', function() {
 //data section store data in the memory
 var authors = [];
 
-app.listen(80);
+app.listen(8080);
 
 //very crude error handler
 process.on('uncaughtException', function(err) {
