@@ -14,13 +14,15 @@ io.configure('production', function() {
 //data section store data in the memory
 var authors = [];
 
-app.listen(8080);
+app.listen(80);
 
 //very crude error handler
 process.on('uncaughtException', function(err) {
   console.log('Caught exception: ' + err);
 });
 
+//reset, temp
+db.deleteAll();
 //websocket
 io.sockets.on('connection', function(socket) {
 

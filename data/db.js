@@ -45,7 +45,11 @@ var P = mongoose.model('posts', Post);
 //publish a new post, execute a callback to retrieve status
 //mark proto later
 
-
+//temp
+function deleteAll() {
+	P.remove();
+}
+exports.deleteAll = deleteAll;
 function publishPost(object, callback) {
 	//new P() part could be a problem
 	var newPost = new P();
