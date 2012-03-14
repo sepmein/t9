@@ -2,28 +2,32 @@ var say = $('#say'),
 	sayContent = $('#sayContent'),
 	chatboard = $('#chatboard'),
 	login = $('#login'),
-	userName = $('#userName');
+	authorName = $('#authorName');
 
 
 //simple constructor for message
-var Message = function(content, timeStamp) {
-		this.content = content;
-		this.timeStamp = timeStamp;
-	};
-var user = '';
+var author = '';
 
-var socket = io.connect('http://kokiya.no.de');
+var socket = io.connect('http://192.168.9.155:8080');
 
 //将返回数据解析成html，这个部分应该就是传说中的view了，应该想办法把它抽象化。
 function getView(object){
+	//format date info
+	function formatDate(){
+		var now = Date.now();
+		var returnedDate = new Date(object.date).getTime();
+		var secondsPassed = (now - returnedDate)/1000;
+		return parseDate(secondsPassed);
+	}
+
 	return $('<div class="post post-type-large"><div class="corner comment"><i class="icon-comment"></i></div><div class="corner plus"><i class="icon-plus"></i></div><div class="corner minus"><i class="icon-minus"></i></div><article id="'
 			+object._id
-			+'"><section class="bio"><img src="img/avatar.png" alt="You"></section><strong class="user">'
-	        +object.user
+			+'"><section class="bio"><img src="img/avatar.png" alt="You"></section><strong class="author">'
+	        +object.author
 	        +' : </strong><br /><small>'
-        	+object.message.timeStamp
+        	+formatDate()
         	+'</small><p class="content">'
-        	+object.message.content
+        	+object.content
         	+'</p></article><div class="clear"></div></div>'
         	);
 }
@@ -34,7 +38,7 @@ function getComments(object){
 //onConnection
 socket.on('newComer', function(data) {
 	//for test
-	//console.log(data);
+	console.log(data);
 
 
 	data.forEach(function(element, index, array) {
@@ -45,19 +49,17 @@ socket.on('newComer', function(data) {
 
 });
 
-//get server running time and display
-socket.on('serverInfo',function(data){
-	//console.log('server returned '+ data);
-	//console.log(data.upTime);
-	
-	//时间计算
-	var TIME = {
+function parseDate(date){
+	if(!date) {
+		return "just now";
+	} else {
+		var TIME = {
 			MONTH : 60*60*24*30,
 			DAY : 60*60*24,
 			HOUR : 60*60,
 			MINUTE : 60
 		},
-		ut 		= data.upTime,
+		ut 		= date,
 		month	= parseInt(ut/TIME.MONTH, 10),
 		day		= parseInt(ut/TIME.DAY, 10),
 		hour	= parseInt(ut/TIME.HOUR, 10),
@@ -65,19 +67,31 @@ socket.on('serverInfo',function(data){
 		second 	= parseInt(ut, 10),
 		parsedRunningTime;
 
-	if(month >= 1){
-		parsedRunningTime = month + '月';
-	} else if(day >= 1) {
-		parsedRunningTime = day + '天';
-	} else if(hour >= 1) {
-		parsedRunningTime = hour + '小时';
-	} else if(minute >= 1) {
-		parsedRunningTime = minute + '分钟';
-	} else {
-		parsedRunningTime = second + '秒，WTF，你抢到沙发了！';
-	}
+		if(month >= 1){
+			parsedRunningTime = month + '月';
+		} else if(day >= 1) {
+			parsedRunningTime = day + '天';
+		} else if(hour >= 1) {
+			parsedRunningTime = hour + '小时';
+		} else if(minute >= 1) {
+			parsedRunningTime = minute + '分钟';
+		} else {
+			parsedRunningTime = second + '秒，WTF，你抢到沙发了！';
+		}
+		parsedRunningTime += ' +';
 
-	parsedRunningTime += ' +';
+		return parsedRunningTime;
+	}
+}
+
+//get server running time and display
+socket.on('serverInfo',function(data){
+	//console.log('server returned '+ data);
+	//console.log(data.upTime);
+	
+	//时间计算
+	var parsedRunningTime = parseDate(data.upTime);
+	
 	$('#parsedRunningTime').text(parsedRunningTime);
 	//console.log('parsed '+ parsedRunningTime);
 
@@ -92,12 +106,12 @@ socket.on('serverInfo',function(data){
 //login
 $('#login').click(function() {
 	//check empty
-	if ($('#userName').val()) {
-		user = $('#userName').val();
+	if ($('#authorName').val()) {
+		author = $('#authorName').val();
 
-		socket.emit('login', user);
+		socket.emit('login', author);
 		//clear
-		$('#userName').val('');
+		$('#authorName').val('');
 	}
 });
 //listen to log event
@@ -109,8 +123,7 @@ socket.on('loginSuccess', function() {
 		//焦点移至发言框
 		$('#sayContent').focus();
 	});
-	$('#controller .userName').text(user + ' : ');
-
+	$('#controller .authorName').text(author + ' : ');
 });
 
 $('#say').on('click', function() {
@@ -129,15 +142,14 @@ $('#say').on('click', function() {
 		return result;
 	}(date);*/
 
-	var sbdSaySth = {
-		user: user,
-		content: content
+	var data = {
+		author	: author,
+		content : content
 	};
 
-	socket.emit('say', sbdSaySth);
+	socket.emit('say', data);
 	//clear
 	$('#sayContent').val('');
-
 });
 
 //使用一条jQuery语句绑定多个事件,对于一个数组中的所有元素绑定一个事件：在该元素中点击回车键，会触发紧贴该元素的下一个元素的click事件。
@@ -146,9 +158,6 @@ $('.controls>input').keypress(function(event) {
 		//console.log('Enter is clicked');
 		$(this).next().trigger('click');
 	}
-});
-$('#sayContent').change(function() {
-	console.log('change event trigger');
 });
 
 //点击comments图标跳出comments文本框
@@ -169,17 +178,20 @@ function commentsBindClick(){
 socket.on('loginFailure', function() {
 	//	console.log('loginFailure');
 	$('.alert').show('medium').delay(2000).hide('medium');
-	user = '';
+	author = '';
 });
 
 //got something new
 socket.on('newMessage', function(data) {
+
+	console.log(data);
+
 	if (chatboard.children().length >= 20) {
 		//remove chatboard's first child
 		$('#chatboard').children(':last').remove();
 	}
 	//view
-	chatboard.prepend(getView(data)).masonry( 'reload');
+	chatboard.prepend(getView(data)).masonry('reload');
 	commentsBindClick();
 });
 

@@ -1,12 +1,12 @@
 {
 	"name"    : "kokiya",
-	"version" : "1.1.3",
+	"version" : "1.1.2",
 	"scripts" : {
 		"start" : "node server.js"
 	},
 	"dependencies" : {
 		"mime":"1.2.5",
 		"socket.io":"0.8.7",
-		"mongojs":"0.3.2"
+		"mongoose":"2.5.10"
 	}
 }
