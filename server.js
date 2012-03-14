@@ -21,8 +21,6 @@ process.on('uncaughtException', function(err) {
   console.log('Caught exception: ' + err);
 });
 
-//reset, temp
-db.deleteAll();
 //websocket
 io.sockets.on('connection', function(socket) {
 
