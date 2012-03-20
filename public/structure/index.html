@@ -1,0 +1,205 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title></title>
+  <meta name="description" content="">
+
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../css/structure/style.css">
+
+  <script src="../js/libs/modernizr-2.5.3.min.js"></script>
+</head>
+<body>
+  <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+    <nav class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          
+          <a class="brand" href="#">
+            整体架构
+          </a>
+          <ul class="nav">
+            <li class="active">
+              <a href="#html">Html</a>
+            </li>
+            <li>
+              <a href="#css">Css</a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Javacript
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#view">View</a>
+              </li>
+              <li>
+                <a href="#controller">Controller</a>
+              </li>
+              <li>
+                <a href="#model">Model</a>
+              </li>
+            </ul>
+          </li>
+          <li class="divider-vertical"></li>
+            <li>
+              <a href="#server">服务器</a>
+            </li>
+            <li>
+              <a href="#db">数据库</a>
+            </li>
+
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <div role="main" class="container">
+      
+      <section class="row">
+        <div class="span6" id="html">html</div>
+        <div class="span6" id="css">css</div>
+      </section>
+      
+      <section class="connector row javascriptFuntions">
+        <div class="span12">js到展示层</div>
+      </section>
+      
+      <section class="row" id="javascript">
+        <div class="span4" id="view">
+          <div class="thumbnail">
+            <img src="http://placehold.it/360x280" alt="">
+            <h5>View</h5>
+            <p>Thumbnail caption right here...</p>
+          </div>
+        </div>
+        <div class="span4" id="controller">
+          <div class="thumbnail">
+            <img src="http://placehold.it/360x280" alt="">
+            <h5>Controller</h5>
+            <p>Thumbnail caption right here...</p>
+          </div>
+        </div>
+        <div class="span4" id="model">
+          <div class="thumbnail">
+            <img src="http://placehold.it/360x280" alt="">
+            <h5>Model</h5>
+            <p>Thumbnail caption right here...</p>
+          </div>
+        </div>
+      </section>
+      
+      <section class="connector row">
+        <div class="span12">
+          socket.io http request
+        </div>
+      </section>
+
+      <section class="row" id="server">
+        <div class="span6">
+          <ul class="unstyled">
+            <li>
+              <h2>服务器</h2>
+            </li>
+            <ul class="unstyled">
+              <li>
+                语言：javascript
+              </li>
+              <li>
+                执行环境：google v8
+              </li>
+              <li>
+                框架使用：mime
+              </li>
+            </ul>
+          </ul>        </div>
+        <div class="span6 server">
+          <img id="logo" src="http://nodejs.org/images/logo.png" alt="node.js">
+        </div>
+      </section>
+      
+      <section class="connector row">
+        <div class="span6">
+          <ul class="unstyled">
+            <li>
+              <h5>连接器：</h5>
+            </li>
+            <li>
+              <ul class="unstyled">
+                <li>框架使用：mongoosejs</li>
+                <li>依赖库：node-mongodb-native</li>
+                <li>连接格式：mongodb://database/collections</li>
+              </ul>
+            </li>
+          </ul>
+
+        </div>
+        <div class="span6 connector">
+          
+        </div>
+      </section>
+
+      <section class="row" id="db">
+        <div class="span6">
+          <ul class="unstyled">
+            <li>
+              <h2>数据库</h2>
+            </li>
+            <ul class="unstyled">
+              <li>
+                类型：noSql
+              </li>
+              <li>
+                数据格式： BSON
+              </li>
+              <li>
+                
+              </li>
+            </ul>
+          </ul>
+
+        </div>
+        <div class="span6 db">
+          <img src="http://media.mongodb.org/logo-mongodb.png" width="217" height="90" alt="mongoDB">
+          <p>110101010000111010100101010001010010100101010111101010101010101100110010101010001000010101001011110101</p>
+          <p>111010010101101101100111001011001100101010111101010101010101100110010101010001000010011111001110101000</p>
+          <p>000110101110110001111001010101010111101010101010101100110010101010001000001110101000010101110010010110</p>
+          <p>100100101010111101010101010101100110010101010001000011101011100111001011100011000110000011110011010011</p>
+          <p>111010101011110101010101010110011001010101000100001110110101000101110101110101010101010101010110110100</p>
+          <p>001010110100010110000101010111101010101010101100110010101010001000000100100010001001000100010111001100</p>
+          <p>111001001010101111010101010111101010101010101100110010101010001000001010101010110011001010101000100100</p>
+          <p>111001001010101101010101111010101010101011001100101010100010000110101010101010110011001010101000100110</p>
+          <p>111001001010101010101011110101010101010110011001010101000100001110101010101010110011001010101000100111</p>
+          <p>111001001010101010111101010101010101100110010101010001000001011110101010101010110011001010101000100000</p>
+
+        </div>
+      </section>
+
+    </div>
+    <footer>
+
+    </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+
+  <script type="text/javascript" src="../js/libs/bootstrap.min.js"></script>
+<!--   <script src="../js/plugins.js"></script>
+<script src="../js/script.js"></script> -->
+
+  <script>
+    var _gaq=[['_setAccount','UA-28326426-2'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+  </script>
+</body>
+</html>

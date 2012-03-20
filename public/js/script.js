@@ -8,7 +8,7 @@ var say = $('#say'),
 //simple constructor for message
 var author = '';
 
-var socket = io.connect('http://localhost:8080');
+var socket = io.connect('http://192.168.9.155:8080');
 
 //将返回数据解析成html，这个部分应该就是传说中的view了，应该想办法把它抽象化。
 
