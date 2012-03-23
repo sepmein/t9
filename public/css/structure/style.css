@@ -1,6 +1,1 @@
-body{padding-top:40px;}
-section.connector{background-color:rgba(150, 150, 150, 0.1);}
-#server .server{height:130px;background-color:#962164;overflow:hidden;border-radius:5px;}#server .server img{position:absolute;margin-top:22px;margin-left:120px;}
-#db div.span6.db{background-color:#4C3A2C;overflow:hidden;border-radius:5px;}
-#db p{line-height:1em;margin:0px;padding:0px;color:rgba(0, 0, 0, 0.1);}
-#db img{position:absolute;margin-top:22px;margin-left:120px;}
+body{padding-top:40px}section.connector{background-color:rgba(150,150,150,0.1)}#server .server{height:130px;background-color:#962164;overflow:hidden;border-radius:5px}#server .server img{position:absolute;margin-top:22px;margin-left:120px}#db div.span6.db{background-color:#4c3a2c;overflow:hidden;border-radius:5px}#db p{line-height:1em;margin:0;padding:0;color:rgba(0,0,0,0.1)}#db img{position:absolute;margin-top:22px;margin-left:120px}

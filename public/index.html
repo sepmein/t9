@@ -78,62 +78,69 @@
 
 
     <hr class="inset">
-    <footer class="row">
-      <div class="span4">
-        <ul class="unstyled">
-          <h6>Server&nbsp;Info</h6>
-          <li>
-            <i class="icon-time"></i>运行时间：&nbsp;<span class="label" id="parsedRunningTime">好久啦~</span>
-          </li>
-          <li>
-            <i class="icon-th"></i>内存使用：&nbsp;<span class="label" id="memoryUsage">不算多~</span>
-          </li>
-          <li>
-             <i class="icon-align-center"></i>整体架构
-          </li>
-        </ul>
-      </div>
+    
 
-      <div class="span4">
-        <ul class="unstyled">
-          <h6>Tutorials</h6>
-          <li><a href="http://spencer.kokiya.com/building-chatroom-with-nodejs-and-websocket/" title="1">背景及环境</a></li>
-        </ul>
-      </div>
-
-      <div class="span4">
-        <ul class="unstyled">
-          <h6>关于</h6>
-          <li>派生自：&nbsp;<a href="http://kokiya.com/" title="到kokiya的传送门">kokiya&nbsp;&ndash;&nbsp;life coder</a></li>
-          <li><i class="icon-envelope"></i>作者：&nbsp;<a href="mailto:sepmein@gmail.com" title="联系我">Spencer&nbsp;Zhang</a></li>
-          <li><a href="/api" title="查看网站api">API</a></li>
-        </ul>
-      </div>
-
-    </footer>
-    <script id="post-template" type="text/template">
-      <div class="post post-type-large">
-        <div class="corner comment">
-          <i class="icon-comment"></i>
-        </div>
-        <div class="corner plus">
-          <i class="icon-plus"></i>
-          </div>
-        <div class="corner minus">
-          <i class="icon-minus"></i>
-        </div>
-        <article id="_id">
-          <section class="bio"><img src="img/avatar.png" alt="You">
-          </section>
-          <strong class="author"><%= author %></strong>
-          <br />
-          <small><%= date %></small>
-          <p class="content"><%= content %></p>
-        </article>
-        <div class="clear"></div>
-      </div>
-    </script>
   </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <section class="span4">
+          <ul class="unstyled">
+            <h6>Server&nbsp;Info</h6>
+            <li>
+              <i class="icon-white icon-time"></i>运行时间：&nbsp;<span class="label" id="parsedRunningTime">好久啦~</span>
+            </li>
+            <li>
+              <i class="icon-white icon-th"></i>内存使用：&nbsp;<span class="label" id="memoryUsage">不算多~</span>
+            </li>
+            <li>
+               <i class="icon-white icon-align-center"></i>整体架构
+            </li>
+          </ul>
+        </section>
+
+        <section class="span4">
+          <ul class="unstyled">
+            <h6>Tutorials</h6>
+            <li><a href="http://spencer.kokiya.com/building-chatroom-with-nodejs-and-websocket/" title="1">背景及环境</a></li>
+          </ul>
+        </section>
+
+        <section class="span4">
+          <ul class="unstyled">
+            <h6>关于</h6>
+            <li>派生自：&nbsp;<a href="http://kokiya.com/" title="到kokiya的传送门">kokiya&nbsp;&ndash;&nbsp;life coder</a></li>
+            <li><i class="icon-white icon-envelope"></i>作者：&nbsp;<a href="mailto:sepmein@gmail.com" title="联系我">Spencer&nbsp;Zhang</a></li>
+            <li><a href="/api" title="查看网站api">API</a></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </footer>
+
+  <script id="post-template" type="text/template">
+    <div class="post post-type-large">
+      <div class="corner comment">
+        <i class="icon-comment"></i>
+      </div>
+      <div class="corner plus">
+        <i class="icon-plus"></i>
+        </div>
+      <div class="corner minus">
+        <i class="icon-minus"></i>
+      </div>
+      <article id="_id">
+        <section class="bio"><img src="img/avatar.png" alt="You">
+        </section>
+        <strong class="author"><%= author %></strong>
+        <br />
+        <small><%= date %></small>
+        <p class="content"><%= content %></p>
+      </article>
+      <div class="clear"></div>
+    </div>
+    </script>
 
 
   <!-- JavaScript at the bottom for fast page loading -->
@@ -144,7 +151,6 @@
 
   <!-- scripts concatenated and minified via build script -->
   <script src="/socket.io/socket.io.js"></script>
-  <script src="js/jquery.masonry.min.js"></script>
   <script src="js/libs/underscore-min.js"></script>
   <script src="js/libs/backbone-min.js"></script>
   <script src="js/script.js"></script>

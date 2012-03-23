@@ -86,10 +86,10 @@ kokiya.Router = kokiya.Router || Backbone.Router.extend({
 
 		(function() {
 			var say = $('#say'),
-			sayContent = $('#sayContent'),
-			t = $('#t'),
-			login = $('#login'),
-			authorName = $('#authorName');
+				sayContent = $('#sayContent'),
+				t = $('#t'),
+				login = $('#login'),
+				authorName = $('#authorName');
 
 			var author = '';
 			var socket = io.connect('http://localhost:3000');
@@ -153,23 +153,8 @@ kokiya.Router = kokiya.Router || Backbone.Router.extend({
 				//====================================
 				//iss
 				//====================================
-				t.prepend(_.template($('#post-template').html(),data)).masonry('reload');
+				t.prepend(_.template($('#post-template').html(), data));
 			});
-			//masonry
-			function mans() {
-				var $container = $('#t');
-				$container.masonry({
-					itemSelector: '.post',
-					columnWidth: 30,
-					isAnimated: true,
-					isResizable: true,
-					animationOptions: {
-						duration: 400,
-						easing: 'linear',
-						queue: false
-					}
-				});
-			}
 
 		}());
 

@@ -3,18 +3,18 @@
 
 
 /* TEAM */
-  <your title>: <your name>
-  Site:
+  Master: Spencer
+  Site: kokiya.com
   Twitter:
-  Location:
+  Location: Shanghai,China
 
 /* THANKS */
-  Names (& URL):
+  Names (& URL): emily.kokiya.com
 
 /* SITE */
   Standards: HTML5, CSS3
-  Components: Modernizr, jQuery
-  Software:
+  Components: Modernizr, jQuery, NodeJS, SocketIO, ExpressJS, NPM, MongoDB, Mongoose, Twitter Bootstrap, BackboneJS, UnderScoreJS, Html5Boilerplate 
+  Software:Sublime Text 2
 
 
 
