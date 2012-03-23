@@ -1,12 +1,13 @@
 {
 	"name"    : "kokiya",
-	"version" : "1.1.2",
+	"version" : "1.2.0",
+	"repo" : "https://sepmein@github.com/sepmein/KOKIYA--CHAT.git",
 	"scripts" : {
-		"start" : "node server.js"
+		"start" : "NODE_ENV=production node server.js"
 	},
 	"dependencies" : {
-		"mime":"1.2.5",
-		"socket.io":"0.8.7",
-		"mongoose":"2.5.10"
+		"express":">=2.5.8",
+		"mongoose":"2.5.10",
+		"socket.io":">=0.8.7"
 	}
 }

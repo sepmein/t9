@@ -1,48 +1,191 @@
-var say = $('#say'),
-	sayContent = $('#sayContent'),
-	chatboard = $('#chatboard'),
-	login = $('#login'),
-	authorName = $('#authorName');
+var kokiya = kokiya || {};
+kokiya.Post = kokiya.Post || Backbone.Model.extend({
+	idAttribute: '_id'
+});
+kokiya.PostCollection = kokiya.PostCollection || Backbone.Collection.extend({
+	model: kokiya.Post,
+	url: '/api/posts'
+});
 
+kokiya.PostView = kokiya.PostView || Backbone.View.extend({
+	el: $('div#t'),
+	template: _.template($('#post-template').html()),
+	initialize: function() {
+		_.bindAll(this, 'render', 'renderlist');
+		if (this.model) {
+			this.model.bind('change', this.render);
+			this.model.fetch();
+		}
+		if (this.collection) {
+			console.log('PostView has got a collection!');
+			this.collection.bind('reset', this.renderlist);
+			this.collection.fetch();
+		}
 
-//simple constructor for message
-var author = '';
-
-var socket = io.connect('http://192.168.9.155:8080');
-
-//将返回数据解析成html，这个部分应该就是传说中的view了，应该想办法把它抽象化。
-
-
-function getView(object) {
-	//format date info
-
-
-	function formatDate() {
-		var now = Date.now();
-		var returnedDate = new Date(object.date).getTime();
-		var secondsPassed = (now - returnedDate) / 1000;
-		return parseDate(secondsPassed);
+	},
+	render: function() {
+		$('#t').prepend(this.template(this.model.toJSON()));
+		return this;
+	},
+	renderlist: function() {
+		var that = this;
+		console.log('renderlist called');
+		this.collection.each(function(m) {
+			console.log('method:each called');
+			$('#t').prepend(that.template(m.toJSON()));
+		});
+		return this;
 	}
+});
 
-	return $('<div class="post post-type-large"><div class="corner comment"><i class="icon-comment"></i></div><div class="corner plus"><i class="icon-plus"></i></div><div class="corner minus"><i class="icon-minus"></i></div><article id="' + object._id + '"><section class="bio"><img src="img/avatar.png" alt="You"></section><strong class="author">' + object.author + ' : </strong><br /><small>' + formatDate() + '</small><p class="content">' + object.content + '</p></article><div class="clear"></div></div>');
-}
-
-//onConnection
-socket.on('newComer', function(data) {
-	//for test
-	//console.log(data);
-
-
-	data.forEach(function(element, index, array) {
-		chatboard.append(getView(element));
-	});
-	commentsBindClick();
-	mans();
-	comment();
+kokiya.ControlBar = kokiya.ControlBar || Backbone.View.extend({
 
 });
 
-function parseDate(date) {
+
+
+kokiya.ServerInfo = kokiya.ServerInfo || Backbone.Model.extend({
+	url: '/serverInfo',
+	initialize: function() {
+		this.bind('change', this.format);
+	},
+	format: function() {
+		this.set('upTime', util.formatDate(this.get('upTime')));
+		this.set('memory', util.formatMemory(this.get('memory')));
+	}
+});
+kokiya.ServerInfoView = kokiya.ServerInfoView || Backbone.View.extend({
+	initialize: function() {
+		_.bindAll(this, 'render');
+		//fetch在前还是format在前？
+		this.model.bind('change', this.render);
+	},
+	render: function() {
+		$('#parsedRunningTime').text(this.model.get('upTime'));
+		$('#memoryUsage').text(this.model.get('memory'));
+	}
+});
+
+kokiya.Router = kokiya.Router || Backbone.Router.extend({
+	routes: {
+		'': 'index'
+	},
+	index: function() {
+		console.log('index called');
+		var posts = new kokiya.PostCollection();
+		var postsview = new kokiya.PostView({
+			collection: posts
+		});
+
+		var serverInfo = new kokiya.ServerInfo();
+		//		console.log(serverInfo);
+		var serverInfoView = new kokiya.ServerInfoView({
+			model: serverInfo
+		});
+		serverInfo.fetch();
+
+		(function() {
+			var say = $('#say'),
+			sayContent = $('#sayContent'),
+			t = $('#t'),
+			login = $('#login'),
+			authorName = $('#authorName');
+
+			var author = '';
+			var socket = io.connect('http://localhost:3000');
+			//login
+			$('#login').click(function() {
+				//check empty
+				if ($('#authorName').val()) {
+					author = $('#authorName').val();
+
+					socket.emit('login', author);
+					//clear
+					$('#authorName').val('');
+				}
+			});
+			//listen to log event
+			socket.on('loginSuccess', function() {
+				//	console.log('loginSuccess');
+				$('#controller>.hiddenFrame').animate({
+					top: '-46px'
+				}, function() {
+					//焦点移至发言框
+					$('#sayContent').focus();
+				});
+				$('#controller .authorName').text(author + ' : ');
+			});
+
+			$('#say').on('click', function() {
+
+				var content = $('#sayContent').val();
+				var data = {
+					author: author,
+					content: content
+				};
+
+				socket.emit('say', data);
+				//clear
+				$('#sayContent').val('');
+			});
+
+			//使用一条jQuery语句绑定多个事件,对于一个数组中的所有元素绑定一个事件：在该元素中点击回车键，会触发紧贴该元素的下一个元素的click事件。
+			$('.controls>input').keypress(function(event) {
+				if (event.which === 13) {
+					//console.log('Enter is clicked');
+					$(this).next().trigger('click');
+				}
+			});
+
+			socket.on('loginFailure', function() {
+				//	console.log('loginFailure');
+				$('.alert').show('medium').delay(2000).hide('medium');
+				author = '';
+			});
+
+			//got something new
+			socket.on('newMessage', function(data) {
+
+				if (t.children().length >= 20) {
+					//remove t's first child
+					$('#t').children(':last').remove();
+				}
+				//====================================
+				//iss
+				//====================================
+				t.prepend(_.template($('#post-template').html(),data)).masonry('reload');
+			});
+			//masonry
+			function mans() {
+				var $container = $('#t');
+				$container.masonry({
+					itemSelector: '.post',
+					columnWidth: 30,
+					isAnimated: true,
+					isResizable: true,
+					animationOptions: {
+						duration: 400,
+						easing: 'linear',
+						queue: false
+					}
+				});
+			}
+
+		}());
+
+
+
+	}
+});
+
+var app = new kokiya.Router;
+Backbone.history.start();
+
+
+
+//util
+var util = util || {};
+util.formatDate = function(date) {
 	if (!date) {
 		return "just now";
 	} else {
@@ -75,146 +218,7 @@ function parseDate(date) {
 
 		return parsedRunningTime;
 	}
-}
-
-//get server running time and display
-socket.on('serverInfo', function(data) {
-	//console.log('server returned '+ data);
-	//console.log(data.upTime);
-	//时间计算
-	var parsedRunningTime = parseDate(data.upTime);
-
-	$('#parsedRunningTime').text(parsedRunningTime);
-	//console.log('parsed '+ parsedRunningTime);
-	//处理内存
-	var mm = (Math.round(data.memory / 1024 / 1024 * 10)) / 10 + ' MB';
-	//console.log(mm);
-	$('#memoryUsage').text(mm);
-});
-
-//say something
-//get DOM
-//login
-$('#login').click(function() {
-	//check empty
-	if ($('#authorName').val()) {
-		author = $('#authorName').val();
-
-		socket.emit('login', author);
-		//clear
-		$('#authorName').val('');
-	}
-});
-//listen to log event
-socket.on('loginSuccess', function() {
-	//	console.log('loginSuccess');
-	$('#controller>.hiddenFrame').animate({
-		top: '-46px'
-	}, function() {
-		//焦点移至发言框
-		$('#sayContent').focus();
-	});
-	$('#controller .authorName').text(author + ' : ');
-});
-
-$('#say').on('click', function() {
-
-	var content = $('#sayContent').val();
-
-	//修正不同浏览器返回时间不正常的情况，暂停使用，存储到db中使用raw Date
-	/*var parsedDate = function(d) {
-
-		function addZero(to) {
-			//对于分钟和秒都在前面加个零符合人类的视觉需求
-			return (to < 10) ? ('0' + to) : to;
-		}
-
-		var result = (d.getMonth() + 1) + '月' + d.getDate() + '日' + ' , ' + d.getHours() + ':' + addZero(d.getMinutes()) + ':' + addZero(d.getSeconds());
-		return result;
-	}(date);*/
-
-	var data = {
-		author: author,
-		content: content
-	};
-
-	socket.emit('say', data);
-	//clear
-	$('#sayContent').val('');
-});
-
-//使用一条jQuery语句绑定多个事件,对于一个数组中的所有元素绑定一个事件：在该元素中点击回车键，会触发紧贴该元素的下一个元素的click事件。
-$('.controls>input').keypress(function(event) {
-	if (event.which === 13) {
-		//console.log('Enter is clicked');
-		$(this).next().trigger('click');
-	}
-});
-
-//点击comments图标跳出comments文本框
-function comment(){
-	$('div.comment').click(function(){
-		//controller
-		var id = $(this).siblings('article[id]').attr('id');
-		//var content = $(this).siblings('input.commentContent').val();
-		var content = 'test content';
-		var data = {
-			author: author,
-			content: content
-		};
-		socket.emit('comment',id,data);
-	});
-}
-function commentsBindClick() {
-	$('#chatboard i').click(function() {
-		$(this).next().toggle();
-	});
-}
-
-//超过16个字的话输入框变长，目前还未检测输入内容是否是中英文
-/*if($(this).val().length>16) {
-	//console.log('triggered');
-	//2console.log($(this).val().length);
-	$(this).css('width','400px');
-} 
-*/
-
-socket.on('loginFailure', function() {
-	//	console.log('loginFailure');
-	$('.alert').show('medium').delay(2000).hide('medium');
-	author = '';
-});
-
-//got something new
-socket.on('newMessage', function(data) {
-
-	console.log(data);
-
-	if (chatboard.children().length >= 20) {
-		//remove chatboard's first child
-		$('#chatboard').children(':last').remove();
-	}
-	//view
-	chatboard.prepend(getView(data)).masonry('reload');
-	comment();
-});
-
-
-
-//masonry
-
-
-function mans() {
-	var $container = $('#chatboard');
-	$container.masonry({
-		itemSelector: '.post',
-		columnWidth: 30,
-		isAnimated: true,
-		isResizable: true,
-		animationOptions: {
-			duration: 400,
-			easing: 'linear',
-			queue: false
-		}
-	});
+};
+util.formatMemory = function(memory) {
+	return ((Math.round(memory / 1024 / 1024 * 10)) / 10 + ' MB');
 }

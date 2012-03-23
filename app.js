@@ -1,8 +1,13 @@
-var handler = require('./requestHandler').handler,
-  app = require('http').createServer(handler),
-  io = require('socket.io').listen(app),
-  //data processor
+/**
+ * Module dependencies.
+ */
+
+var express = require('express'),
+  routes = require('./routes'),
   db = require('./data/db');
+
+var app = module.exports = express.createServer(),
+  io = require('socket.io').listen(app);
 
 io.configure('production', function() {
   io.enable('browser client minification'); // send minified client
@@ -14,11 +19,61 @@ io.configure('production', function() {
 //data section store data in the memory
 var authors = [];
 
-app.listen(8080);
+// Configuration
+app.configure(function() {
+  app.set('views', __dirname + '/views');
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(express.cookieParser());
+  app.use(express.session({
+    secret: 'Crimson~87'
+  }));
+  app.use(app.router);
+  app.use(express.static(__dirname + '/public'));
+});
 
-//very crude error handler
-process.on('uncaughtException', function(err) {
-  console.log('Caught exception: ' + err);
+app.configure('development', function() {
+  app.use(express.errorHandler({
+    dumpExceptions: true,
+    showStack: true
+  }));
+});
+
+app.configure('production', function() {
+  app.use(express.errorHandler());
+});
+
+// Routes
+app.get('/', function(req, res) {
+  //重定向的方法很烂，将来换掉
+  res.redirect('/index.html');
+});
+
+app.listen(3000);
+console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+
+// Rest Api
+app.get('/api/posts', function(req, res) {
+  db.posts.fetchAll(function(status, data) {
+    if (status.ok) {
+      console.dir(data);
+      res.send(data);
+    }
+  });
+});
+
+app.post('/api/posts', function(req, res) {
+  //must use some body parser to parse the post request
+  db.publishPost(req.body);
+});
+
+//move this part to template engine, reduce ajax call
+app.get('/serverInfo', function(req, res) {
+  var info = {
+    upTime: process.uptime(),
+    memory: process.memoryUsage().rss
+  };
+  res.send(info);
 });
 
 //websocket
@@ -26,8 +81,11 @@ io.sockets.on('connection', function(socket) {
 
   var queryT = socket.handshake.query.t;
 
-
-  //new to website fetch all messages
+/*============================================
+*将此部分功能移至rest
+*==============================================
+*/
+/*  //new to website fetch all messages
   //use mongodb to store & get data!!
   db.posts.fetchAll(init);
 
@@ -44,7 +102,7 @@ io.sockets.on('connection', function(socket) {
   socket.emit('serverInfo', {
     upTime: process.uptime(),
     memory: process.memoryUsage().rss
-  });
+  });*/
 
   //login
   socket.on('login', function(requestAuthorName) {

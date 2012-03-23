@@ -1,7 +1,7 @@
 //status code
 var OK = {
 	ok: 1
-},
+	},
 	NO = {
 		ok: 0
 	};
@@ -70,8 +70,8 @@ function Posts() {
 Posts.prototype.fetchAll = function(callback) {
 	//iss: 'P' keyword could be a problem
 	var query = P.find({});
-	query.limit(50);
-	query.desc('date');
+	query.limit(20);
+	query.asc('date');
 	query.run(function(err, doc) {
 		if (!err) {
 			callback(OK, doc);
