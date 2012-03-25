@@ -2,9 +2,26 @@
  * Module dependencies.
  */
 
+
+
+
 var express = require('express'),
-  routes = require('./routes'),
-  db = require('./data/db');
+  routes = require('./routes');
+
+/*database modules*/
+var db = db || {};
+db.posts = require('./data/posts.js').posts;
+db.users = require('./data/users.js').users;
+
+/*middleware*/
+var middleware = require('./middleware').middleware;
+
+/*mongoose session store by mongoose session, maybe rewrite it by myself later*/
+var SessionMongoose = require("session-mongoose");
+var sessionStore = new SessionMongoose({
+    url: "mongodb://localhost/session",
+    interval: 60000
+});
 
 var app = module.exports = express.createServer(),
   io = require('socket.io').listen(app);
@@ -22,11 +39,14 @@ var authors = [];
 // Configuration
 app.configure(function() {
   app.set('views', __dirname + '/views');
+  app.set('view engine', 'jade');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
   app.use(express.session({
-    secret: 'Crimson~87'
+    secret: 'Crimson~87',
+    store: sessionStore,
+    cookie: {maxAge: 60000}
   }));
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
@@ -42,18 +62,30 @@ app.configure('development', function() {
 app.configure('production', function() {
   app.use(express.errorHandler());
 });
+app.listen(3000);
 
 // Routes
-app.get('/', function(req, res) {
-  //重定向的方法很烂，将来换掉
-  res.redirect('/index.html');
+app.get('/', routes.index);
+app.get('/login', function(req,res){
+  res.redirect('/');
 });
-
-app.listen(3000);
+app.post('/login', function(req, res) {
+  var user = req.body.user;
+  var password = req.body.password;
+  db.users.authenticate(user, password, function(status, err) {
+    if (status.ok) {
+      req.session.user = user;
+      res.redirect('/index.html');
+    } else {
+      //console.log(err);
+      res.redirect('/');
+    }
+  });
+});
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 // Rest Api
-app.get('/api/posts', function(req, res) {
+app.get('/api/posts', middleware.requireLogin, function(req, res) {
   db.posts.fetchAll(function(status, data) {
     if (status.ok) {
       console.dir(data);
@@ -64,11 +96,11 @@ app.get('/api/posts', function(req, res) {
 
 app.post('/api/posts', function(req, res) {
   //must use some body parser to parse the post request
-  db.publishPost(req.body);
+  db.posts.publishPost(req.body);
 });
 
 //move this part to template engine, reduce ajax call
-app.get('/serverInfo', function(req, res) {
+app.get('/api/serverInfo', function(req, res) {
   var info = {
     upTime: process.uptime(),
     memory: process.memoryUsage().rss
@@ -76,33 +108,35 @@ app.get('/serverInfo', function(req, res) {
   res.send(info);
 });
 
+/*rest api users*/
+app.get('/api/users', function(req, res) {
+  db.users.all(function(status, data) {
+    if (status.ok) {
+      res.send(data);
+    } else {
+
+    }
+  });
+});
+
+//注册成功。。。不成功redirect。。以后优化，尽量在一个页面当中完成注册过程
+app.post('/register', function(req, res) {
+  console.log('register called req.body' + req.body.user + ',' + req.body.password);
+  db.users.register(req.body.user, req.body.password, function(status, data) {
+    if (status.ok) {
+      res.redirect('/index.html');
+    } else {
+      res.redirect('/');
+    }
+  });
+});
+
+
+
 //websocket
 io.sockets.on('connection', function(socket) {
 
   var queryT = socket.handshake.query.t;
-
-/*============================================
-*将此部分功能移至rest
-*==============================================
-*/
-/*  //new to website fetch all messages
-  //use mongodb to store & get data!!
-  db.posts.fetchAll(init);
-
-  function init(status, docs) {
-    if (status.ok) {
-      socket.emit('newComer', docs);
-    } else {
-      //增加点err处理措施，稍后
-      socket.emit('newComer', docs);
-    }
-  }
-
-  //emit server running time event
-  socket.emit('serverInfo', {
-    upTime: process.uptime(),
-    memory: process.memoryUsage().rss
-  });*/
 
   //login
   socket.on('login', function(requestAuthorName) {
@@ -126,7 +160,7 @@ io.sockets.on('connection', function(socket) {
   //say sth
   socket.on('say', function(data) {
     //mark proto later
-    db.publishPost(data, callback);
+    db.posts.publishPost(data, callback);
 
     function callback(status, err) {
       if (status.ok) {
