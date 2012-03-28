@@ -11,6 +11,7 @@
   <!-- Use the .htaccess and remove these lines to avoid edge case issues.
        More info: h5bp.com/i/378 -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="google-site-verification" content="bfWJ1ouRPzLzfPgaERhtLNfO35WkiSz3xTkP0qFGLRI" />
 
   <title>KOKIYA::T - simplicity and fun</title>
   <meta name="description" content="打开浏览器，随便输点什么吧。前后两端都使用javascript编写。有教程，有源代码。">
@@ -41,33 +42,22 @@
     </header>
     <div role="main" class="row">
       
+      <!--       
       <div class="alert">
-        <a class="close" data-dismiss="alert">×</a>
-        <strong>Oh!No</strong> 该用户名正在使用。
+              <a class="close" data-dismiss="alert">×</a>
+              <strong>Oh!No</strong> 该用户名正在使用。
       </div>
-
+       -->
       <!-- 
         functional group
        -->
       <section id="controller" class="span12">
-        <div class="hiddenFrame">
-
-            <div class="control-group success">
-              <label class="control-label" for="authorName">你是&nbsp;:&nbsp;</label>
-              <div class="controls">
-                <input type="text" name="authorName" id="authorName" placeholder="What's your name!" autofocus="autofocus"/ >
-                <button type="submit" id="login" class="btn btn-success btn-large">登录</button>
-              </div>
-            </div>
-
-            <div class="control-group">
-              <label class="control-label authorName" for="sayContent">UserName&nbsp;:&nbsp;</label>
-              <div class="controls">
-                <input type="text" name="sayContent" id="sayContent" placeholder="Say Something Dude!"/ >
-                <button type="submit" id="say" class="btn btn-primary btn-large">Enter</button>
-              </div>
-            </div>
-
+        <div class="control-group">
+          <label class="control-label authorName" for="sayContent">UserName&nbsp;:&nbsp;</label>
+          <div class="controls">
+            <input type="text" name="sayContent" id="sayContent" placeholder="Say Something Dude!"/ >
+            <button type="submit" id="say" class="btn btn-primary btn-large">发送</button>
+          </div>
         </div>
       </section>
 
@@ -121,23 +111,21 @@
 
   <script id="post-template" type="text/template">
     <div class="post post-type-large">
-      <div class="corner comment">
-        <i class="icon-comment"></i>
-      </div>
-      <div class="corner plus">
-        <i class="icon-plus"></i>
-        </div>
-      <div class="corner minus">
-        <i class="icon-minus"></i>
-      </div>
       <article id="_id">
         <section class="bio"><img src="img/avatar.png" alt="You">
         </section>
-        <strong class="author"><%= author %></strong>
-        <br />
-        <small><%= date %></small>
-        <p class="content"><%= content %></p>
+        <section class="post-area">
+          <strong class="author"><%= author %>&nbsp;:</strong>
+          <br />
+          <p class="content"><%= content %></p>
+        </section>
       </article>
+      <div class="foote">
+        <small class="pull-left"><%= date %></small>
+        <div class="corner comment pull-right">
+          <i class="icon-comment"></i>评论
+        </div>
+      </div>
       <div class="clear"></div>
     </div>
     </script>

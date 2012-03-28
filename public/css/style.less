@@ -1,3 +1,9 @@
+body *{
+	font-size: 14px;
+}
+h1{
+	font-size: 30px;
+}
 #sayContent,#authorName{
 	padding: 9px;
 	height: 17px;
@@ -23,15 +29,33 @@ section#t {
 	background-color: rgb(252,252,252);
 	margin-top: 30px;
 
-	/* >p{
-		height : 28px;
-		line-height: 28px;
-	
-		input{
-			margin : 0;
+	>.post{
+		padding: 10px;
+		border-bottom: 1px solid rgb(250,250,250);
+		>article{
+			min-height: 50px;
+			.bio{
+				.square(@biolength);
+				background-color: transparent;
+				position: absolute;
+			}
+			.post-area{
+				position: relative;
+				left: 65px;
+			}
+			.author{
+			}
+			.content{
+				text-indent: 2em;
+				padding-top: 0.5em;
+			}
+			>div.footer{
+				border: 1px solid rgb(200,230,200);
+			}
 		}
 	}
-	
+
+
 	i{
 		opacity: 0.2;
 		-moz-opacity: 0.2;
@@ -44,12 +68,11 @@ section#t {
 		opacity: 0.8;
 		-moz-opacity: 0.8;
 		filter:alpha(opacity=8);
-	} */
+	}
 }
 span.comment{
 	display: none;
 }
-
 #controller{
 	margin-top: 30px;
 	height: 46px;
@@ -61,7 +84,6 @@ span.comment{
 .control-group>label,.control-group>.controls{
 	display:inline;
 }
-
 hr.inset {
 	clear: both;
     border: 0;
@@ -69,7 +91,6 @@ hr.inset {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
-
 footer.footer{
 	margin-top: 30px;
 	font-size: 0.8em;
@@ -81,20 +102,11 @@ footer.footer{
 		margin: 4px;
 	}
 }
-
 @largepostlength : 250px;
 @biolength : 50px;
 .square(@length){
 	height: @length;
 	width: @length;
-}
-.post-type-large{
-	width: @largepostlength;	
-}
-.bio{
-	.square(@biolength);
-	float: left;
-	background-color: transparent;
 }
 .clear{
 	clear: both;

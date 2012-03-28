@@ -13,8 +13,9 @@ kokiya.PostView = kokiya.PostView || Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this, 'render', 'renderlist');
 		if (this.model) {
-			this.model.bind('change', this.render);
-			this.model.fetch();
+			//fix no date err
+			this.model.set({'date':new Date},{silent:true});
+			this.render();
 		}
 		if (this.collection) {
 			console.log('PostView has got a collection!');
@@ -45,14 +46,7 @@ kokiya.ControlBar = kokiya.ControlBar || Backbone.View.extend({
 
 
 kokiya.ServerInfo = kokiya.ServerInfo || Backbone.Model.extend({
-	url: '/serverInfo',
-	initialize: function() {
-		this.bind('change', this.format);
-	},
-	format: function() {
-		this.set('upTime', util.formatDate(this.get('upTime')));
-		this.set('memory', util.formatMemory(this.get('memory')));
-	}
+	url: '/api/serverInfo'
 });
 kokiya.ServerInfoView = kokiya.ServerInfoView || Backbone.View.extend({
 	initialize: function() {
@@ -61,8 +55,10 @@ kokiya.ServerInfoView = kokiya.ServerInfoView || Backbone.View.extend({
 		this.model.bind('change', this.render);
 	},
 	render: function() {
-		$('#parsedRunningTime').text(this.model.get('upTime'));
-		$('#memoryUsage').text(this.model.get('memory'));
+		var fd = util.formatDate(this.model.get('upTime'));
+		var fm = util.formatMemory(this.model.get('memory'));
+		$('#parsedRunningTime').text(fd);
+		$('#memoryUsage').text(fm);
 	}
 });
 
@@ -77,6 +73,10 @@ kokiya.Router = kokiya.Router || Backbone.Router.extend({
 			collection: posts
 		});
 
+
+		//------------------------------------------
+		//把这项工作分配给jade
+		//------------------------------------------
 		var serverInfo = new kokiya.ServerInfo();
 		//		console.log(serverInfo);
 		var serverInfoView = new kokiya.ServerInfoView({
@@ -153,7 +153,7 @@ kokiya.Router = kokiya.Router || Backbone.Router.extend({
 				//====================================
 				//iss
 				//====================================
-				t.prepend(_.template($('#post-template').html(), data));
+				new kokiya.PostView({model: new kokiya.Post(data)});	
 			});
 
 		}());
@@ -205,5 +205,7 @@ util.formatDate = function(date) {
 	}
 };
 util.formatMemory = function(memory) {
-	return ((Math.round(memory / 1024 / 1024 * 10)) / 10 + ' MB');
+	var m1 = parseInt(memory, 10);
+	var m2 = (Math.round(m1 / 1024 / 1024 * 10)) / 10 + ' MB';
+	return m2;
 }

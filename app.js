@@ -20,7 +20,7 @@ var middleware = require('./middleware').middleware;
 var SessionMongoose = require("session-mongoose");
 var sessionStore = new SessionMongoose({
     url: "mongodb://localhost/session",
-    interval: 60000
+    interval: 60000*60*24*30*6
 });
 
 var app = module.exports = express.createServer(),
@@ -46,7 +46,7 @@ app.configure(function() {
   app.use(express.session({
     secret: 'Crimson~87',
     store: sessionStore,
-    cookie: {maxAge: 60000}
+    cookie: {maxAge: 60000*60*24*30*6}
   }));
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
@@ -65,9 +65,9 @@ app.configure('production', function() {
 app.listen(3000);
 
 // Routes
-app.get('/', routes.index);
+app.get('/', middleware.requireLogin, routes.index);
 app.get('/login', function(req,res){
-  res.redirect('/');
+  res.render('/login');
 });
 app.get('/api',function(req,res){
   res.redirect('/api/index.html');
@@ -88,7 +88,7 @@ app.post('/login', function(req, res) {
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 // Rest Api
-app.get('/api/posts', middleware.requireLogin, function(req, res) {
+app.get('/api/posts', function(req, res) {
   db.posts.fetchAll(function(status, data) {
     if (status.ok) {
       console.dir(data);
@@ -133,8 +133,6 @@ app.post('/register', function(req, res) {
     }
   });
 });
-
-
 
 //websocket
 io.sockets.on('connection', function(socket) {

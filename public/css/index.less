@@ -1,7 +1,39 @@
 .center{
 	margin: 0 auto;
 }
-@import '../less/bootstrap.less';
+.box-rotate(@deg){
+  -webkit-transform: rotate(@deg); 
+     -moz-transform: rotate(@deg); 
+      -ms-transform: rotate(@deg); 
+       -o-transform: rotate(@deg); 
+          transform: rotate(@deg);
+               zoom: 1;
+}
+
+.infinite-animation(@loop){
+  -webkit-animation: planet @loop infinite linear;
+     -moz-animation: planet @loop infinite linear;
+      -ms-animation: planet @loop infinite linear;
+       -o-animation: planet @loop infinite linear;
+}
+
+@-webkit-keyframes planet {
+	0% {.box-rotate(0deg)}
+	100% {.box-rotate(360deg)}
+}
+@-moz-keyframes planet {
+	0% {.box-rotate(0deg)}
+	100% {.box-rotate(360deg)}
+}
+@-ms-keyframes planet {
+	0% {.box-rotate(0deg)}
+	100% {.box-rotate(360deg)}
+}
+@-o-keyframes planet {
+	0% {.box-rotate(0deg)}
+	100% {.box-rotate(360deg)}
+}
+
 body {
 	background-image: url('../img/indexbg.jpg');
 }
@@ -19,5 +51,10 @@ header {
 }
 
 footer{
-	margin-top: 300px;
+	margin-top: 450px;
+	height: 180px;
+	overflow: hidden;
+	>div{
+		.infinite-animation(500s);
+	}
 }
