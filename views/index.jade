@@ -1,18 +1,27 @@
-h1= title
-p Welcome to #{title}
-br
-form(action='/login',method='post')
-	label(for='user') 用户名：
-	input(type='text',name='user',id='user')
+div.container
+	header
+		h1.logo
+			img(alt='kokiya',src='/img/logo-code-white.png')
+		h2 Once Upon A Time⋯⋯有一个叫做KoKi的世界
 	br
-	label(for='password') 密码：
-	input(type='password',name='password',id='password')
-	button(type='submit') 登陆
-br
-form(action='/register',method='post')
-	label(for='user') 用户名：
-	input(type='text',name='user',id='user')
-	br
-	label(for='password') 密码：
-	input(type='password',name='password',id='password')
-	button(type='submit') 注册
+	div.row
+		section.span4.offset2
+			form(action='/register',method='post')
+				label(for='user') 用户名：
+				input(type='text',name='user',id='user')
+				br
+				label(for='password') 密码：
+				input(type='password',name='password',id='password')
+				br
+				button.btn.btn-large.btn-primary(type='submit') 注册
+		section.span4
+			form(action='/login',method='post')
+				label(for='user') 用户名：
+				input(type='text',name='user',id='user')
+				br
+				label(for='password') 密码：
+				input(type='password',name='password',id='password')
+				br
+				button.btn.btn-large(type='submit') 传送门
+		br
+	footer

@@ -69,6 +69,9 @@ app.get('/', routes.index);
 app.get('/login', function(req,res){
   res.redirect('/');
 });
+app.get('/api',function(req,res){
+  res.redirect('/api/index.html');
+});
 app.post('/login', function(req, res) {
   var user = req.body.user;
   var password = req.body.password;
@@ -209,8 +212,8 @@ io.sockets.on('connection', function(socket) {
       }
     }
   });
-  socket.on('favs', function(id) {
-    db.posts.favs(id, callback);
+  socket.on('star', function(id) {
+    db.posts.star(id, callback);
 
     function callback(status, docs) {
       if (status.ok) {

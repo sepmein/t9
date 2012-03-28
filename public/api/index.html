@@ -1,10 +1,189 @@
 <!DOCTYPE html>
-<html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-	<title>网站API</title>
+  <meta charset="utf-8">
+
+  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+       More info: h5bp.com/i/378 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>API － Koki dev</title>
+  <meta name="description" content="kokiya的api，就说传说中的应用程序接口">
+
+  <!-- Mobile viewport optimized: h5bp.com/viewport -->
+  <meta name="viewport" content="width=device-width">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../css/api.css">
+
+  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+
+  <!-- All JavaScript at the bottom, except this Modernizr build.
+       Modernizr enables HTML5 elements & feature detects for optimal performance.
+       Create your own custom Modernizr build: www.modernizr.com/download/ -->
+  <script src="../js/libs/modernizr-2.5.3.min.js"></script>
 </head>
 <body>
-	<h1>Kokiya - T API</h1>
-	
+  <div class="fluid-container">
+
+
+    <header id="header" class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+
+            <ul class="nav">
+              <li>
+                <a href="/">Back To Kokiya</a>
+              </li>
+              <li class="divider-vertical"></li>
+              <li class="active">
+                <a href="#general">Home</a>
+              </li>
+              <li><a href="#posts">Posts</a></li>
+              <li><a href="#users">Users</a></li>
+              <li><a href="#info">Info</a></li>
+            </ul>
+
+          </div>
+        </div>
+    </header><!-- /header -->
+    
+
+    <div class="row-fluid main">
+      <aside class="span3">
+        <ul class="nav nav-list">
+          <!-- todo 由jquery生成later，需要更好的代码组织 -->
+          <li class="active">
+            <a href="#general">Home</a>
+          </li>
+          <li><a href="#posts">Posts</a></li>
+          <li><a href="#users">Users</a></li>
+          <li><a href="#info">Info</a></li>          
+        </ul><!-- sidebar/ -->
+      </aside>
+      <article class="span9">
+        <section id="general">
+          <h1>API总体介绍</h1>
+          <p>Kokiya.com使用nodejs作为服务器端语言，mongodb作为数据库。</p>
+          <p>作为一个以API为核心搭建的应用，kokiya的前端尽量都使用API获取数据。为将来扩展客户端做好准备。</p>
+          <p>目前，API的获取并未增加限制，您可以随意调用。当然希望您“友善”地使用。这时候，感激涕零是唯一的形容词。</p>
+          <p>作为现在网络API几乎的标准，本api同其他应用一样:遵循restful原则，并且使用JSON作为数据格式。</p>
+          <p>状态代码参照使用nodejs的格式，分为5个等级，代表api的稳定性。越高越稳定。详细可参考:<a href="http://nodejs.org/api/documentation.html#documentation_stability_index" title="nodejs文档">nodejs官方文档</a></p>
+        </section><!-- / -->
+        <section id="posts">
+          <header class="page-header">
+            <h2>Posts API</h2>
+          </header>
+          <p>url:"/api/posts"</p>
+          <p>状态: 1</p>
+          <br>
+          <p>数据格式:</p>
+          <pre>
+            {
+              author: String,     //发表者
+              content: String,    //内容
+              date: {             //日期，格式ISOdata，可以使用new Date(date)来处理。
+                type: Date,
+              default:
+                Date.now
+              },
+              meta: {             //元信息
+                plus: Number,     //顶
+                minus: Number,    //踩
+                star: Number      //星标
+              },
+              comments: [Comment] //评论，格式：数组，详见comment部分
+            }
+          </pre>
+          <p>comment:</p>
+          <pre>
+            {
+              author: String,     //评论者
+              content: String,    //内容
+              date: {             //日期，同上
+                type: Date,
+              default:
+                Date.now
+              }
+            }
+          </pre>
+          <p>方法:get</p>
+          <p>结果:获取所有posts</p>
+          <p>示例:浏览器输入kokiya.no.de/api/posts，返回一串JSON格式数组</p>
+          <br>
+          <p>方法:post</p>
+          <p>结果:以上述格式插入一条post</p>
+        </section><!-- / -->
+        <section id="users">
+          <header class="page-header">
+            <h2>Users API</h2>
+          </header>
+          <p>url:"/api/users"</p>
+          <p>状态: 1</p>
+          <br>
+          <p>数据格式：</p>
+          <pre>
+            {
+              "_id" : id
+              , "user" : String   //用户名
+            }
+          </pre>
+          <p>方法:get</p>
+          <p>结果:获取所有用户名</p>
+          <p>示例:浏览器输入kokiya.no.de/api/posts，返回一串JSON格式数组</p>
+          <br>
+          <em>login和register api暂未公开</em>
+        </section><!-- / -->
+        <section id="info">
+          <header class="page-header">
+            <h2>Info API</h2>
+          </header>
+          <p>url:"/api/serverInfo"</p>
+          <p>状态: 4</p>
+          <br>
+          <p>数据格式：</p>
+          <pre>
+            {
+              "upTime" : Number     //服务器上线时间，单位：秒             
+              , "memory" : Number   //服务占用内存，单位：KB
+            }
+          </pre>
+          <p>方法:get</p>
+          <p>结果:获取所有用户名</p>
+          <p>示例:浏览器输入kokiya.no.de，查看底部服务器信息</p>
+        </section><!-- / -->
+      </article>
+    </div>
+
+    <footer class="footer">
+      <p class="pull-right">By Spencer</p>
+    </footer>
+
+
+
+  </div>
+
+
+  <!-- Asynchronous Google Analytics snippet. -->
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-28326426-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
 </body>
 </html>

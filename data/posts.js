@@ -23,7 +23,7 @@ var Post = new Schema({
 	meta: {
 		plus: Number,
 		minus: Number,
-		favs: Number
+		star: Number
 	},
 	comments: [Comment]
 });
@@ -144,14 +144,14 @@ posts.minus = function(id, callback) {
 	});
 };
 
-posts.favs = function(id, callback) {
+posts.star = function(id, callback) {
 	var conditions = {
 		//iss: objectid could be a problem
 		_id: id
 	},
 		update = {
 			$inc: {
-				"meta.favs": 1
+				"meta.star": 1
 			}
 		},
 		options = {};
