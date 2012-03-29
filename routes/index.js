@@ -1,10 +1,8 @@
 exports.index = function(req, res) {
 	if (req.session.user) {
-		res.redirect('/index.html');
+		res.render('index',{title:req.session.user});
 	} else {
-		res.render('index', {
-			title: 'KOKIYA'
-		});
+		res.redirect('login',{layout:false});
 	}
 };
 

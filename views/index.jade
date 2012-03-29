@@ -1,0 +1,81 @@
+.container
+	header.row
+		hgroup.span12
+			h1 KOKIYA::T - simplicity and fun
+			h6
+				a(href='http://github.com/sepmein/KOKIYA--CHAT', title='github.com源代码') Open Source
+				| Chat Room Built By Node.Js
+	.row(role='main')
+		section#controller.span12
+			.control-group
+				label.control-label.authorName(for='sayContent') UserName : 
+				.controls
+					input#sayContent(type='text', name='sayContent', placeholder='Say Something Dude!')
+					button#say.btn.btn-primary.btn-large(type='submit') 发送
+		section#t.span12
+	hr.inset
+footer.footer
+	.container
+		.row
+			section.span4
+				ul.unstyled
+					h6 Server Info&nbsp;
+						i.icon-white.icon-refresh
+					li
+						i.icon-white.icon-time
+						| 运行时间：
+						span#parsedRunningTime.label 好久啦~
+					li
+						i.icon-white.icon-th
+						| 内存使用：
+						span#memoryUsage.label 不算多~
+					li
+						i.icon-white.icon-align-center
+						| 整体架构
+			section.span4
+				ul.unstyled
+					h6 Tutorials
+					li
+						a(href='http://spencer.kokiya.com/building-chatroom-with-nodejs-and-websocket/', title='1') 背景及环境
+			section.span4
+				ul.unstyled
+					h6 关于
+					li
+						| 派生自：
+						a(href='http://kokiya.com/', title='到kokiya的传送门') kokiya &ndash; life coder
+					li
+						i.icon-white.icon-envelope
+						| 作者：
+						a(href='mailto:sepmein@gmail.com', title='联系我') Spencer Zhang
+					li
+						a(href='/api', title='查看网站api') API
+script#post-template(type='text/template')
+	<div class="post post-type-large">
+	|<article id="_id">
+	|<section class="bio"><img src="img/avatar.png" alt="You">
+	|</section>
+	|<section class="post-area">
+	|<strong class="author"><%= author %>&nbsp;:</strong>
+	|<br />
+	|<p class="content"><%= content %></p>
+	|</section>
+	|</article>
+	|<div class="footer">
+	|<small class="pull-left"><%= date %></small>
+	|<div class="corner comment pull-right">
+	|<i class="icon-comment"></i>评论
+	|</div>
+	|</div>
+	|<div class="clear"></div>
+	|</div>
+// JavaScript at the bottom for fast page loading 
+// Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline 
+script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+script
+	window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\\/script>')
+// scripts concatenated and minified via build script 
+script(src='/socket.io/socket.io.js')
+script(src='js/libs/underscore-min.js')
+script(src='js/libs/backbone-min.js')
+script(src='js/script.js')
+// end scripts 

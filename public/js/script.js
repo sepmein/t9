@@ -92,7 +92,7 @@ kokiya.Router = kokiya.Router || Backbone.Router.extend({
 				authorName = $('#authorName');
 
 			var author = '';
-			var socket = io.connect('http://localhost:3000');
+			var socket = io.connect('http://localhost:8000');
 			//login
 			$('#login').click(function() {
 				//check empty

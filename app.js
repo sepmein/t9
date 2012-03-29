@@ -62,12 +62,12 @@ app.configure('development', function() {
 app.configure('production', function() {
   app.use(express.errorHandler());
 });
-app.listen(3000);
+app.listen(8000);
 
 // Routes
 app.get('/', middleware.requireLogin, routes.index);
 app.get('/login', function(req,res){
-  res.render('/login');
+  res.render('login',{layout:false});
 });
 app.get('/api',function(req,res){
   res.redirect('/api/index.html');
@@ -78,10 +78,10 @@ app.post('/login', function(req, res) {
   db.users.authenticate(user, password, function(status, err) {
     if (status.ok) {
       req.session.user = user;
-      res.redirect('/index.html');
+      res.render('index',{title: 'Koki'});
     } else {
       //console.log(err);
-      res.redirect('/');
+      res.redirect('/login');
     }
   });
 });
