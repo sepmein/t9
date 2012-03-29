@@ -2,9 +2,6 @@
  * Module dependencies.
  */
 
-
-
-
 var express = require('express'),
   routes = require('./routes');
 
@@ -19,9 +16,10 @@ var middleware = require('./middleware').middleware;
 /*mongoose session store by mongoose session, maybe rewrite it by myself later*/
 var SessionMongoose = require("session-mongoose");
 var sessionStore = new SessionMongoose({
-    url: "mongodb://localhost/session",
-    interval: 60000*60*24*30*6
-});
+  url: "mongodb://localhost/session",
+  interval: 60000 * 60 * 24 * 30 * 6
+}); /*modules这部分名字很难取啊~以后改改*/
+var modules = require('./modules');
 
 var app = module.exports = express.createServer(),
   io = require('socket.io').listen(app);
@@ -33,9 +31,6 @@ io.configure('production', function() {
   io.set('log level', 1); // reduce logging
 });
 
-//data section store data in the memory
-var authors = [];
-
 // Configuration
 app.configure(function() {
   app.set('views', __dirname + '/views');
@@ -46,7 +41,9 @@ app.configure(function() {
   app.use(express.session({
     secret: 'Crimson~87',
     store: sessionStore,
-    cookie: {maxAge: 60000*60*24*30*6}
+    cookie: {
+      maxAge: 60000 * 60 * 24 * 30 * 6
+    }
   }));
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
@@ -66,10 +63,16 @@ app.listen(8000);
 
 // Routes
 app.get('/', middleware.requireLogin, routes.index);
-app.get('/login', function(req,res){
-  res.render('login',{layout:false});
+app.get('/login', function(req, res) {
+  if(req.session.uid){
+    res.redirect('/');
+  } else {
+    res.render('login', {
+    layout: false
+    });    
+  }
 });
-app.get('/api',function(req,res){
+app.get('/api', function(req, res) {
   res.redirect('/api/index.html');
 });
 app.post('/login', function(req, res) {
@@ -77,8 +80,10 @@ app.post('/login', function(req, res) {
   var password = req.body.password;
   db.users.authenticate(user, password, function(status, err) {
     if (status.ok) {
-      req.session.user = user;
-      res.render('index',{title: 'Koki'});
+      db.users.findByUser(user, function(err, doc) {
+        req.session.uid = doc._id;
+        res.redirect('/');
+      });
     } else {
       //console.log(err);
       res.redirect('/login');
@@ -139,7 +144,7 @@ io.sockets.on('connection', function(socket) {
 
   var queryT = socket.handshake.query.t;
 
-  //login
+  /*  //login
   socket.on('login', function(requestAuthorName) {
 
     var notUsing = authors.every(function(element, index, array) {
@@ -156,7 +161,7 @@ io.sockets.on('connection', function(socket) {
         err: "用户名正被使用."
       });
     }
-  });
+  });*/
 
   //say sth
   socket.on('say', function(data) {
@@ -220,16 +225,6 @@ io.sockets.on('connection', function(socket) {
 
       }
     }
-  });
-
-  socket.on('disconnect', function() {
-    authors.forEach(function(element, index, array) {
-      if (element.queryT === queryT) {
-        //delete and log off
-        array.splice(index, 1);
-      }
-    });
-    console.log(authors);
   });
 
 });

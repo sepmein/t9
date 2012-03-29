@@ -13,6 +13,7 @@ var OK = {
 /*-----------------------------------------------------------------*/
 
 var Post = new Schema({
+	uid: Number,
 	author: String,
 	content: String,
 	date: {

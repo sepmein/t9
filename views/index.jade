@@ -8,7 +8,7 @@
 	.row(role='main')
 		section#controller.span12
 			.control-group
-				label.control-label.authorName(for='sayContent') UserName : 
+				label.control-label.authorName(for='sayContent') #{data.user}: 
 				.controls
 					input#sayContent(type='text', name='sayContent', placeholder='Say Something Dude!')
 					button#say.btn.btn-primary.btn-large(type='submit') 发送
@@ -24,11 +24,11 @@ footer.footer
 					li
 						i.icon-white.icon-time
 						| 运行时间：
-						span#parsedRunningTime.label 好久啦~
+						span#parsedRunningTime.label #{data.serverInfo.upTime}
 					li
 						i.icon-white.icon-th
 						| 内存使用：
-						span#memoryUsage.label 不算多~
+						span#memoryUsage.label #{data.serverInfo.memory}
 					li
 						i.icon-white.icon-align-center
 						| 整体架构

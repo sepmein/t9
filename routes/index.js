@@ -1,8 +1,18 @@
+var modules = require('.././modules');
+
 exports.index = function(req, res) {
-	if (req.session.user) {
-		res.render('index',{title:req.session.user});
+	if (req.session.uid) {
+			modules.renderById(req.session.uid, function(koki) {
+				res.render('index', {
+				locals: {
+					data: koki
+				}
+			});
+		});
 	} else {
-		res.redirect('login',{layout:false});
+		res.redirect('login', {
+			layout: false
+		});
 	}
 };
 

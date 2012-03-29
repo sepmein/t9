@@ -76,7 +76,39 @@ users.authenticate = function(user, password, callback) {
 		}
 	});
 
+};
 
-}
+users.findById = function(id, callback) {
+	var query = U.findOne({
+		_id: id
+	}, {
+		user: 1
+	});
+	query.run(function(err, doc) {
+		if (err) {
+			callback(NO, err);
+		} else if (!doc) {
+			callback(NO, '用户不存在');
+		} else {
+			callback(OK, doc);
+		}
+	});
+};
+users.findByUser = function(user, callback) {
+	var query = U.findOne({
+		user: user
+	}, {
+		_id: 1
+	});
+	query.run(function(err, doc) {
+		if (err) {
+			callback(NO, err);
+		} else if (!doc) {
+			callback(NO, '用户不存在');
+		} else {
+			callback(OK, doc);
+		}
+	});
+};
 
 exports.users = users;
