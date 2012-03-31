@@ -51,7 +51,7 @@ app.configure('development', function() {
 app.configure('production', function() {
   app.use(express.errorHandler());
 });
-app.listen(8000);
+app.listen(80);
 
 // Routes
 app.get('/', middleware.requireLogin, routes.index);
