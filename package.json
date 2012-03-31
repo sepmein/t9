@@ -8,7 +8,6 @@
 	"dependencies": {
 		"express": ">=2.5.8",
 		"mongoose": "2.5.10",
-		"socket.io": ">=0.8.7",
 		"jade": "0.21.0",
 		"session-mongoose": "0.0.2"
 	}
