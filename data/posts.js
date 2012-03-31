@@ -89,6 +89,7 @@ posts.fetchAll = function(callback) {
 //update
 //update comments
 posts.newComment = function(id, data, callback) {
+	data.date = data.date || Date.now;
 	var conditions = {
 		//iss: objectid could be a problem
 		_id: id

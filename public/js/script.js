@@ -99,10 +99,7 @@ kokiya.Router = kokiya.Router || Backbone.Router.extend({
 			var say = $('#say'),
 				sayContent = $('#sayContent'),
 				t = $('#t'),
-				login = $('#login'),
-				user = $('#user');
-
-			var user = user.text();
+				login = $('#login');
 
 			$('#say').on('click', function() {
 
@@ -112,7 +109,6 @@ kokiya.Router = kokiya.Router || Backbone.Router.extend({
 				} else {
 					var data = {
 						content: content,
-						user: user
 					};
 
 					var newPost = new kokiya.Post(data);

@@ -3,13 +3,13 @@
 		hgroup.span12
 			h1 KOKIYA::T - simplicity and fun
 			h6
-				a(href='http://github.com/sepmein/KOKIYA--CHAT', title='github.com源代码') Open Source
-				| Chat Room Built By Node.Js
+				a(href='http://github.com/sepmein/KOKIYA--CHAT', title='点击查看源代码') 开源
+				| 围脖，暖暖得～
 			a.pull-right(href='/logout',title='退出') 退出
 	.row(role='main')
 		section#controller.span12
 			.control-group
-				label.control-label#user(for='sayContent') #{data.user}
+				label.control-label#user(for='sayContent') #{data.user} : 
 				.controls
 					input#sayContent(type='text', name='sayContent', placeholder='Say Something Dude!')
 					button#say.btn.btn-primary.btn-large(type='submit') 发送
@@ -73,6 +73,10 @@ footer.footer
 						a(href='mailto:sepmein@gmail.com', title='联系我') Spencer Zhang
 					li
 						a(href='/api', title='查看网站api') API
+					li
+						虽然的确丑陋。
+					li
+						但是，我觉得：只要有时间，使用nodeJS和mongoDB搭建一个围脖米有问题！！
 script#post-template(type='text/template')
 	<div class="post post-type-large">
 	|<article id="_id">
