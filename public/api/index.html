@@ -87,6 +87,8 @@
           <p>数据格式:</p>
           <pre>
             {
+              _id: ObjectId       //发表者id
+              uid: ObjectId       //发表者id
               author: String,     //发表者
               content: String,    //内容
               date: {             //日期，格式ISOdata，可以使用new Date(date)来处理。
@@ -119,6 +121,7 @@
           <p>示例:浏览器输入kokiya.no.de/api/posts，返回一串JSON格式数组</p>
           <br>
           <p>方法:post</p>
+          <p>content字段必须提供。若已建立session，uid以及author可以不提供，服务器会自动获取该两条字段。若未建立字段，可以在post.body中提供</p>
           <p>结果:以上述格式插入一条post</p>
         </section><!-- / -->
         <section id="users">

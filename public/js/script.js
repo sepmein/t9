@@ -1,6 +1,8 @@
+//global
 var kokiya = kokiya || {};
 kokiya.Post = kokiya.Post || Backbone.Model.extend({
-	idAttribute: '_id'
+	idAttribute: '_id',
+	url: '/api/posts'
 });
 kokiya.PostCollection = kokiya.PostCollection || Backbone.Collection.extend({
 	model: kokiya.Post,
@@ -68,10 +70,13 @@ kokiya.Router = kokiya.Router || Backbone.Router.extend({
 	},
 	index: function() {
 		console.log('index called');
+		//已移交至jade
+		/*
 		var posts = new kokiya.PostCollection();
 		var postsview = new kokiya.PostView({
 			collection: posts
 		});
+		*/
 
 
 		//------------------------------------------
@@ -83,50 +88,35 @@ kokiya.Router = kokiya.Router || Backbone.Router.extend({
 			model: serverInfo
 		});
 		serverInfo.fetch();
+		$('#refreshServerInfo').click(function(){
+			serverInfo.fetch();
+		});
 
 		(function() {
 			var say = $('#say'),
 				sayContent = $('#sayContent'),
 				t = $('#t'),
 				login = $('#login'),
-				authorName = $('#authorName');
+				user = $('#user');
 
-			var author = '';
-			var socket = io.connect('http://localhost:8000');
-			//login
-			$('#login').click(function() {
-				//check empty
-				if ($('#authorName').val()) {
-					author = $('#authorName').val();
-
-					socket.emit('login', author);
-					//clear
-					$('#authorName').val('');
-				}
-			});
-			//listen to log event
-			socket.on('loginSuccess', function() {
-				//	console.log('loginSuccess');
-				$('#controller>.hiddenFrame').animate({
-					top: '-46px'
-				}, function() {
-					//焦点移至发言框
-					$('#sayContent').focus();
-				});
-				$('#controller .authorName').text(author + ' : ');
-			});
-
+			var user = user.text();
+			
 			$('#say').on('click', function() {
 
 				var content = $('#sayContent').val();
-				var data = {
-					author: author,
-					content: content
-				};
+				if(!content) {
+					//你的意思是沉默是金？
+				} else {
+					var data = {
+						content: content,
+						user: user
+					};
 
-				socket.emit('say', data);
-				//clear
-				$('#sayContent').val('');
+					var newPost = new kokiya.Post(data);
+					newPost.save();
+					//clear
+					$('#sayContent').val('');
+				}
 			});
 
 			//使用一条jQuery语句绑定多个事件,对于一个数组中的所有元素绑定一个事件：在该元素中点击回车键，会触发紧贴该元素的下一个元素的click事件。
@@ -137,23 +127,8 @@ kokiya.Router = kokiya.Router || Backbone.Router.extend({
 				}
 			});
 
-			socket.on('loginFailure', function() {
-				//	console.log('loginFailure');
-				$('.alert').show('medium').delay(2000).hide('medium');
-				author = '';
-			});
-
-			//got something new
-			socket.on('newMessage', function(data) {
-
-				if (t.children().length >= 20) {
-					//remove t's first child
-					$('#t').children(':last').remove();
-				}
-				//====================================
-				//iss
-				//====================================
-				new kokiya.PostView({model: new kokiya.Post(data)});	
+			$('#t .footer .corner').click(function(){
+				$(this).toggle();
 			});
 
 		}());

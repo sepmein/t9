@@ -21,15 +21,7 @@ var sessionStore = new SessionMongoose({
 }); /*modules这部分名字很难取啊~以后改改*/
 var modules = require('./modules');
 
-var app = module.exports = express.createServer(),
-  io = require('socket.io').listen(app);
-
-io.configure('production', function() {
-  io.enable('browser client minification'); // send minified client
-  io.enable('browser client etag'); // apply etag caching logic based on version number
-  io.enable('browser client gzip'); // gzip the file
-  io.set('log level', 1); // reduce logging
-});
+var app = module.exports = express.createServer();
 
 // Configuration
 app.configure(function() {
@@ -90,21 +82,42 @@ app.post('/login', function(req, res) {
     }
   });
 });
+app.get('/logout',function(req, res){
+  if(req.session.uid) {
+    delete req.session.uid;
+  }
+  res.redirect('/login');
+});
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 // Rest Api
 app.get('/api/posts', function(req, res) {
   db.posts.fetchAll(function(status, data) {
     if (status.ok) {
-      console.dir(data);
       res.send(data);
     }
   });
 });
 
-app.post('/api/posts', function(req, res) {
+app.post('/api/posts', middleware.requireLogin ,function(req, res) {
   //must use some body parser to parse the post request
-  db.posts.publishPost(req.body);
+  if(req.body) {
+    var data = req.body;
+    data.uid = req.session.uid;
+    data.user = req.session.user || req.body.user;
+    console.log(data);
+    db.posts.publishPost(data,function(status,err){
+      if(status.ok) {
+        //publish ok
+        console.log('发布成功！');
+      } else {
+        //publish not ok,还是要想到一定办法通知客户端啊~
+        //res.flash('err',err);
+      }
+    });
+  } else {
+    //res.flash('err','没发布什么内容啊。');
+  }
 });
 
 //move this part to template engine, reduce ajax call
@@ -132,19 +145,24 @@ app.post('/register', function(req, res) {
   console.log('register called req.body' + req.body.user + ',' + req.body.password);
   db.users.register(req.body.user, req.body.password, function(status, data) {
     if (status.ok) {
-      res.redirect('/index.html');
+      db.users.findByUser(req.body.user,function(status,doc){
+        req.session.uid = doc._id;
+        res.redirect('/');
+      });
     } else {
-      res.redirect('/');
+      res.redirect('/login');
     }
   });
 });
 
 //websocket
+//保留代码，去除功能
+/*
 io.sockets.on('connection', function(socket) {
 
   var queryT = socket.handshake.query.t;
 
-  /*  //login
+    //login
   socket.on('login', function(requestAuthorName) {
 
     var notUsing = authors.every(function(element, index, array) {
@@ -161,7 +179,7 @@ io.sockets.on('connection', function(socket) {
         err: "用户名正被使用."
       });
     }
-  });*/
+  });
 
   //say sth
   socket.on('say', function(data) {
@@ -228,3 +246,4 @@ io.sockets.on('connection', function(socket) {
   });
 
 });
+*/

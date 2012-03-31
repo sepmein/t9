@@ -5,14 +5,36 @@
 			h6
 				a(href='http://github.com/sepmein/KOKIYA--CHAT', title='github.com源代码') Open Source
 				| Chat Room Built By Node.Js
+			a.pull-right(href='/logout',title='退出') 退出
 	.row(role='main')
 		section#controller.span12
 			.control-group
-				label.control-label.authorName(for='sayContent') #{data.user}: 
+				label.control-label#user(for='sayContent') #{data.user}
 				.controls
 					input#sayContent(type='text', name='sayContent', placeholder='Say Something Dude!')
 					button#say.btn.btn-primary.btn-large(type='submit') 发送
 		section#t.span12
+			each post in data.posts
+					div.post.post-type-large
+						article(id='#{post._id}')
+							section.bio
+								img(src="img/avatar.png",alt="You")
+							section.post-area
+								strong.author #{post.author}&nbsp;:
+								br
+								p.content #{post.content}
+						div.footer
+							small.pull-left #{post.date}
+							div.corner.pull-right
+								i.icon-comment
+								span 评论
+							div.clear
+						div.comment
+							input.long(type='text')
+							button.btn 发送
+							each comment in post.comments
+								p= comment.author
+								p= comment.content
 	hr.inset
 footer.footer
 	.container
@@ -20,7 +42,7 @@ footer.footer
 			section.span4
 				ul.unstyled
 					h6 Server Info&nbsp;
-						i.icon-white.icon-refresh
+						i.icon-white.icon-refresh#refreshServerInfo
 					li
 						i.icon-white.icon-time
 						| 运行时间：
@@ -66,16 +88,4 @@ script#post-template(type='text/template')
 	|<i class="icon-comment"></i>评论
 	|</div>
 	|</div>
-	|<div class="clear"></div>
 	|</div>
-// JavaScript at the bottom for fast page loading 
-// Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline 
-script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
-script
-	window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\\/script>')
-// scripts concatenated and minified via build script 
-script(src='/socket.io/socket.io.js')
-script(src='js/libs/underscore-min.js')
-script(src='js/libs/backbone-min.js')
-script(src='js/script.js')
-// end scripts 

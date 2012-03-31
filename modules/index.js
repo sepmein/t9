@@ -27,7 +27,6 @@ function renderById(uid,callback) {
     koki.posts = doc;
     db.users.findById(uid, function(status, doc) {
       if(!status.ok) {
-        console.dir(doc);
       } else {
         koki.user = doc.user;
         //after a longlong chain of callback, s'll be returned

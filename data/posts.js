@@ -13,7 +13,7 @@ var OK = {
 /*-----------------------------------------------------------------*/
 
 var Post = new Schema({
-	uid: Number,
+	uid: ObjectId,
 	author: String,
 	content: String,
 	date: {
@@ -54,14 +54,18 @@ var posts = posts || {};
 posts.publishPost = function(object, callback) {
 	//new P() part could be a problem
 	var newPost = new P();
-	newPost.author = object.author;
+	newPost.author = object.user;
 	newPost.content = object.content;
+	newPost.uid = object.uid;
+	console.dir(newPost);
 	newPost.save(function(err) {
 		//传递err至服务器
 		if (!err) {
 			callback(OK);
+			console.log('new post saved');
 		} else {
 			callback(NO, err);
+			console.log(err);
 		}
 	});
 }
@@ -72,7 +76,7 @@ posts.fetchAll = function(callback) {
 	//iss: 'P' keyword could be a problem
 	var query = P.find({});
 	query.limit(20);
-	query.asc('date');
+	query.desc('date');
 	query.run(function(err, doc) {
 		if (!err) {
 			callback(OK, doc);
