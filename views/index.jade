@@ -27,14 +27,16 @@
 							small.pull-left #{post.date}
 							div.corner.pull-right
 								i.icon-comment
-								span 评论
+								span 评论(#{post.comments.length})
 							div.clear
 						div.comment
-							input.long(type='text')
-							button.btn 发送
+							input.content(type='text')
+							button.btn 评论
 							each comment in post.comments
-								p= comment.author
-								p= comment.content
+								p
+									span.author #{comment.author}: 
+									span.content #{comment.content}
+									small.date.pull-right @#{comment.date}
 	hr.inset
 footer.footer
 	.container

@@ -16,7 +16,11 @@ kokiya.PostView = kokiya.PostView || Backbone.View.extend({
 		_.bindAll(this, 'render', 'renderlist');
 		if (this.model) {
 			//fix no date err
-			this.model.set({'date':new Date},{silent:true});
+			this.model.set({
+				'date': new Date
+			}, {
+				silent: true
+			});
 			this.render();
 		}
 		if (this.collection) {
@@ -41,11 +45,10 @@ kokiya.PostView = kokiya.PostView || Backbone.View.extend({
 	}
 });
 
-kokiya.ControlBar = kokiya.ControlBar || Backbone.View.extend({
-
+kokiya.Post.Comment = kokiya.Post.Comment || Backbone.Model.extend({
+	url: '/api/posts/comment',
+	initialize: function() {}
 });
-
-
 
 kokiya.ServerInfo = kokiya.ServerInfo || Backbone.Model.extend({
 	url: '/api/serverInfo'
@@ -88,7 +91,7 @@ kokiya.Router = kokiya.Router || Backbone.Router.extend({
 			model: serverInfo
 		});
 		serverInfo.fetch();
-		$('#refreshServerInfo').click(function(){
+		$('#refreshServerInfo').click(function() {
 			serverInfo.fetch();
 		});
 
@@ -100,11 +103,11 @@ kokiya.Router = kokiya.Router || Backbone.Router.extend({
 				user = $('#user');
 
 			var user = user.text();
-			
+
 			$('#say').on('click', function() {
 
 				var content = $('#sayContent').val();
-				if(!content) {
+				if (!content) {
 					//你的意思是沉默是金？
 				} else {
 					var data = {
@@ -127,8 +130,25 @@ kokiya.Router = kokiya.Router || Backbone.Router.extend({
 				}
 			});
 
-			$('#t .footer .corner').click(function(){
-				$(this).toggle();
+			$('#t .footer .corner').click(function() {
+				$(this).parent().siblings('.comment').toggle();
+			});
+
+			$('#t .comment button').click(function() {
+				var input = $(this).siblings('input.content');
+				var content = input.val();
+				var pid = $(this).parent().siblings('article').attr('id');
+				if (content) {
+					var newComment = new kokiya.Post.Comment({
+						content: content,
+						pid: pid
+					});
+					newComment.save();
+					input.val('');
+					$(this).parent().hide();
+				} else {
+					//通知用户，没有内容
+				}
 			});
 
 		}());

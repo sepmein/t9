@@ -51,7 +51,7 @@ app.configure('development', function() {
 app.configure('production', function() {
   app.use(express.errorHandler());
 });
-app.listen(80);
+app.listen(8000);
 
 // Routes
 app.get('/', middleware.requireLogin, routes.index);
@@ -74,6 +74,7 @@ app.post('/login', function(req, res) {
     if (status.ok) {
       db.users.findByUser(user, function(err, doc) {
         req.session.uid = doc._id;
+        req.session.user = user;
         res.redirect('/');
       });
     } else {
@@ -85,6 +86,7 @@ app.post('/login', function(req, res) {
 app.get('/logout',function(req, res){
   if(req.session.uid) {
     delete req.session.uid;
+    delete req.session.user;
   }
   res.redirect('/login');
 });
@@ -120,6 +122,34 @@ app.post('/api/posts', middleware.requireLogin ,function(req, res) {
   }
 });
 
+app.get('/api/posts/comment',function(){
+  
+});
+
+app.get('/api/posts/comment',function(){
+
+});
+
+app.post('/api/posts/comment', middleware.requireLogin ,function(req,res){
+  if(req.body.content && req.body.pid) {
+    var data = req.body;
+    data.uid = req.session.uid;
+    data.author = req.session.user || req.body.user;
+    db.posts.newComment(req.body.pid,data,function(status,data){
+      if(status.ok){
+        //sth
+      } else {
+        //on err
+        console.log(data);
+      }
+    });
+
+  } else {
+    console.log('no content or pid');
+  }
+});
+
+
 //move this part to template engine, reduce ajax call
 app.get('/api/serverInfo', function(req, res) {
   var info = {
@@ -147,6 +177,7 @@ app.post('/register', function(req, res) {
     if (status.ok) {
       db.users.findByUser(req.body.user,function(status,doc){
         req.session.uid = doc._id;
+        req.session.user = req.body.user;
         res.redirect('/');
       });
     } else {
@@ -199,7 +230,9 @@ io.sockets.on('connection', function(socket) {
 
   //comment on post
   socket.on('comment', function(id, data) {
-    db.posts.newComment(id, data, callback);
+    db.posts.newComment(req.body.pid,data,function(status,data){
+  
+    })(id, data, callback);;
 
     function callback(status, docs) {
       if (status.ok) {
