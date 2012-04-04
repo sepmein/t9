@@ -124,6 +124,24 @@
           <p>content字段必须提供。若已建立session，uid以及author可以不提供，服务器会自动获取该两条字段。若未建立字段，可以在post.body中提供</p>
           <p>结果:以上述格式插入一条post</p>
         </section><!-- / -->
+        <section>
+          <header class="page-header">
+            <h2>Post Comment Api</h2>
+          </header><!-- /header -->
+          <p>url:"/api/posts/comment"</p>
+          <p>状态：2</p>
+          <br>
+          <p>数据格式：</p>
+          <pre>
+            {
+              pid : pid     //post id
+              content : String  //评论内容   
+              user : String //optional发表用户，由浏览器客户端发送可以不用提供，session中已包含
+              uid : uid     //optional，同上
+              date : date   //optional,发表日期，不提供可由服务器自动生成。
+            }
+          </pre>
+        </section><!-- / -->
         <section id="users">
           <header class="page-header">
             <h2>Users API</h2>

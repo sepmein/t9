@@ -45,10 +45,8 @@ var P = mongoose.model('posts', Post);
 //publish a new post, execute a callback to retrieve status
 //mark proto later
 
-
 //read
 //用户访问主页时返回一个状态码，以及doc或err
-
 var posts = posts || {};
 
 posts.publishPost = function(object, callback) {
@@ -69,8 +67,6 @@ posts.publishPost = function(object, callback) {
 		}
 	});
 }
-
-
 
 posts.fetchAll = function(callback) {
 	//iss: 'P' keyword could be a problem

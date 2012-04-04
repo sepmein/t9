@@ -14,7 +14,28 @@ var OK = {
 
 var User = new Schema({
 	user: String,
-	password: String
+	password: String,
+	sex: Boolean,
+	mail: String,
+	bd: Date,
+	mood: String,
+	lifeTags: [LifeTag],
+	tags: [Tag],
+	friends: [Friend]
+});
+
+var LifeTag = new Schema({
+	tag: String,
+	date: Date
+});
+
+var Friend = new Schema({
+	fid: ObjectId,
+	circle: String
+});
+
+var Tag = new Schema({
+	tag: String
 });
 
 var U = mongoose.model('users', User);
@@ -94,6 +115,7 @@ users.findById = function(id, callback) {
 		}
 	});
 };
+
 users.findByUser = function(user, callback) {
 	var query = U.findOne({
 		user: user
@@ -110,5 +132,67 @@ users.findByUser = function(user, callback) {
 		}
 	});
 };
+
+/*
+	friends api	
+*/
+users.addFriend = function(user, friend, callback) {
+	var conditions = {
+		_id: id
+	};
+	var update = {
+		$push: {
+			friends: friend
+		}
+	};
+	var options = {
+
+	};
+	var callback = function(err, numAffected) {
+			if (!err) {
+				callback(OK, numAffected);
+			} else {
+				callback(NO, err);
+			}
+		};
+	U.update(conditions, update, option, callback);
+};
+users.getFriends = function(user, callback) {
+	var query = U.findOne({
+		_id: id
+	}, {
+		friends: 1
+	});
+	query.run(function(err, doc) {
+		if (err) {
+			callback(NO, err);
+		} else if (!doc) {
+			callback(NO, 'Opps!看起来你还没有添加朋友');
+		} else {
+			callback(OK, doc);
+		}
+	});
+};
+
+/*
+	tags
+*/
+users.setTag = function(user, tag, callback){
+
+};
+users.getTag = function(user, callback){
+
+};
+
+/*
+	mood
+*/
+users.setMood = function(user, mood, callback){
+
+};
+users.getMood = function(user, callback){
+
+};
+
 
 exports.users = users;
