@@ -56,12 +56,12 @@ app.listen(8000);
 // Routes
 app.get('/', middleware.requireLogin, routes.index);
 app.get('/login', function(req, res) {
-  if(req.session.uid){
+  if (req.session.uid) {
     res.redirect('/');
   } else {
     res.render('login', {
-    layout: false
-    });    
+      layout: false
+    });
   }
 });
 app.get('/api', function(req, res) {
@@ -83,12 +83,17 @@ app.post('/login', function(req, res) {
     }
   });
 });
-app.get('/logout',function(req, res){
-  if(req.session.uid) {
+app.get('/logout', function(req, res) {
+  if (req.session.uid) {
     delete req.session.uid;
     delete req.session.user;
   }
   res.redirect('/login');
+});
+app.get('/lifetag', middleware.requireLogin, function(req, res) {
+  res.render('lifeTag', {
+    layout: false
+  });
 });
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
@@ -101,15 +106,15 @@ app.get('/api/posts', function(req, res) {
   });
 });
 
-app.post('/api/posts', middleware.requireLogin ,function(req, res) {
+app.post('/api/posts', middleware.requireLogin, function(req, res) {
   //must use some body parser to parse the post request
-  if(req.body) {
+  if (req.body) {
     var data = req.body;
     data.uid = req.session.uid;
     data.user = req.session.user || req.body.user;
     console.log(data);
-    db.posts.publishPost(data,function(status,err){
-      if(status.ok) {
+    db.posts.publishPost(data, function(status, err) {
+      if (status.ok) {
         //publish ok
         console.log('发布成功！');
       } else {
@@ -122,21 +127,21 @@ app.post('/api/posts', middleware.requireLogin ,function(req, res) {
   }
 });
 
-app.get('/api/posts/comment',function(){
-  
-});
-
-app.get('/api/posts/comment',function(){
+app.get('/api/posts/comment', function() {
 
 });
 
-app.post('/api/posts/comment', middleware.requireLogin ,function(req,res){
-  if(req.body.content && req.body.pid) {
+app.get('/api/posts/comment', function() {
+
+});
+
+app.post('/api/posts/comment', middleware.requireLogin, function(req, res) {
+  if (req.body.content && req.body.pid) {
     var data = req.body;
     data.uid = req.session.uid;
     data.author = req.session.user || req.body.user;
-    db.posts.newComment(req.body.pid,data,function(status,data){
-      if(status.ok){
+    db.posts.newComment(req.body.pid, data, function(status, data) {
+      if (status.ok) {
         //sth
       } else {
         //on err
@@ -175,7 +180,7 @@ app.post('/register', function(req, res) {
   console.log('register called req.body' + req.body.user + ',' + req.body.password);
   db.users.register(req.body.user, req.body.password, function(status, data) {
     if (status.ok) {
-      db.users.findByUser(req.body.user,function(status,doc){
+      db.users.findByUser(req.body.user, function(status, doc) {
         req.session.uid = doc._id;
         req.session.user = req.body.user;
         res.redirect('/');

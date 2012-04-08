@@ -55,7 +55,7 @@ posts.publishPost = function(object, callback) {
 	newPost.author = object.user;
 	newPost.content = object.content;
 	newPost.uid = object.uid;
-	console.dir(newPost);
+	//console.dir(newPost);
 	newPost.save(function(err) {
 		//传递err至服务器
 		if (!err) {

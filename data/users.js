@@ -19,14 +19,8 @@ var User = new Schema({
 	mail: String,
 	bd: Date,
 	mood: String,
-	lifeTags: [LifeTag],
 	tags: [Tag],
 	friends: [Friend]
-});
-
-var LifeTag = new Schema({
-	tag: String,
-	date: Date
 });
 
 var Friend = new Schema({
