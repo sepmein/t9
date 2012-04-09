@@ -1,8 +1,8 @@
-var modules = require('.././modules');
+var handlers = require('.././handlers');
 
 exports.index = function(req, res) {
 	if (req.session.uid) {
-			modules.renderById(req.session.uid, function(koki) {
+			handlers.renderById(req.session.uid, function(koki) {
 				res.render('index', {
 				locals: {
 					data: koki

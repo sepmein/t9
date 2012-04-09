@@ -18,8 +18,7 @@ var SessionMongoose = require("session-mongoose");
 var sessionStore = new SessionMongoose({
   url: "mongodb://localhost/session",
   interval: 60000 * 60 * 24 * 30 * 6
-}); /*modules这部分名字很难取啊~以后改改*/
-var modules = require('./modules');
+});
 
 var app = module.exports = express.createServer();
 

@@ -37,6 +37,8 @@ var U = mongoose.model('users', User);
 //wrap it in super users
 var users = users || {};
 
+users.U = users.U || U;
+
 users.all = function(callback) {
 	var query = U.find({}, {
 		'user': 1

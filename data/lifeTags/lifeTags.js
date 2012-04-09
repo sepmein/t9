@@ -1,5 +1,5 @@
 //database meta
-var mongoose = require('./db.js').mongoose;
+var mongoose = require('.././db.js').mongoose;
 
 var Schema = mongoose.Schema,
 	ObjectId = Schema.ObjectId;
@@ -24,45 +24,34 @@ var LifeTag = new Schema({
 		x: Number,
 		y: Number
 	},
-	tags: [Tag],
-	users: [User]
+	tags: [Tag]
 });
 
 var Tag = new Schema({
 	tag: String
 });
 
-var User = new Schema({
-	uid: ObjectId,
-	type: {
-		type: String,
-		enum: ['participant', 'initiator']
-	},
-	privacy: {
-		type: Number
-		min: 0,
-		max: 5
-	},
-	importance: {
-		type: Number,
-		min: 0,
-		max: 999
-	},
-	happiness: {
-		type: Number,
-		min: -5,
-		max: 5
-	}
-});
-
-var L = mongoose.model('lifeTags', LifeTag);
+var L = mongoose.model('lifetags', LifeTag);
 
 var lifeTags = lifeTags || {};
+
+lifeTags.L = lifeTags.L || L;
 
 lifeTags.add = function(object, callback) {
 	var newTag = new L();
 	newTag.title = object.title;
 	newTag.content = object.content;
 	newTag.date = object.date;
-	newTag.
-}
+	newTag.location = object.location;
+	newTag.tags = object.tags;
+	newTag.save(function(err) {
+		if (!err) {
+			callback(OK);
+		} else {
+			callback(NO, err);
+		}
+	});
+};
+
+
+exports.lifeTags = lifeTags;
