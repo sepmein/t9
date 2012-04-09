@@ -10,11 +10,6 @@ var OK = {
 		ok: 0
 	};
 
-//Add Collections for reference
-var U = require('.././users').users.U;
-var L = require('./index.js').lifeTags.L;
-
-
 /*----------------------------------------------
     store users - lifeTags Connection here
 ------------------------------------------------*/
@@ -22,12 +17,12 @@ var L = require('./index.js').lifeTags.L;
 var RUsers = new Schema({
 	uid: {
 		type: ObjectId,
-		ref: U,
+		ref: 'users',
 		required: true
 	},
 	ltid: {
 		type: ObjectId,
-		ref: L
+		ref: 'lifetags',
 		required: true
 	},
 	type: {
@@ -35,7 +30,7 @@ var RUsers = new Schema({
 		enum: ['participant', 'initiator']
 	},
 	privacy: {
-		type: Number
+		type: Number,	
 		min: 0,
 		max: 5
 	},
@@ -51,7 +46,7 @@ var RUsers = new Schema({
 	}
 });
 
-var RU = mongoose.Model('lifetags.rusers', RUsers);
+var RU = mongoose.model('lifetags.rusers', RUsers);
 
 //wraping object for expose
 var RUsers = RUsers || {};
@@ -60,15 +55,15 @@ var RUsers = RUsers || {};
 RUsers.RU = RU;
 
 //functions
-RUsers.add = function(uid, ltid, doc, callback) {
-	var new = new RU();
-	new.uid = uid;
-	new.ltid = ltid;
-	new.type = doc.type;
-	new.privacy = doc.privacy;
-	new.importance = doc.importance;
-	new.happiness = doc.happiness;
-	new.save(function(err) {
+RUsers.add = function(doc, callback) {
+	var newRU = new RU();
+	newRU.uid = doc.uid;
+	newRU.ltid = doc.ltid;
+	newRU.type = doc.type;
+	newRU.privacy = doc.privacy;
+	newRU.importance = doc.importance;
+	newRU.happiness = doc.happiness;
+	newRU.save(function(err) {
 		if (!err) {
 			callback(OK);
 		} else {

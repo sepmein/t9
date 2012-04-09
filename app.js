@@ -284,3 +284,9 @@ io.sockets.on('connection', function(socket) {
 
 });
 */
+
+//testing lifetags
+(function(){
+  var lifeTags = require('./data/lifeTags').lifeTags;
+  lifeTags.getByLTID('4f8306343a67df518f28955c');
+}());

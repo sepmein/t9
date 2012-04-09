@@ -46,7 +46,7 @@ lifeTags.add = function(object, callback) {
 	newTag.tags = object.tags;
 	newTag.save(function(err) {
 		if (!err) {
-			callback(OK);
+			callback(OK, newTag._id);
 		} else {
 			callback(NO, err);
 		}
