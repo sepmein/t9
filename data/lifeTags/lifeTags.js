@@ -22,7 +22,7 @@ var LifeTag = new Schema({
 	date: {
 		type: Date,
 		default: new Date
-	}
+	},
 	location: {
 		x: Number,
 		y: Number

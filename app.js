@@ -193,6 +193,9 @@ app.post('/register', function(req, res) {
 
 //lifetags
 app.post('/api/lifetags',function(req, res){
+  /*-----------------------------------
+    将此部分逻辑移至客户端，服务器端负责处理和验证纯净数据
+  -------------------------------------*/
   console.dir(req.body);
   //format data
   var data = req.body;

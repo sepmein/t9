@@ -126,7 +126,7 @@
         </section><!-- / -->
         <section>
           <header class="page-header">
-            <h2>Post Comment Api</h2>
+            <h2>Post Comment API</h2>
           </header><!-- /header -->
           <p>url:"/api/posts/comment"</p>
           <p>状态：2</p>
@@ -141,6 +141,79 @@
               date : date   //optional,发表日期，不提供可由服务器自动生成。
             }
           </pre>
+          <p>方法：post</p>
+          <p>说明：pid是标识被评论文章的重要纽带。必须填写。</p>
+          <p>结果：若插入成功则返回一个标识成功的状态码</p>
+          <pre>
+            {ok:1}
+          </pre>
+          <p>若失败则返回一个标识失败的状态码，并附加一个错误代码:</p>
+          <pre>
+            {
+              {ok:0},
+              {err:error}
+            }
+          </pre>
+        </section><!-- / -->
+        <section>
+          <header class="page-header">
+            <h2>LifeTags API</h2>
+          </header><!-- /header -->
+          <p>url:"/api/lifetags"</p>
+          <p>状态：1</p>
+          <br>
+          <p>数据格式：</p>
+          <pre>
+            {
+              title: {
+                type: String,
+                required: true,
+                trim: true
+              },
+              content: String,
+              date: {
+                type: Date,
+                default: new Date
+              },
+              location: {
+                x: Number,
+                y: Number
+              },
+              tags: [Tag]
+              users: [
+                  uid: {
+                    type: ObjectId,
+                    ref: 'users',
+                    required: true
+                  },
+                  ltid: {
+                    type: ObjectId,
+                    ref: 'lifetags',
+                    required: true
+                  },
+                  type: {
+                    type: String,
+                    enum: ['participant', 'initiator']
+                  },
+                  privacy: {
+                    type: Number, 
+                    min: 0,
+                    max: 5
+                  },
+                  importance: {
+                    type: Number,
+                    min: 0,
+                    max: 999
+                  },
+                  happiness: {
+                    type: Number,
+                    min: -5,
+                    max: 5
+                  }
+              ],[],[],[],[]..
+            }
+          </pre>
+          <p>未完待续</p>
         </section><!-- / -->
         <section id="users">
           <header class="page-header">
