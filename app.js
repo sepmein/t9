@@ -9,6 +9,7 @@ var express = require('express'),
 var db = db || {};
 db.posts = require('./data/posts.js').posts;
 db.users = require('./data/users.js').users;
+db.lifeTags = require('./data/lifetags').lifeTags;
 
 /*middleware*/
 var middleware = require('./middleware').middleware;
@@ -193,6 +194,31 @@ app.post('/register', function(req, res) {
 //lifetags
 app.post('/api/lifetags',function(req, res){
   console.dir(req.body);
+  //format data
+  var data = req.body;
+  //权宜之计，不能满足多种条件，将来改进
+  data.users = [];
+  data.users[0]={
+    uid: req.session.uid,
+    type: req.body.type,
+    privacy: req.body.privacy,
+    importance: req.body.importance,
+    happiness: req.body.happiness
+  };
+  delete data.type;
+  delete data.privacy;
+  delete data.importance;
+  delete data.happiness;
+  console.dir(data);
+  db.lifeTags.add(data,function(status,doc){
+    if(status.ok){
+      //for debug
+      console.log('[new] lifeTag Saved');
+    } else {
+      //on err
+      console.log(doc);
+    }
+  });
 });
 
 
@@ -293,6 +319,5 @@ io.sockets.on('connection', function(socket) {
 
 //testing lifetags
 (function(){
-  var lifeTags = require('./data/lifeTags').lifeTags;
-  lifeTags.getByLTID('4f8306343a67df518f28955c');
+  db.lifeTags.getByUID('4f6f0ae03e87558d1699ed21');
 }());

@@ -13,50 +13,52 @@ html
 		header.container
 			h1 LifeTag 你的生活
 		div.body.container
-			button.btn.btn-large.btn-success 
+			a.btn.btn-large.btn-success(data-toggle="modal",href="#newlt")
 				i.icon-plus
 				|&nbsp;新增 LifeTag
-			form.form-horizontal(action="/api/lifetags",method="post")
-				fieldset
-					legend 新增 LifeTag
-					div.control-group
-						label.control-label(for="title") 标题
-						div.controls
-							input#title(type="text",name="title")
-					div.control-group
-						label.control-label(for="content") 内容
-						div.controls
-							textarea#content.input-xlarge
-					div.control-group
-						label.control-label(for="date") 日期
-						div.controls
-							input#date(type="date",name="date")
-					div.control-group
-						label.control-label(for="type") 你是该事件的
-						div.controls
-							label.radio
-								input#typeoption1(type="radio",name="type",value="initiator") 
-								|主办者
-							label.radio
-								input#typeoption2(type="radio",name="type",value="participant") |
-								|参与者
-					div.control-group
-						label.control-label(for="privacy") 隐私级别
-						div.controls
-							input#privacy(type="range",name="privacy",min="0",max="5",value="0")
-					div.control-group
-						label.control-label(for="importance") 重要程度
-						div.controls
-							input#importance(type="range",name="importance",min="0",max="999",value="0")
-					div.control-group
-						label.control-label(for="happiness") 幸福度
-						div.controls
-							input#happiness(type="range",name="happiness",min="-5",max="5",value="0")
-					div.form-actions
-						//设计一个暂存功能
-						button.submit.btn.btn-primary 保存
-						|&nbsp;
-						button.btn 取消
+			div.modal.fade#newlt
+				div.modal-header
+					a.close(data-dismiss="modal") ×
+					h3 新增 LifeTag
+				div.modal-body
+					form#new.form-horizontal(action="/api/lifetags",method="post")
+						fieldset
+							div.control-group
+								label.control-label(for="title") 标题
+								div.controls
+									input#title(type="text",name="title")
+							div.control-group
+								label.control-label(for="content") 内容
+								div.controls
+									textarea#content.input-xlarge(name="content")
+							div.control-group
+								label.control-label(for="date") 日期
+								div.controls
+									input#date(type="date",name="date")
+							div.control-group
+								label.control-label(for="type") 你是该事件的
+								div.controls
+									label.radio
+										input#typeoption1(type="radio",name="type",value="initiator") 
+										|主办者
+									label.radio
+										input#typeoption2(type="radio",name="type",value="participant") |
+										|参与者
+							div.control-group
+								label.control-label(for="privacy") 隐私级别
+								div.controls
+									input#privacy(type="range",name="privacy",min="0",max="5",value="0")
+							div.control-group
+								label.control-label(for="importance") 重要程度
+								div.controls
+									input#importance(type="range",name="importance",min="0",max="999",value="0")
+							div.control-group
+								label.control-label(for="happiness") 幸福度
+								div.controls
+									input#happiness(type="range",name="happiness",min="-5",max="5",value="0")
+				div.modal-footer
+					a.submit.btn.btn-primary(href="#",data-dismiss="modal") 保存
+					a.btn(href="#",data-dismiss="modal") 取消					
 
 		footer
 
@@ -65,5 +67,7 @@ html
 			window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\\/script>');
 		script(src="js/libs/underscore-min.js")
 		script(src="js/libs/backbone-min.js")
+		script(src="js/libs/bootstrap.min.js")
+		script(src="js/lifeTags/script.js")
 		script
 			var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-28326426-2']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();

@@ -19,7 +19,10 @@ var LifeTag = new Schema({
 		trim: true
 	},
 	content: String,
-	date: Date,
+	date: {
+		type: Date,
+		default: new Date
+	}
 	location: {
 		x: Number,
 		y: Number
