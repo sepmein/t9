@@ -1,4 +1,69 @@
 !!! 5
-head
-	title LifeTag,记录分享你的生活
-	
+html
+	head
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible",content="IE=edge,chrome=1")
+		title LifeTag你的生活
+		meta(name="description",content="lifetag能够记录、分享生命中的重要时刻")
+		meta(name="viewport",content="width=device-width")
+		link(rel='stylesheet',href='css/bootstrap.min.css')
+		link(rel="stylesheet",href="css/lifetags/style.css")
+		script(src="js/libs/modernizr-2.5.3.min.js")
+	body
+		header.container
+			h1 LifeTag 你的生活
+		div.body.container
+			button.btn.btn-large.btn-success 
+				i.icon-plus
+				|&nbsp;新增 LifeTag
+			form.form-horizontal(action="/api/lifetags",method="post")
+				fieldset
+					legend 新增 LifeTag
+					div.control-group
+						label.control-label(for="title") 标题
+						div.controls
+							input#title(type="text",name="title")
+					div.control-group
+						label.control-label(for="content") 内容
+						div.controls
+							textarea#content.input-xlarge
+					div.control-group
+						label.control-label(for="date") 日期
+						div.controls
+							input#date(type="date",name="date")
+					div.control-group
+						label.control-label(for="type") 你是该事件的
+						div.controls
+							label.radio
+								input#typeoption1(type="radio",name="type",value="initiator") 
+								|主办者
+							label.radio
+								input#typeoption2(type="radio",name="type",value="participant") |
+								|参与者
+					div.control-group
+						label.control-label(for="privacy") 隐私级别
+						div.controls
+							input#privacy(type="range",name="privacy",min="0",max="5",value="0")
+					div.control-group
+						label.control-label(for="importance") 重要程度
+						div.controls
+							input#importance(type="range",name="importance",min="0",max="999",value="0")
+					div.control-group
+						label.control-label(for="happiness") 幸福度
+						div.controls
+							input#happiness(type="range",name="happiness",min="-5",max="5",value="0")
+					div.form-actions
+						//设计一个暂存功能
+						button.submit.btn.btn-primary 保存
+						|&nbsp;
+						button.btn 取消
+
+		footer
+
+		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js")
+		script
+			window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\\/script>');
+		script(src="js/libs/underscore-min.js")
+		script(src="js/libs/backbone-min.js")
+		script
+			var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-28326426-2']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();

@@ -55,11 +55,13 @@ lifeTags.add = function(doc, callback) {
 	});
 };
 
-lifeTags.getByUID = function(uid, callback){
-	var query = RU.find({uid:uid});
+lifeTags.getByUID = function(uid, callback) {
+	var query = RU.find({
+		uid: uid
+	});
 	query.populate('ltid');
-	query.run(function(err,docs){
-		if(!err){
+	query.run(function(err, docs) {
+		if (!err) {
 			console.dir(docs);
 		} else {
 			console.error(err);
@@ -67,11 +69,13 @@ lifeTags.getByUID = function(uid, callback){
 	});
 };
 
-lifeTags.getByLTID = function(ltid, callback){
-	var query = RU.find({ltid:ltid});
+lifeTags.getByLTID = function(ltid, callback) {
+	var query = RU.find({
+		ltid: ltid
+	});
 	query.populate('uid');
-	query.run(function(err,docs){
-		if(!err){
+	query.run(function(err, docs) {
+		if (!err) {
 			console.dir(docs);
 		} else {
 			console.error(err);

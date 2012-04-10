@@ -190,6 +190,12 @@ app.post('/register', function(req, res) {
   });
 });
 
+//lifetags
+app.post('/api/lifetags',function(req, res){
+  console.dir(req.body);
+});
+
+
 //websocket
 //保留代码，去除功能
 /*
