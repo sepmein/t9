@@ -100,8 +100,9 @@ app.get('/lifetag', middleware.requireLogin, function(req, res) {
   });
 });
 
-app.post('/coupon', function(req, res) {
-  
+app.post('/requireCoupon', function(req, res) {
+  var email = req.body.email;
+
 });
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
@@ -135,11 +136,9 @@ app.post('/api/posts', middleware.requireLogin, function(req, res) {
   }
 });
 
-app.get('/api/posts/comment', function() {
-});
+app.get('/api/posts/comment', function() {});
 
-app.get('/api/posts/comment', function() {
-});
+app.get('/api/posts/comment', function() {});
 
 app.post('/api/posts/comment', middleware.requireLogin, function(req, res) {
   if (req.body.content && req.body.pid) {
@@ -198,7 +197,7 @@ app.post('/register', function(req, res) {
 });
 
 //lifetags
-app.post('/api/lifetags',function(req, res){
+app.post('/api/lifetags', function(req, res) {
   /*-----------------------------------
     将此部分逻辑移至客户端，服务器端负责处理和验证纯净数据
   -------------------------------------*/
@@ -207,7 +206,7 @@ app.post('/api/lifetags',function(req, res){
   var data = req.body;
   //权宜之计，不能满足多种条件，将来改进
   data.users = [];
-  data.users[0]={
+  data.users[0] = {
     uid: req.session.uid,
     type: req.body.type,
     privacy: req.body.privacy,
@@ -219,8 +218,8 @@ app.post('/api/lifetags',function(req, res){
   delete data.importance;
   delete data.happiness;
   console.dir(data);
-  db.lifeTags.add(data,function(status,doc){
-    if(status.ok){
+  db.lifeTags.add(data, function(status, doc) {
+    if (status.ok) {
       //for debug
       console.log('[new] lifeTag Saved');
     } else {
@@ -326,6 +325,6 @@ io.sockets.on('connection', function(socket) {
 */
 
 //testing lifetags
-(function(){
+(function() {
   db.lifeTags.getByUID('4f6f0ae03e87558d1699ed21');
 }());
