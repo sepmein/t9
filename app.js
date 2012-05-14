@@ -64,9 +64,11 @@ app.get('/login', function(req, res) {
     });
   }
 });
+
 app.get('/api', function(req, res) {
   res.redirect('/api/index.html');
 });
+
 app.post('/login', function(req, res) {
   var user = req.body.user;
   var password = req.body.password;
@@ -83,6 +85,7 @@ app.post('/login', function(req, res) {
     }
   });
 });
+
 app.get('/logout', function(req, res) {
   if (req.session.uid) {
     delete req.session.uid;
@@ -90,10 +93,15 @@ app.get('/logout', function(req, res) {
   }
   res.redirect('/login');
 });
+
 app.get('/lifetag', middleware.requireLogin, function(req, res) {
   res.render('lifeTag', {
     layout: false
   });
+});
+
+app.post('/coupon', function(req, res) {
+  
 });
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
@@ -128,11 +136,9 @@ app.post('/api/posts', middleware.requireLogin, function(req, res) {
 });
 
 app.get('/api/posts/comment', function() {
-
 });
 
 app.get('/api/posts/comment', function() {
-
 });
 
 app.post('/api/posts/comment', middleware.requireLogin, function(req, res) {
@@ -223,7 +229,6 @@ app.post('/api/lifetags',function(req, res){
     }
   });
 });
-
 
 //websocket
 //保留代码，去除功能
