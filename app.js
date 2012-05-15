@@ -138,8 +138,6 @@ app.post('/api/posts', middleware.requireLogin, function(req, res) {
 
 app.get('/api/posts/comment', function() {});
 
-app.get('/api/posts/comment', function() {});
-
 app.post('/api/posts/comment', middleware.requireLogin, function(req, res) {
   if (req.body.content && req.body.pid) {
     var data = req.body;
@@ -323,8 +321,3 @@ io.sockets.on('connection', function(socket) {
 
 });
 */
-
-//testing lifetags
-(function() {
-  db.lifeTags.getByUID('4f6f0ae03e87558d1699ed21');
-}());
