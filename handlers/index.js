@@ -15,8 +15,8 @@ handlers.renderIndex = function(req, res, next) {
 
   db.posts.fetchAll(function(err, doc) {
     koki.posts = doc;
-    db.users.findById(uid, function(status, doc) {
-      if (!status.ok) {
+    db.users.findById(koki.uid, function(status, doc) {
+      if (!status.ok || !doc) {
         //error handler
       } else {
         koki.user = doc.user;
@@ -27,8 +27,8 @@ handlers.renderIndex = function(req, res, next) {
             data: koki
           }
         });
-      });
-    }
+      }
+    });
   });
 };
 
@@ -77,7 +77,7 @@ handlers.requireCoupon = function(req, res, next) {
   var email = req.body.email;
 };
 
-handlers.postPost = function(req, res) {
+handlers.postPosts = function(req, res) {
   //must use some body parser to parse the post request
   if (req.body) {
     var data = req.body;
@@ -206,4 +206,5 @@ handlers.getPosts = function(req, res) {
     //res.flash('err','没发布什么内容啊。');
   }
 };
+
 module.exports = handlers;

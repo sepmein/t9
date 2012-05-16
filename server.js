@@ -1,13 +1,14 @@
-var express = require('express');
+var express = require('express'); 
+//mongoose session store by mongoose session, maybe rewrite it by myself later
+var SessionMongoose = require("session-mongoose");
+var sessionStore = new SessionMongoose({
+	url: "mongodb://localhost/session",
+	interval: 60000 * 60 * 24 * 30 * 6
+});
+
 
 function start(route) {
 
-	/*mongoose session store by mongoose session, maybe rewrite it by myself later*/
-	var SessionMongoose = require("session-mongoose");
-	var sessionStore = new SessionMongoose({
-		url: "mongodb://localhost/session",
-		interval: 60000 * 60 * 24 * 30 * 6
-	});
 	var app = module.exports = express.createServer();
 
 	// Configuration

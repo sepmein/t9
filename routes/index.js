@@ -1,5 +1,5 @@
 var handlers = require('.././handlers');
-var middleware = require('../.middleware');
+var middleware = require('.././middleware');
 
 module.exports = function(app) {
 	app.get('/', middleware.requireLogin, handlers.renderIndex);
