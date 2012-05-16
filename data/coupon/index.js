@@ -28,7 +28,7 @@ var Coupon = new Schema({
 
 var C = mongoose.model('coupons', Coupon);
 
-var coupon = coupons || {};
+var coupon = coupon || {};
 
 //申请优惠券
 coupon.add = function(requester, callback) {
@@ -40,7 +40,7 @@ coupon.add = function(requester, callback) {
 			callback(NO, err);
 		} else {
 			if (doc.length >= 1) {
-				callback(NO, '看起来，您已经申请过了')；
+				callback(NO, '看起来，您已经申请过了');
 			} else {
 				var newCoupon = new C();
 				newCoupon.requester = requester;
@@ -76,10 +76,11 @@ coupon.generate = function(callback) {
 		if (!err && doc.length != 0) {
 			//update coupon code & notify user
 			var conditions = {
-				_id: doc._id
+				//err : missed []
+				_id: doc[0]._id
 			},
 				update = {
-					'$set': {
+					$set : {
 						'coupon': generateCoupon()
 					}
 				},
@@ -88,7 +89,8 @@ coupon.generate = function(callback) {
 				};
 			C.update(conditions, update, options, function(err, n) {
 				if (!err) {
-					callback(OK);
+					callback(OK, doc[0].email);
+					console.log('number affected :' + n);
 				} else {
 					callback(NO, err);
 				}
@@ -115,4 +117,4 @@ coupon.delete = function(requester, coupon, callback) {
 	});
 };
 
-exports.coupon = coupon;
+module.exports = coupon;
