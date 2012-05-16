@@ -1,4 +1,5 @@
 var middleware = middleware || {};
+
 middleware.requireLogin = function (req,res,next) {
 	if(req.session.uid) {
 		next();
@@ -7,4 +8,6 @@ middleware.requireLogin = function (req,res,next) {
 	}
 }
 
-exports.middleware = middleware;
+middleware.
+
+module.exports = middleware;

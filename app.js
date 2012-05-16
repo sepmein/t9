@@ -12,7 +12,7 @@ db.users = require('./data/users.js').users;
 db.lifeTags = require('./data/lifetags').lifeTags;
 
 /*middleware*/
-var middleware = require('./middleware').middleware;
+var middleware = require('./middleware');
 
 /*mongoose session store by mongoose session, maybe rewrite it by myself later*/
 var SessionMongoose = require("session-mongoose");
@@ -55,6 +55,7 @@ app.listen(8000);
 
 // Routes
 app.get('/', middleware.requireLogin, routes.index);
+
 app.get('/login', function(req, res) {
   if (req.session.uid) {
     res.redirect('/');
@@ -156,7 +157,6 @@ app.post('/api/posts/comment', middleware.requireLogin, function(req, res) {
     console.log('no content or pid');
   }
 });
-
 
 //move this part to template engine, reduce ajax call
 app.get('/api/serverInfo', function(req, res) {

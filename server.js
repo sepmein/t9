@@ -1,9 +1,10 @@
 var express = require('express');
 
-var start = function() {
+var start = function(route) {
 		var app = module.exports = express.createServer();
 
 		// Configuration
+		// seperation is under consideration
 		app.configure(function() {
 			app.set('views', __dirname + '/views');
 			app.set('view engine', 'jade');
@@ -31,7 +32,13 @@ var start = function() {
 		app.configure('production', function() {
 			app.use(express.errorHandler());
 		});
-		app.listen(8000);
+
+		var port = 8000;
+		//end of configuration
+
+		app.listen(port);
+
+		route(app);
 	};
 
 exports.start = start;
