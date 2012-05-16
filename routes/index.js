@@ -1,12 +1,6 @@
 var handlers = require('.././handlers');
 var middleware = require('../.middleware');
 
-exports.register = function(req, res) {
-	//验证，成功后在db增加记录，失败后重定向至首页
-	res.redirect('/');
-};
-
-//temp
 module.exports = function(app) {
 	app.get('/', middleware.requireLogin, handlers.renderIndex);
 
@@ -21,7 +15,6 @@ module.exports = function(app) {
 	app.post('/login', handlers.login);
 
 	app.post('/requireCoupon', handlers.requireCoupon);
-	console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 	// Rest Api
 	app.get('/api/posts', handlers.getPosts);

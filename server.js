@@ -1,44 +1,52 @@
 var express = require('express');
 
-var start = function(route) {
-		var app = module.exports = express.createServer();
+function start(route) {
 
-		// Configuration
-		// seperation is under consideration
-		app.configure(function() {
-			app.set('views', __dirname + '/views');
-			app.set('view engine', 'jade');
-			app.use(express.bodyParser());
-			app.use(express.methodOverride());
-			app.use(express.cookieParser());
-			app.use(express.session({
-				secret: 'Crimson~87',
-				store: sessionStore,
-				cookie: {
-					maxAge: 60000 * 60 * 24 * 30 * 6
-				}
-			}));
-			app.use(app.router);
-			app.use(express.static(__dirname + '/public'));
-		});
+	/*mongoose session store by mongoose session, maybe rewrite it by myself later*/
+	var SessionMongoose = require("session-mongoose");
+	var sessionStore = new SessionMongoose({
+		url: "mongodb://localhost/session",
+		interval: 60000 * 60 * 24 * 30 * 6
+	});
+	var app = module.exports = express.createServer();
 
-		app.configure('development', function() {
-			app.use(express.errorHandler({
-				dumpExceptions: true,
-				showStack: true
-			}));
-		});
+	// Configuration
+	// seperation is under consideration
+	app.configure(function() {
+		app.set('views', __dirname + '/views');
+		app.set('view engine', 'jade');
+		app.use(express.bodyParser());
+		app.use(express.methodOverride());
+		app.use(express.cookieParser());
+		app.use(express.session({
+			secret: 'Crimson~87',
+			store: sessionStore,
+			cookie: {
+				maxAge: 60000 * 60 * 24 * 30 * 6
+			}
+		}));
+		app.use(app.router);
+		app.use(express.static(__dirname + '/public'));
+	});
 
-		app.configure('production', function() {
-			app.use(express.errorHandler());
-		});
+	app.configure('development', function() {
+		app.use(express.errorHandler({
+			dumpExceptions: true,
+			showStack: true
+		}));
+	});
 
-		var port = 8000;
-		//end of configuration
+	app.configure('production', function() {
+		app.use(express.errorHandler());
+	});
 
-		app.listen(port);
+	var port = 8000;
+	//end of configuration
+	app.listen(port);
 
-		route(app);
-	};
+	route(app);
+
+	console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+};
 
 exports.start = start;
