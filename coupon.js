@@ -7,12 +7,6 @@
 var db = db || {};
 db.coupons = require('./data/coupon');
 
-//configuration
-var flow = {
-	interval: 1,
-	requesters: 5
-};
-
 var intervalId;
 var coupon = coupon || {};
 var sendCoupon = function(n) {
@@ -35,19 +29,19 @@ var sendCoupon = function(n) {
 		generate();
 	};
 
-var coupon.startService = function(flow) {
+coupon.startService = function(flow) {
 		intervalId = setInterval(function() {
 			sendCoupon(flow.requesters);
 		}, flow.interval * 24 * 60 * 60 * 1000);
 	};
 
-var coupon.stopService = function() {
+coupon.stopService = function() {
 		if (intervalId) {
 			clearInterval(intervalId);
 		}
 	};
 
-var coupon.reStart = function(flow, intervalID) {
+coupon.reStart = function(flow) {
 		stop();
 		start(flow);
 	};
