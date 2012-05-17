@@ -12,11 +12,14 @@ module.exports = function(app) {
 
 	app.get('/lifetag', middleware.requireLogin, handlers.renderLifeTag);
 
+	// Log logic
 	app.get('/welcome', handlers.welcome);
 
 	app.post('/login', handlers.login);
 
 	app.post('/requireCoupon', handlers.requireCoupon);
+
+	app.post('/register', handlers.register);
 
 	// Rest Api
 	app.get('/api/posts', handlers.getPosts);
@@ -30,8 +33,6 @@ module.exports = function(app) {
 	app.get('/api/serverInfo', handlers.getServerInfo);
 
 	app.get('/api/users', handlers.getUsers);
-
-	app.post('/register', handlers.register);
 
 	app.post('/api/lifetags', handlers.postLifeTags);
 };
