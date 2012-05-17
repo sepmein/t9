@@ -66,6 +66,9 @@ handlers.login = function(req, res, next) {
 };
 
 handlers.welcome = function(req, res, next) {
+  var email = req.query.email;
+  var coupon = req.query.coupon;
+  
   res.render('welcome', {
     layout: false
   });
@@ -128,8 +131,7 @@ handlers.getServerInfo = function(req, res) {
   res.send(info);
 };
 
-//注册成功。。。不成功redirect。。以后优化，尽量在一个页面当中完成注册过程
-/* replaced by new coupon system
+//replaced by new coupon system
 handlers.register = function(req, res) {
   console.log('register called req.body' + req.body.user + ',' + req.body.password);
   db.users.register(req.body.user, req.body.password, function(status, data) {
@@ -144,7 +146,7 @@ handlers.register = function(req, res) {
     }
   });
 };
-*/
+
 handlers.getUsers = function(req, res) {
   db.users.all(function(status, data) {
     if (status.ok) {

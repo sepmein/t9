@@ -80,7 +80,7 @@ coupon.generate = function(callback) {
 				_id: doc[0]._id
 			},
 				update = {
-					$set : {
+					$set: {
 						'coupon': generateCoupon()
 					}
 				},
@@ -113,6 +113,20 @@ coupon.delete = function(requester, coupon, callback) {
 			callback(OK);
 		} else {
 			callback(NO, err);
+		}
+	});
+};
+
+coupon.check = function(requester, coupon, callback) {
+	var conditions = {
+		requester: requester,
+		coupon: coupon
+	};
+	C.find(conditions, function(err, doc) {
+		if (!err && doc.length > 0) {
+			callback(OK);
+		} else {
+			callback(NO);
 		}
 	});
 };
