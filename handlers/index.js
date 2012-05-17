@@ -65,15 +65,6 @@ handlers.login = function(req, res, next) {
   });
 };
 
-handlers.welcome = function(req, res, next) {
-  var email = req.query.email;
-  var coupon = req.query.coupon;
-  
-  res.render('welcome', {
-    layout: false
-  });
-};
-
 handlers.logout = function(req, res, next) {
   if (req.session.uid) {
     delete req.session.uid;
@@ -215,5 +206,13 @@ handlers.getPosts = function(req, res) {
 //coupon section
 var coupon = require('./coupon.js');
 handlers.requireCoupon = coupon.requireCoupon;
+handlers.coupon = function(req, res, next) {
+  var email = req.query.email;
+  var coupon = req.query.coupon;
+
+  res.render('welcome', {
+    layout: false
+  });
+};
 
 module.exports = handlers;

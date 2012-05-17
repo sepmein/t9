@@ -20,6 +20,10 @@ coupon.requireCoupon = function(req, res, next) {
 			}
 		});
 	}
-}
+};
+
+coupon.welcome = function(req,res,next){
+		
+};
 
 module.exports = coupon;
