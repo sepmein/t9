@@ -73,10 +73,6 @@ handlers.logout = function(req, res, next) {
   res.redirect('/login');
 };
 
-handlers.requireCoupon = function(req, res, next) {
-  var email = req.body.email;
-};
-
 handlers.postPosts = function(req, res) {
   //must use some body parser to parse the post request
   if (req.body) {
@@ -127,6 +123,7 @@ handlers.getServerInfo = function(req, res) {
 };
 
 //注册成功。。。不成功redirect。。以后优化，尽量在一个页面当中完成注册过程
+/* replaced by new coupon system
 handlers.register = function(req, res) {
   console.log('register called req.body' + req.body.user + ',' + req.body.password);
   db.users.register(req.body.user, req.body.password, function(status, data) {
@@ -141,7 +138,7 @@ handlers.register = function(req, res) {
     }
   });
 };
-
+*/
 handlers.getUsers = function(req, res) {
   db.users.all(function(status, data) {
     if (status.ok) {
@@ -206,5 +203,9 @@ handlers.getPosts = function(req, res) {
     //res.flash('err','没发布什么内容啊。');
   }
 };
+
+//coupon section
+var coupon = require('./coupon.js');
+handlers.requireCoupon = coupon.requireCoupon;
 
 module.exports = handlers;

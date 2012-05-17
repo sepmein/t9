@@ -29,7 +29,7 @@ module.exports = function(app) {
 
 	app.get('/api/users', handlers.getUsers);
 
-	app.post('/register', handlers.register);
+//	app.post('/register', handlers.register);
 
 	app.post('/api/lifetags', handlers.postLifeTags);
 };
