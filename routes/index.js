@@ -12,6 +12,8 @@ module.exports = function(app) {
 
 	app.get('/lifetag', middleware.requireLogin, handlers.renderLifeTag);
 
+	app.get('/welcome', handlers.welcome);
+
 	app.post('/login', handlers.login);
 
 	app.post('/requireCoupon', handlers.requireCoupon);

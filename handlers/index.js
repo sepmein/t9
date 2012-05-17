@@ -65,6 +65,12 @@ handlers.login = function(req, res, next) {
   });
 };
 
+handlers.welcome = function(req, res, next) {
+  res.render('welcome', {
+    layout: false
+  });
+};
+
 handlers.logout = function(req, res, next) {
   if (req.session.uid) {
     delete req.session.uid;
