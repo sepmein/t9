@@ -29,21 +29,23 @@ var sendCoupon = function(n) {
 		generate();
 	};
 
-coupon.startService = function(flow) {
+coupon.startService = function(configure) {
+	configure(function(flow) {
 		intervalId = setInterval(function() {
 			sendCoupon(flow.requesters);
 		}, flow.interval * 24 * 60 * 60 * 1000);
-	};
+	});
+};
 
 coupon.stopService = function() {
-		if (intervalId) {
-			clearInterval(intervalId);
-		}
-	};
+	if (intervalId) {
+		clearInterval(intervalId);
+	}
+};
 
 coupon.reStart = function(flow) {
-		stop();
-		start(flow);
-	};
+	stop();
+	start(flow);
+};
 
 module.exports = coupon;

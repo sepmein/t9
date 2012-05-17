@@ -4,5 +4,5 @@ var coupon = require('./coupon.js');
 
 var configure = require('./configure');
 
-server.start(route, configure.server);
+server.start(route);
 coupon.startService(configure.coupon);
