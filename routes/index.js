@@ -1,6 +1,5 @@
 var handlers = require('.././handlers');
 var middleware = require('.././middleware');
-var admin = require('./admin.js');
 
 module.exports = function(app) {
 	app.get('/', middleware.requireLogin, handlers.renderIndex);
@@ -37,6 +36,4 @@ module.exports = function(app) {
 
 	app.post('/api/lifetags', handlers.postLifeTags);
 
-	//admin
-	admin(app);
 };
