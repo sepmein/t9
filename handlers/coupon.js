@@ -36,7 +36,6 @@ coupon.welcome = function(req, res, next) {
 			next();
 		}
 	});
-
 };
 
 module.exports = coupon;

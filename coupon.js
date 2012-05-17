@@ -4,7 +4,8 @@
 
 */
 
-var coupon = require('./data/coupon');
+var db = db || {};
+db.coupons = require('./data/coupon');
 
 //configuration
 var flow = {
@@ -13,13 +14,13 @@ var flow = {
 };
 
 var intervalId;
-
+var coupon = coupon || {};
 var sendCoupon = function(n) {
 		console.log('Aloha! Spencer start sending coupons!!!!')
 		var unsent = 0,
 			count = n;
 		var generate = function() {
-				coupon.generate(function(status, info) {
+				db.coupons.generate(function(status, info) {
 					if (status.ok && count > 0) {
 						count--;
 						console.log('Yes! coupon sent to :' + info);
@@ -34,31 +35,21 @@ var sendCoupon = function(n) {
 		generate();
 	};
 
-function start(flow) {
-	intervalId = setInterval(function() {
-		sendCoupon(flow.requesters);
-	}, flow.interval * 10 * 1000);
-}
+var coupon.startService = function(flow) {
+		intervalId = setInterval(function() {
+			sendCoupon(flow.requesters);
+		}, flow.interval * 24 * 60 * 60 * 1000);
+	};
 
-function stop() {
-	if (intervalId) {
-		clearInterval(intervalId);
-	}
-}
+var coupon.stopService = function() {
+		if (intervalId) {
+			clearInterval(intervalId);
+		}
+	};
 
-function reStart(flow, intervalID) {
-	stop();
-	start(flow);
-}
+var coupon.reStart = function(flow, intervalID) {
+		stop();
+		start(flow);
+	};
 
-
-//unit test
-/*coupon.add('emilytimi@gmail.com',function(status,err){
-	if(status.ok){
-		console.log('coupon added!!');
-	} else {
-		console.log('something failed, err : '+ err);
-	}
-});
-*/
-start(flow);
+module.exports = coupon;
