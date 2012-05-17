@@ -123,7 +123,7 @@ coupon.check = function(requester, coupon, callback) {
 		coupon: coupon
 	};
 	C.find(conditions, function(err, doc) {
-		if (!err && doc.length > 0) {
+		if (!err && (doc.length > 0)) {
 			callback(OK);
 		} else {
 			callback(NO);

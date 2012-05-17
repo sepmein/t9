@@ -206,13 +206,6 @@ handlers.getPosts = function(req, res) {
 //coupon section
 var coupon = require('./coupon.js');
 handlers.requireCoupon = coupon.requireCoupon;
-handlers.coupon = function(req, res, next) {
-  var email = req.query.email;
-  var coupon = req.query.coupon;
-
-  res.render('welcome', {
-    layout: false
-  });
-};
+handlers.welcome = coupon.welcome;
 
 module.exports = handlers;
