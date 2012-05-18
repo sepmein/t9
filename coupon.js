@@ -30,11 +30,10 @@ var sendCoupon = function(n) {
 	};
 
 coupon.startService = function(configure) {
-	configure(function(flow) {
-		intervalId = setInterval(function() {
-			sendCoupon(flow.requesters);
-		}, flow.interval * 24 * 60 * 60 * 1000);
-	});
+	var flow = configure();
+	intervalId = setInterval(function() {
+		sendCoupon(flow.requesters);
+	}, flow.interval * 24 * 60 * 60 * 1000);
 };
 
 coupon.stopService = function() {

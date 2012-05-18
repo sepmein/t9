@@ -1,11 +1,11 @@
 //coupon
-var coupon = function(callback) {
+var coupon = function() {
 		var flow = {
 			//interval unit:day
 			interval: 1,
 			requesters: 5
 		};
-		callback(flow);
+		return flow;
 	};
 
 exports.coupon = coupon;
