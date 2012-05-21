@@ -18,6 +18,8 @@ var sendCoupon = function(n) {
 					if (status.ok && count > 0) {
 						count--;
 						console.log('Yes! coupon sent to :' + info);
+						//发送coupon至邮箱
+						//从db删除coupon
 						//循环自调用
 						generate();
 					} else {
