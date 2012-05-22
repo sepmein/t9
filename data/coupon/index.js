@@ -59,9 +59,14 @@ coupon.add = function(requester, callback) {
 	});
 };
 
+/*
+	按时间倒序查找最久远的一条record
+	给他一个coupon
+	成功后调用callback，传递requester以及
+*/
 coupon.generate = function(callback) {
 
-	var generateCoupon = util.generateCoupon;
+	var generateCoupon = util.generateCoupon();
 
 	//找到没有coupon的最早注册者，给他一个coupon
 	var query = C.find();
@@ -77,7 +82,7 @@ coupon.generate = function(callback) {
 			},
 				update = {
 					$set: {
-						'coupon': generateCoupon()
+						'coupon': generateCoupon
 					}
 				},
 				options = {
@@ -85,7 +90,8 @@ coupon.generate = function(callback) {
 				};
 			C.update(conditions, update, options, function(err, n) {
 				if (!err) {
-					callback(OK, doc[0].email, doc[0].coupon);
+					console.dir(doc[0]);
+					callback(OK, doc[0].requester, generateCoupon);
 					console.log('number affected :' + n);
 				} else {
 					callback(NO, err);

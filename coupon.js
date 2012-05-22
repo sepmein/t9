@@ -19,6 +19,7 @@ var sendCoupon = function(n) {
 						count--;
 						//console.log('Yes! coupon sent to :' + info);
 						//发送coupon至邮箱
+						console.log("!!!debug:" + coupon);
 						email.sendCoupon(address, coupon);
 						//循环自调用
 						generate();

@@ -17,6 +17,14 @@ function send(to, template, locals) {
 	});
 };
 
+/*
+	bug
+		1. 链接中的 & 符号变成了 &amp;
+	solved
+		1. coupon变成undefined 
+			A: db.coupons query的coupon还未set.
+			S: use local var generateCoupon 
+*/
 email.sendCoupon = function(to, coupon) {
 	var sc = require('./template/sendCoupon.js');
 	var locals = {};
