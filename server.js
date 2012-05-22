@@ -41,7 +41,7 @@ function start(route) {
 		app.use(express.errorHandler());
 	});
 
-	var port = 8000;
+	var port = 80;
 	//end of configuration
 	app.listen(port);
 
