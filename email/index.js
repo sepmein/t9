@@ -18,11 +18,11 @@ function send(to, template, locals) {
 };
 
 email.sendCoupon = function(to, coupon) {
-	var sendCoupon = require('./template/sendCoupon.js');
+	var sc = require('./template/sendCoupon.js');
 	var locals = {};
-	locals.link = 'http://kokiya.no.de/welcome/?email=' + to +'&coupon=' + coupon;
+	locals.link = 'http://kokiya.no.de/welcome/?email=' + to + '&coupon=' + coupon;
 	console.log('generated locals.link is ' + locals.link);
-	send(to, sendCoupon, locals);
+	send(to, sc, locals);
 };
 
 module.exports = email;
