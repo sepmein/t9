@@ -25,6 +25,7 @@ coupon.requireCoupon = function(req, res, next) {
 coupon.welcome = function(req, res, next) {
 	var email = req.query.email;
 	var coupon = req.query.coupon;
+	console.log('request email is ' + email + '\nrequest coupon is ' + coupon);
 	db.coupons.check(email, coupon, function(status) {
 		if (status.ok) {
 			//email matches coupon

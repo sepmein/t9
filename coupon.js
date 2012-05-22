@@ -1,7 +1,6 @@
 //this is the coupon app
 /*
-1. detect 
-
+1. detect
 */
 
 var db = db || {};
@@ -14,12 +13,12 @@ var sendCoupon = function(n) {
 		var unsent = 0,
 			count = n;
 		var generate = function() {
-				db.coupons.generate(function(status, info) {
+				db.coupons.generate(function(status, email, coupon) {
 					if (status.ok && count > 0) {
 						count--;
-						console.log('Yes! coupon sent to :' + info);
+						//console.log('Yes! coupon sent to :' + info);
 						//发送coupon至邮箱
-						//从db删除coupon
+						email.sendCoupon(email, coupon);
 						//循环自调用
 						generate();
 					} else {

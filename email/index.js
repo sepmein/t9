@@ -17,14 +17,12 @@ function send(to, template, locals) {
 	});
 };
 
-email.sendCoupon = function(to, locals) {
+email.sendCoupon = function(to, coupon) {
 	var sendCoupon = require('./template/sendCoupon.js');
+	var locals = {};
+	locals.link = 'http://kokiya.no.de/welcome/?email=' + to +'&coupon=' + coupon;
+	console.log('generated locals.link is ' + locals.link);
 	send(to, sendCoupon, locals);
 };
-
-email.couponApplyVerify = function(to, locals) {
-	var couponApplyVerify = require('./template/couponApplyVerify.js');
-	send(to, couponApplyVerify, locals);
-}
 
 module.exports = email;

@@ -12,9 +12,9 @@ ses.request('GetSendQuota',{},function(err,response){
 */
 
 ses.request('SendEmail', {
-	'Destination.ToAddresses.member.1': 'crimde@gmail.com',
-	'Message.Body.Text.Data': 'From Amazon SES小广告系统',
-	'Message.Subject.Data': 'hihi',
+	'Destination.ToAddresses.member.1': 'emilytimi@gmail.com',
+	'Message.Body.Html.Data': '<h1>From Amazon SES小广告系统</h1><p>再发一封</p>',
+	'Message.Subject.Data': '老娘睡着了',
 	'Source': "sepmein@gmail.com"
 }, function(err, response) {
 	if (!err) {

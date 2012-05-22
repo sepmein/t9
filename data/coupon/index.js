@@ -12,6 +12,9 @@ var OK = {
 
 /*-----------------------------------------------------------------*/
 
+//util
+var util = require('../.././util');
+
 var Coupon = new Schema({
 	//use validation here
 	requester: {
@@ -58,14 +61,7 @@ coupon.add = function(requester, callback) {
 
 coupon.generate = function(callback) {
 
-	var generateCoupon = function() {
-			var s = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-			var result = "";
-			for (var i = 6; i > 0; i--) {
-				result += s.charAt(Math.floor(Math.random() * s.length));
-			};
-			return result;
-		};
+	var generateCoupon = util.generateCoupon;
 
 	//找到没有coupon的最早注册者，给他一个coupon
 	var query = C.find();
@@ -89,7 +85,7 @@ coupon.generate = function(callback) {
 				};
 			C.update(conditions, update, options, function(err, n) {
 				if (!err) {
-					callback(OK, doc[0].email);
+					callback(OK, doc[0].email, doc[0].coupon);
 					console.log('number affected :' + n);
 				} else {
 					callback(NO, err);
