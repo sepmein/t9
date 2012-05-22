@@ -7,7 +7,7 @@ function send(to, template, locals) {
 		'Destination.ToAddresses.member.1': to,
 		'Message.Body.Html.Data': template.Body(locals),
 		'Message.Subject.Data': template.Subject(),
-		'Source': "crimde@gmail.com"
+		'Source': "no.reply.kokiya@gmail.com"
 	}, function(err, response) {
 		if (!err) {
 			console.dir(response);
