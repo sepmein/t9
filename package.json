@@ -7,9 +7,9 @@
 	},
 	"dependencies": {
 		"express": ">=2.5.8",
-		"mongoose": "2.5.10",
-		"jade": "0.21.0",
-		"session-mongoose": "0.0.2",
+		"mongoose": ">=2.5.10",
+		"jade": ">=0.21.0",
+		"session-mongoose": ">=0.0.2",
 		"aws2js": ">=0.6.15"
 	}
 }
