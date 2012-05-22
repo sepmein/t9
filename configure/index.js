@@ -3,7 +3,7 @@ var coupon = function() {
 		var flow = {
 			//interval unit:day
 			interval: 1,
-			requesters: 5
+			requesters: 4
 		};
 		return flow;
 	};
