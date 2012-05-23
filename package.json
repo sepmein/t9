@@ -6,10 +6,10 @@
 		"start": "NODE_ENV=production node app.js"
 	},
 	"dependencies": {
-		"express": ">=2.5.8",
-		"mongoose": ">=2.5.10",
-		"jade": ">=0.21.0",
+		"express": "2.5.9",
+		"mongoose": "2.6.4",
+		"jade": "0.26.0",
 		"session-mongoose": ">=0.0.2",
-		"aws2js": ">=0.6.15"
+		"aws2js": "0.6.16"
 	}
 }
