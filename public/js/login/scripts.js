@@ -1,9 +1,3 @@
-var button = button || {};
-button.listen = function(btn, fn) {
-	//btn jquery obj, fn function
-	btn.click(fn);
-};
-
 var util = {};
 util.validateEmail = function(email) {
 	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -21,23 +15,23 @@ util.validateEmail = function(email) {
 		}
 	});
 
-
-
 	$('#sendEmailAddress').click(function() {
 		//changed to sending state
 		var email = $('#email').value;
-		$.post('/requireCoupon', function() {
-
-		});
-		changeButtonStateToSending();
-		sendEmailAddress();
-		waitingForResult(function(result) {
-			if (result) {
-				//success
-				display(success);
+		$('#sendEmailAddress').text('Sending');
+		$.post('/requireCoupon', email, function(data) {
+			/*
+				data structure
+				{
+					ok:bool,
+					err:string
+				}
+			*/
+			if (data.ok) {
+				$('#sendEmailAddress').text('成功加入队列');	
 			} else {
-				//fail
-				display(fail);
+				$('#sendEmailAddress').text('加入队列');
+				//display err
 			}
 		});
 	});

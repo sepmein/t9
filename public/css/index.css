@@ -3,4 +3,4 @@
 header h1.logo{width:744px;margin:0 auto;}
 header h2{width:515px;color:rgba(255, 255, 255, 0.4);margin:0 auto;}
 footer{margin-top:450px;height:180px;overflow:hidden;}footer>div{-webkit-animation:planet 500s infinite linear;-moz-animation:planet 500s infinite linear;-ms-animation:planet 500s infinite linear;-o-animation:planet 500s infinite linear;}
-.wrongAddress{border-color:#;}
+.wrongAddress{border-color:#b94a48;box-shadow:rgba(0, 0, 0, 0.0742188) 0px 1px 1px 0px inset;}
