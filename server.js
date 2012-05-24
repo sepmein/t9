@@ -38,6 +38,7 @@ function start(route) {
 	});
 
 	app.configure('production', function() {
+		app.enabled('view cache');
 		app.use(express.errorHandler());
 	});
 

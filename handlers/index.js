@@ -203,6 +203,10 @@ handlers.getPosts = function(req, res) {
   }
 };
 
+handlers.fourOFour = function(req, res) {
+  res.redirect('404.html');
+};
+
 //coupon section
 var coupon = require('./coupon.js');
 handlers.requireCoupon = coupon.requireCoupon;

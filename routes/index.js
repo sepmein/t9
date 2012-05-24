@@ -36,4 +36,8 @@ module.exports = function(app) {
 
 	app.post('/api/lifetags', handlers.postLifeTags);
 
+	//custom 404
+
+	app.get('*', handlers.fourOFour);
+
 };
