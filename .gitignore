@@ -1,3 +1,5 @@
 /node_modules
 /public/less
 .DS_Store
+*.log
+*.stackdump
