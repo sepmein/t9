@@ -7,9 +7,10 @@ util.validateEmail = function(email) {
 (function() {
 	//验证成功则使button亮起，否则无法requireCoupon
 	$('#email').keyup(function() {
-		var t = util.validateEmail($(this).value);
+		console.log($(this).val());
+		var t = util.validateEmail($(this).val());
 		if (t) {
-			$(this).removeclass('wrongAddress');
+			$(this).removeClass('wrongAddress');
 		} else {
 			$(this).addClass('wrongAddress');
 		}
@@ -18,9 +19,11 @@ util.validateEmail = function(email) {
 	$('#sendEmailAddress').click(function() {
 		event.preventDefault();
 		//changed to sending state
-		var email = $('#email').value;
+		var email = $('#email').val();
 		$('#sendEmailAddress').text('Sending');
-		$.post('/requireCoupon', email, function(data) {
+		$.post('/requireCoupon', {
+			email: email
+		}, function(data) {
 			/*
 				data structure
 				{
@@ -29,11 +32,14 @@ util.validateEmail = function(email) {
 				}
 			*/
 			if (data.ok) {
-				$('#sendEmailAddress').text('成功加入队列').;	
+				$('#sendEmailAddress').text('成功加入队列');
 			} else {
-				$('#sendEmailAddress').text('失败');
+				$('#sendEmailAddress').text('失败').addClass('btn-warning');
 				//display err
-				
+				$('#errMessage').text(data.err).show(1000, function() {
+					$('#sendEmailAddress').text('加入队列').removeClass('btn-warning');
+					$('#errMessage').hide(300);
+				});
 			}
 		});
 	});
