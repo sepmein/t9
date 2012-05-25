@@ -9,14 +9,22 @@ coupon.requireCoupon = function(req, res, next) {
 	var email = req.body.email;
 	if (!validateEmail(email)) {
 		//email 不符合要求
-		console.log('ERR requiring coupon : email validation err');
+		res.json({
+			ok: 0,
+			err: 'Requiring Coupon: Wrong Email Address'
+		});
 	} else {
 		db.coupons.add(email, function(status, err) {
 			if (status.ok) {
 				//success
-				console.log('Email: ' + email + ' has been added to the que');
+				res.json({
+					ok: 1
+				});
 			} else {
-				console.log("ERR requiring coupon :" + err);
+				res.json({
+					ok: 0,
+					err: err
+				})
 			}
 		});
 	}

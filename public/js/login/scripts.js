@@ -16,10 +16,11 @@ util.validateEmail = function(email) {
 	});
 
 	$('#sendEmailAddress').click(function() {
+		event.preventDefault();
 		//changed to sending state
 		var email = $('#email').value;
 		$('#sendEmailAddress').text('Sending');
-		$.post('/requireCoupon', email, function(data) {
+		$.post('http://kokiya.no.de/requireCoupon', email, function(data) {
 			/*
 				data structure
 				{
@@ -28,10 +29,11 @@ util.validateEmail = function(email) {
 				}
 			*/
 			if (data.ok) {
-				$('#sendEmailAddress').text('成功加入队列');	
+				$('#sendEmailAddress').text('成功加入队列').;	
 			} else {
-				$('#sendEmailAddress').text('加入队列');
+				$('#sendEmailAddress').text('失败');
 				//display err
+				
 			}
 		});
 	});

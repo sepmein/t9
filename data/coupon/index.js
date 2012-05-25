@@ -43,7 +43,7 @@ coupon.add = function(requester, callback) {
 			callback(NO, err);
 		} else {
 			if (doc.length >= 1) {
-				callback(NO, '看起来，您已经申请过了');
+				callback(NO, 'Adding Email Address To Database: You\'ve been applied');
 			} else {
 				var newCoupon = new C();
 				newCoupon.requester = requester;
