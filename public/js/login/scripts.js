@@ -20,27 +20,28 @@ util.validateEmail = function(email) {
 		event.preventDefault();
 		//changed to sending state
 		var email = $('#email').val();
-		$('#sendEmailAddress').text('Sending');
-		$.post('/requireCoupon', {
-			email: email
-		}, function(data) {
-			/*
+		var t = util.validateEmail(email);
+		if (t) {
+			$('#sendEmailAddress').text('Sending');
+			$.post('/requireCoupon', {
+				email: email
+			}, function(data) {
+				/*
 				data structure
 				{
 					ok:bool,
 					err:string
 				}
 			*/
-			if (data.ok) {
-				$('#sendEmailAddress').text('成功加入队列');
-			} else {
-				$('#sendEmailAddress').text('失败').addClass('btn-warning');
-				//display err
-				$('#errMessage').text(data.err).show(1000, function() {
-					$('#sendEmailAddress').text('加入队列').removeClass('btn-warning');
-					$('#errMessage').hide(300);
-				});
-			}
-		});
+				if (data.ok) {
+					$('#sendEmailAddress').text('成功加入队列');
+				} else {
+					//display err
+					$('#errMessage').text(data.err).show(300).delay(2000).hide(200);
+				};
+			});
+		} else {
+			$('#errMessage').text('Email地址错误，请检查').show(300).delay(2000).hide(200);
+		}
 	});
 })();
