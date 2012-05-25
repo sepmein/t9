@@ -21,7 +21,8 @@ html
 					form(action='/requireCoupon',method='post')
 						label(for='user') 获得邀请码:
 						input(type='text',name='email',id='email',placeholder="输入你的email地址")
-						button.btn.btn-large.btn-primary(type='submit') 加入队列
+						button#sendEmailAddress.btn.btn-large.btn-primary(type='submit') 加入队列
+						p#errMessage 错误
 				section.span4
 					form(action='/login',method='post')
 						label(for='user') 用户名：

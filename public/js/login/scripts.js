@@ -20,7 +20,7 @@ util.validateEmail = function(email) {
 		//changed to sending state
 		var email = $('#email').value;
 		$('#sendEmailAddress').text('Sending');
-		$.post('http://kokiya.no.de/requireCoupon', email, function(data) {
+		$.post('/requireCoupon', email, function(data) {
 			/*
 				data structure
 				{

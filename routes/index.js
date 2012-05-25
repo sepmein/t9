@@ -38,6 +38,6 @@ module.exports = function(app) {
 
 	//custom 404
 
-	app.get('*', handlers.fourOFour);
+	//app.get('/*', handlers.fourOFour);
 
 };

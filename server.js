@@ -38,11 +38,11 @@ function start(route) {
 	});
 
 	app.configure('production', function() {
-		app.enabled('view cache');
+		//app.enabled('view cache');
 		app.use(express.errorHandler());
 	});
 
-	var port = 80;
+	var port = 8000;
 	//end of configuration
 	app.listen(port);
 
