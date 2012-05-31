@@ -151,8 +151,8 @@ handlers.getUsers = function(req, res) {
 handlers.postLifeTags = function(req, res) {
   /*-----------------------------------
     将此部分逻辑移至客户端，服务器端负责处理和验证纯净数据
-  -------------------------------------*/
-  console.dir(req.body);
+    -------------------------------------*/
+    console.dir(req.body);
   //format data
   var data = req.body;
   //权宜之计，不能满足多种条件，将来改进
@@ -183,24 +183,13 @@ handlers.postLifeTags = function(req, res) {
 handlers.getComments = function(res, req, next) {};
 
 handlers.getPosts = function(req, res) {
-  //must use some body parser to parse the post request
-  if (req.body) {
-    var data = req.body;
-    data.uid = req.session.uid;
-    data.user = req.session.user || req.body.user;
-    console.log(data);
-    db.posts.publishPost(data, function(status, err) {
-      if (status.ok) {
-        //publish ok
-        console.log('发布成功！');
-      } else {
-        //publish not ok,还是要想到一定办法通知客户端啊~
-        //res.flash('err',err);
-      }
-    });
-  } else {
-    //res.flash('err','没发布什么内容啊。');
-  }
+  db.posts.fetchAll(function(status, info){
+    if(status.ok){
+      res.json(info);
+    } else {
+      next(info);
+    }
+  });
 };
 
 handlers.fourOFour = function(req, res) {

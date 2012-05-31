@@ -69,7 +69,6 @@ posts.publishPost = function(object, callback) {
 }
 
 posts.fetchAll = function(callback) {
-	//iss: 'P' keyword could be a problem
 	var query = P.find({});
 	query.limit(20);
 	query.desc('date');
