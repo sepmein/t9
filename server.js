@@ -42,12 +42,12 @@ function start(route) {
 		app.use(express.errorHandler());
 	});
 
-	var port = 80;
+	var port = 8000;
 	//end of configuration
 	app.listen(port);
 
 	route(app);
-
+     
 	console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 };
 
