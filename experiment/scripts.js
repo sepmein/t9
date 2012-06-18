@@ -8,25 +8,8 @@
 		MAXRANGE: 900,
 		NUMOFTRACE: 1000,
 		MAGNITUDE: {
-			ONE: {
-				num: 10
-			},
-			TWO: {
-				num: 23
-			},
-			THREE: {
-				num: 67
-			},
-			FOUR: {
-				num: 229
-			},
-			FIVE: {
-				num: 738
-			},
-			SIX: {
-				num: 2420
-			}
-		}
+			NUM: [10,23,67,229,738,2420],
+			LIGHT: [2.51*2.51*2.51*2.51*2.51,2.51*2.51*2.51*2.51,2.51*2.51*2.51,2.51*2.51,2.51,1]
 	};
 
 	function starTrace(P) {
@@ -39,10 +22,33 @@
 		}
 
 		function magnitude(){
-			var m = {},
-			grade = Math.random();
-			m.opacity = grade;
-			m.glowWidth = grade*5;
+			var m = {};
+			/*var grade = function(){
+				var g;
+				if(!P.MAGNITUDE.NUM[0]){
+					g = 1;
+					!P.MAGNITUDE.NUM[0]--;
+				} else if(!P.MAGNITUDE.NUM[1]){
+					g = 2;
+					!P.MAGNITUDE.NUM[1]--;
+				} else if(!P.MAGNITUDE.NUM[2]){
+					g = 3;
+					!P.MAGNITUDE.NUM[2]--;
+				} else if(!P.MAGNITUDE.NUM[3]){
+					g = 4;
+					!P.MAGNITUDE.NUM[3]--;
+				} else if(!P.MAGNITUDE.NUM[4]){
+					g = 5;
+					!P.MAGNITUDE.NUM[4]--;
+				} else if(!P.MAGNITUDE.NUM[5]){
+					g = 6;
+					!P.MAGNITUDE.NUM[5]--;
+				}
+				return g; 
+			};*/
+			var grade = Math.random();
+			m.opacity = grade*0.2;
+			m.glowWidth = grade*3;
 			return m;
 		}
 
