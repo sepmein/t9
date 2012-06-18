@@ -1,6 +1,6 @@
-
+(function(){
 	var holder = document.getElementById('holder');
-	var paper = Raphael(holder, 1280, 800);
+	var paper = Raphael(holder, 1280, 600);
 
 	var preference = {
 		P: [400, 250],
@@ -86,3 +86,6 @@
 	}
 
 	starTrace(preference);
+	$.firefly();
+
+})();
