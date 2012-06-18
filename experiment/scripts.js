@@ -15,8 +15,6 @@
 
 	function starTrace(P) {
 
-		var magCount = P.MAGNITUDE.NUM;
-
 		function getCoords(origin, degree, distance) {
 			var coords = [];
 			var radians = (degree / 180) * Math.PI;
