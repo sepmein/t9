@@ -1,18 +1,22 @@
-(function() {
+
 	var holder = document.getElementById('holder');
-	var paper = Raphael(holder, 2000, 2000);
+	var paper = Raphael(holder, 1280, 800);
 
 	var preference = {
-		P: [400, 400],
+		P: [400, 250],
 		ALPHA: 30,
-		MAXRANGE: 900,
-		NUMOFTRACE: 1000,
+		MAXRANGE: 1000,
+		NUMOFTRACE: 3000,
 		MAGNITUDE: {
 			NUM: [10,23,67,229,738,2420],
-			LIGHT: [2.51*2.51*2.51*2.51*2.51,2.51*2.51*2.51*2.51,2.51*2.51*2.51,2.51*2.51,2.51,1]
+			LIGHT: [1,1/1.4,1/1.4/1.4,1/1.4/1.4/1.4,1/1.4/1.4/1.4/1.4,1/1.4/1.4/1.4/1.4/1.4,1/1.4/1.4/1.4/1.4/1.4/1.4]
+		}
 	};
 
 	function starTrace(P) {
+
+		var magCount = P.MAGNITUDE.NUM;
+
 		function getCoords(origin, degree, distance) {
 			var coords = [];
 			var radians = (degree / 180) * Math.PI;
@@ -23,32 +27,31 @@
 
 		function magnitude(){
 			var m = {};
-			/*var grade = function(){
+			var grade = function(){
 				var g;
-				if(!P.MAGNITUDE.NUM[0]){
-					g = 1;
-					!P.MAGNITUDE.NUM[0]--;
-				} else if(!P.MAGNITUDE.NUM[1]){
-					g = 2;
-					!P.MAGNITUDE.NUM[1]--;
-				} else if(!P.MAGNITUDE.NUM[2]){
-					g = 3;
-					!P.MAGNITUDE.NUM[2]--;
-				} else if(!P.MAGNITUDE.NUM[3]){
-					g = 4;
-					!P.MAGNITUDE.NUM[3]--;
-				} else if(!P.MAGNITUDE.NUM[4]){
-					g = 5;
-					!P.MAGNITUDE.NUM[4]--;
-				} else if(!P.MAGNITUDE.NUM[5]){
-					g = 6;
-					!P.MAGNITUDE.NUM[5]--;
+				if(preference.MAGNITUDE.NUM[0]){
+					g = preference.MAGNITUDE.LIGHT[0];
+					preference.MAGNITUDE.NUM[0]--;
+				} else if(preference.MAGNITUDE.NUM[1]){
+					g = preference.MAGNITUDE.LIGHT[1];
+					preference.MAGNITUDE.NUM[1]--;
+				} else if(preference.MAGNITUDE.NUM[2]){
+					g = preference.MAGNITUDE.LIGHT[2];
+					preference.MAGNITUDE.NUM[2]--;
+				} else if(preference.MAGNITUDE.NUM[3]){
+					g = preference.MAGNITUDE.LIGHT[3];
+					preference.MAGNITUDE.NUM[3]--;
+				} else if(preference.MAGNITUDE.NUM[4]){
+					g = preference.MAGNITUDE.LIGHT[4];
+					preference.MAGNITUDE.NUM[4]--;
+				} else if(preference.MAGNITUDE.NUM[5]){
+					g = preference.MAGNITUDE.LIGHT[5];
+					preference.MAGNITUDE.NUM[5]--;
 				}
-				return g; 
-			};*/
-			var grade = Math.random();
-			m.opacity = grade*0.2;
-			m.glowWidth = grade*3;
+				return g;
+			}();
+			m.opacity = grade;
+			m.strokeWidth = grade*2;
 			return m;
 		}
 
@@ -70,19 +73,16 @@
 		paper.forEach(function(el) {
 			var m = magnitude();
 			el.attr({
-				stroke: "white"
+				stroke: "white",
+				"stroke-width": m.strokeWidth,
+				opacity: m.opacity
 			});
-			el.glow({
+			/*el.glow({
 				width: m.glowWidth,
 				color: 'grey',
 				opacity: m.opacity
-			});
-			el.attr({
-				opacity: m.opacity
-			});
+			});*/
 		});
 	}
 
 	starTrace(preference);
-
-})();
