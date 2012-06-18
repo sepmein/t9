@@ -86,6 +86,5 @@
 	}
 
 	starTrace(preference);
-	$.firefly();
 
 })();
