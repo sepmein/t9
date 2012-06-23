@@ -16,23 +16,24 @@
 	function starTrace(P) {
 
 		paper.customAttributes.arc = function(origin, degree, distance, alpha) {
-
 			var coords = getCoords(origin, degree, distance, alpha);
-
 			var path = [
 				['m', coords[0][0], coords[0][1]],
 				['a', distance, distance, 0, 0, 1, (coords[1][0] - coords[0][0]), (coords[1][1] - coords[0][1])]
 			];
-
-			var m = magnitude();
-
 			return {
-				path: path,
+				path: path
+			};
+		};
+
+		paper.customAttributes.magnitude = function() {
+			var m = magnitude();
+			return {
 				stroke: "white",
 				"stroke-width": m.strokeWidth,
 				opacity: m.opacity
-			};
-		};
+			}
+		}
 
 		function getCoords(o, d, dis, al) {
 			var coords = [
@@ -95,7 +96,8 @@
 				degree = Math.random() * 360,
 				al = P.ALPHA;
 			paper.path().attr({
-				arc: [P.P, degree, distance, al]
+				arc: [P.P, degree, distance, al],
+				magnitude: []
 			});
 		}
 
@@ -112,16 +114,17 @@
 				opacity: m.opacity
 			});*/
 		//});
-		setInterval(function() {
+		setTimeout(function() {
 			paper.forEach(function(el) {
-				//console.log(el);
+				console.log(el);
 				var d = el.attrs.arc[1],
 					dis = el.attrs.arc[2],
-					al = el.attrs.arc[3] + 10;
+					al = el.attrs.arc[3]+30;
 				//console.log(dis);
-				el.animate({
-					arc: [P.P, d, dis, al]
-				}, 1000);
+				var elattrs = [{
+					arc: [P.P, d ,dis, al]
+				}];
+				el.animate(elattrs, 1000);
 			})
 		}, 1000);
 	}
