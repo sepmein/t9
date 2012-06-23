@@ -6,7 +6,7 @@
 		P: [640, 400],
 		ALPHA: 30,
 		MAXRANGE: 1000,
-		NUMOFTRACE: 700,
+		NUMOFTRACE: 1,
 		MAGNITUDE: {
 			NUM: [10, 23, 67, 229, 738, 2420],
 			LIGHT: [1, 1 / 1.4, 1 / 1.4 / 1.4, 1 / 1.4 / 1.4 / 1.4, 1 / 1.4 / 1.4 / 1.4 / 1.4, 1 / 1.4 / 1.4 / 1.4 / 1.4 / 1.4, 1 / 1.4 / 1.4 / 1.4 / 1.4 / 1.4 / 1.4]
@@ -90,16 +90,21 @@
 			//console.log(svg);
 			return svg;
 		}
-*/
+		*/
+
+		var set = paper.set();
+
 		for (var i = P.NUMOFTRACE; i--; i > 0) {
 			var distance = Math.random() * P.MAXRANGE,
 				degree = Math.random() * 360,
 				al = P.ALPHA;
-			paper.path().attr({
+			set.push(paper.path().attr({
 				arc: [P.P, degree, distance, al],
 				magnitude: []
-			});
+			}));
 		}
+
+		console.log(set);
 
 		/*paper.forEach(function(el) {
 			var m = magnitude();
@@ -115,17 +120,21 @@
 			});*/
 		//});
 		setTimeout(function() {
-			paper.forEach(function(el) {
-				console.log(el);
+			/*set.forEach(function(el) {
+				//console.log(el);
 				var d = el.attrs.arc[1],
 					dis = el.attrs.arc[2],
-					al = el.attrs.arc[3]+30;
+					al = el.attrs.arc[3] + 30;
 				//console.log(dis);
-				var elattrs = [{
-					arc: [P.P, d ,dis, al]
-				}];
-				el.animate(elattrs, 1000);
-			})
+				el.animate({arc: [P.P, d, dis, al]}, 750);
+						})
+			*/
+			var el = set[0];
+			var arc = el.attrs.arc;
+			el.animate([{
+				arc: [P.P, arc[1], arc[2], arc[3]+30]
+			}], 2000, "bounce",function(){});
+
 		}, 1000);
 	}
 
