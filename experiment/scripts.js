@@ -1,4 +1,4 @@
-(function() {
+window.onload = (function() {
 	var holder = document.getElementById('holder');
 	var paper = Raphael(holder, 1280, 800);
 
@@ -6,10 +6,10 @@
 		P: [640, 400],
 		ALPHA: 30,
 		MAXRANGE: 1000,
-		NUMOFTRACE: 1,
+		NUMOFTRACE: 1000,
 		MAGNITUDE: {
 			NUM: [10, 23, 67, 229, 738, 2420],
-			LIGHT: [1, 1 / 1.4, 1 / 1.4 / 1.4, 1 / 1.4 / 1.4 / 1.4, 1 / 1.4 / 1.4 / 1.4 / 1.4, 1 / 1.4 / 1.4 / 1.4 / 1.4 / 1.4, 1 / 1.4 / 1.4 / 1.4 / 1.4 / 1.4 / 1.4]
+			LIGHT: [1, 1 / 1.35, 1 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35 / 1.35 / 1.35 / 1.35]
 		}
 	};
 
@@ -99,12 +99,13 @@
 				degree = Math.random() * 360,
 				al = P.ALPHA;
 			set.push(paper.path().attr({
-				arc: [P.P, degree, distance, al],
+				arc: [P.P, degree, distance, al]
+			}).attr({
 				magnitude: []
 			}));
 		}
 
-		console.log(set);
+		//console.log(set);
 
 		/*paper.forEach(function(el) {
 			var m = magnitude();
@@ -119,23 +120,31 @@
 				opacity: m.opacity
 			});*/
 		//});
-		setTimeout(function() {
-			/*set.forEach(function(el) {
-				//console.log(el);
-				var d = el.attrs.arc[1],
-					dis = el.attrs.arc[2],
-					al = el.attrs.arc[3] + 30;
-				//console.log(dis);
-				el.animate({arc: [P.P, d, dis, al]}, 750);
-						})
-			*/
+		set.forEach(function(el) {
+			//console.log(el);
+			var d = el.attrs.arc[1],
+				dis = el.attrs.arc[2],
+				al = el.attrs.arc[3];
+			//console.log(dis);
+			var animate = Raphael.animation([{
+				arc: [P.P, d, dis, al+30]
+			}], 750, "bounce");
+			//console.log(animate);
+			el.animate(animate);
+		});
+
+		/*setTimeout(function() {
+			
+			
 			var el = set[0];
 			var arc = el.attrs.arc;
+			//var animateOb = Raphael.animate({});
 			el.animate([{
-				arc: [P.P, arc[1], arc[2], arc[3]+30]
-			}], 2000, "bounce",function(){});
-
+				arc: [P.P, arc[1], arc[2], arc[3] + 30]
+			}], 2000, "bounce", function() {});
+			
 		}, 1000);
+		*/
 	}
 
 	starTrace(preference);
