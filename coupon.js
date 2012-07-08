@@ -5,7 +5,7 @@
 
 var db = db || {};
 db.coupons = require('./data/coupon');
-var email = require('./email');
+//var email = require('./email');
 
 var intervalId;
 var coupon = coupon || {};
@@ -20,7 +20,7 @@ var sendCoupon = function(n) {
 						//console.log('Yes! coupon sent to :' + info);
 						//发送coupon至邮箱
 						console.log("!!!debug:" + coupon);
-						email.sendCoupon(address, coupon);
+						//email.sendCoupon(address, coupon);
 						//循环自调用
 						generate();
 					} else {

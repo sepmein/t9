@@ -47,8 +47,9 @@ function start(route) {
 	app.listen(port);
 
 	route(app);
-     
-	console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+    
+    //Api change express
+	//console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 };
 
 exports.start = start;

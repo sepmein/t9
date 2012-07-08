@@ -72,7 +72,7 @@ posts.fetchAll = function(callback) {
 	var query = P.find({});
 	query.limit(20);
 	query.desc('date');
-	query.run(function(err, doc) {
+	query.exec(function(err, doc) {
 		if (!err) {
 			callback(OK, doc);
 		} else {

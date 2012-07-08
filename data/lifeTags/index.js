@@ -60,7 +60,7 @@ lifeTags.getByUID = function(uid, callback) {
 		uid: uid
 	});
 	query.populate('ltid');
-	query.run(function(err, docs) {
+	query.exec(function(err, docs) {
 		if (!err) {
 			console.dir(docs);
 		} else {
@@ -74,7 +74,7 @@ lifeTags.getByLTID = function(ltid, callback) {
 		ltid: ltid
 	});
 	query.populate('uid');
-	query.run(function(err, docs) {
+	query.exec(function(err, docs) {
 		if (!err) {
 			console.dir(docs);
 		} else {

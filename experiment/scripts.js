@@ -4,7 +4,7 @@ window.onload = (function() {
 
 	var preference = {
 		P: [640, 400],
-		ALPHA: 30,
+		ALPHA: 0.1,
 		MAXRANGE: 1000,
 		NUMOFTRACE: 1000,
 		MAGNITUDE: {
@@ -106,7 +106,6 @@ window.onload = (function() {
 		}
 
 		//console.log(set);
-
 		/*paper.forEach(function(el) {
 			var m = magnitude();
 			el.attr({
@@ -120,18 +119,20 @@ window.onload = (function() {
 				opacity: m.opacity
 			});*/
 		//});
-		set.forEach(function(el) {
-			//console.log(el);
-			var d = el.attrs.arc[1],
-				dis = el.attrs.arc[2],
-				al = el.attrs.arc[3];
-			//console.log(dis);
-			var animate = Raphael.animation([{
-				arc: [P.P, d, dis, al+30]
-			}], 750, "bounce");
-			//console.log(animate);
-			el.animate(animate);
-		});
+		setInterval(function() {
+			set.forEach(function(el) {
+				//console.log(el);
+				var d = el.attrs.arc[1],
+					dis = el.attrs.arc[2],
+					al = el.attrs.arc[3];
+				//console.log(dis);
+				var animate = Raphael.animation([{
+					arc: [P.P, d, dis, al + 0.1]
+				}]);
+				//console.log(animate);
+				el.animate(animate);
+			});
+		}, 0.1);
 
 		/*setTimeout(function() {
 			
