@@ -6,7 +6,7 @@ window.onload = (function() {
 		P: [640, 400],
 		ALPHA: 0.1,
 		MAXRANGE: 1000,
-		NUMOFTRACE: 1000,
+		NUMOFTRACE: 100,
 		MAGNITUDE: {
 			NUM: [10, 23, 67, 229, 738, 2420],
 			LIGHT: [1, 1 / 1.35, 1 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35 / 1.35 / 1.35 / 1.35]
@@ -16,11 +16,15 @@ window.onload = (function() {
 	function starTrace(P) {
 
 		paper.customAttributes.arc = function(origin, degree, distance, alpha) {
-			var coords = getCoords(origin, degree, distance, alpha%360);
+			var coords = getCoords(origin, degree, distance, alpha);
 			//a = (90 - alpha) * Math.PI / 180;
+			//第二个参数的区县算法需要改进，0～180,180～360,360～540。。。
+			var a = Math.floor(alpha / 180) % 2;
+			console.log(alpha);
+			console.log(a);
 			var path = [
 				['M', coords[0][0], coords[0][1]],
-				['a', distance, distance, 0, +(alpha > 180), 1, (coords[1][0] - coords[0][0]), (coords[1][1] - coords[0][1])]
+				['a', distance, distance, 0, a, 1, (coords[1][0] - coords[0][0]), (coords[1][1] - coords[0][1])]
 			];
 			return {
 				path: path
@@ -41,8 +45,9 @@ window.onload = (function() {
 				[],
 				[]
 			];
-			var radians = (d / 180) * Math.PI;
-			var radiansPlus = ((d + al) / 180) * Math.PI;
+			var radians = (d / 180) * Math.PI,
+				alpha = al % 360,
+				radiansPlus = ((d + alpha) / 180) * Math.PI;
 			coords[0][0] = o[0] + Math.cos(radians) * dis;
 			coords[0][1] = o[1] + Math.sin(radians) * dis;
 			coords[1][0] = o[0] + Math.cos(radiansPlus) * dis;
@@ -128,12 +133,12 @@ window.onload = (function() {
 					al = el.attrs.arc[3];
 				//console.log(dis);
 				var animate = Raphael.animation([{
-					arc: [P.P, d, dis, al + 30]
-				}],1000,"linear");
+					arc: [P.P, d, dis, al + 0.12]
+				}], 1000, "linear");
 				//console.log(animate);
 				el.animate(animate);
 			});
-		}, 0.1);
+		}, 0.07);
 
 		/*setTimeout(function() {
 			
