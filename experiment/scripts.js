@@ -16,10 +16,11 @@ window.onload = (function() {
 	function starTrace(P) {
 
 		paper.customAttributes.arc = function(origin, degree, distance, alpha) {
-			var coords = getCoords(origin, degree, distance, alpha);
+			var coords = getCoords(origin, degree, distance, alpha%360);
+			//a = (90 - alpha) * Math.PI / 180;
 			var path = [
-				['m', coords[0][0], coords[0][1]],
-				['a', distance, distance, 0, 0, 1, (coords[1][0] - coords[0][0]), (coords[1][1] - coords[0][1])]
+				['M', coords[0][0], coords[0][1]],
+				['a', distance, distance, 0, +(alpha > 180), 1, (coords[1][0] - coords[0][0]), (coords[1][1] - coords[0][1])]
 			];
 			return {
 				path: path
@@ -33,7 +34,7 @@ window.onload = (function() {
 				"stroke-width": m.strokeWidth,
 				opacity: m.opacity
 			}
-		}
+		};
 
 		function getCoords(o, d, dis, al) {
 			var coords = [
@@ -127,8 +128,8 @@ window.onload = (function() {
 					al = el.attrs.arc[3];
 				//console.log(dis);
 				var animate = Raphael.animation([{
-					arc: [P.P, d, dis, al + 0.1]
-				}]);
+					arc: [P.P, d, dis, al + 30]
+				}],1000,"linear");
 				//console.log(animate);
 				el.animate(animate);
 			});
