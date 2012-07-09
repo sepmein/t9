@@ -6,7 +6,7 @@
 		P: [640, 400],
 		ALPHA: 30,
 		MAXRANGE: 1000,
-		NUMOFTRACE: 700,
+		NUMOFTRACE: 5,
 		MAGNITUDE: {
 			NUM: [10, 23, 67, 229, 738, 2420],
 			LIGHT: [1, 1 / 1.4, 1 / 1.4 / 1.4, 1 / 1.4 / 1.4 / 1.4, 1 / 1.4 / 1.4 / 1.4 / 1.4, 1 / 1.4 / 1.4 / 1.4 / 1.4 / 1.4, 1 / 1.4 / 1.4 / 1.4 / 1.4 / 1.4 / 1.4]
@@ -14,6 +14,8 @@
 	};
 
 	function starTrace(P) {
+		// copy magnitude numbers
+		var magNum = P.MAGNITUDE.NUM;
 
 		paper.customAttributes.arc = function(origin, degree, distance, alpha) {
 
@@ -53,24 +55,24 @@
 			var m = {};
 			var grade = function() {
 					var g;
-					if (preference.MAGNITUDE.NUM[0]) {
-						g = preference.MAGNITUDE.LIGHT[0];
-						preference.MAGNITUDE.NUM[0]--;
-					} else if (preference.MAGNITUDE.NUM[1]) {
-						g = preference.MAGNITUDE.LIGHT[1];
-						preference.MAGNITUDE.NUM[1]--;
-					} else if (preference.MAGNITUDE.NUM[2]) {
-						g = preference.MAGNITUDE.LIGHT[2];
-						preference.MAGNITUDE.NUM[2]--;
-					} else if (preference.MAGNITUDE.NUM[3]) {
-						g = preference.MAGNITUDE.LIGHT[3];
-						preference.MAGNITUDE.NUM[3]--;
-					} else if (preference.MAGNITUDE.NUM[4]) {
-						g = preference.MAGNITUDE.LIGHT[4];
-						preference.MAGNITUDE.NUM[4]--;
-					} else if (preference.MAGNITUDE.NUM[5]) {
-						g = preference.MAGNITUDE.LIGHT[5];
-						preference.MAGNITUDE.NUM[5]--;
+					if (magNum[0]) {
+						g = P.MAGNITUDE.LIGHT[0];
+						magNum[0]--;
+					} else if (magNum[1]) {
+						g = P.MAGNITUDE.LIGHT[1];
+						magNum[1]--;
+					} else if (magNum[2]) {
+						g = P.MAGNITUDE.LIGHT[2];
+						magNum[2]--;
+					} else if (magNum[3]) {
+						g = P.MAGNITUDE.LIGHT[3];
+						magNum[3]--;
+					} else if (magNum[4]) {
+						g = P.MAGNITUDE.LIGHT[4];
+						magNum[4]--;
+					} else if (magNum[5]) {
+						g = P.MAGNITUDE.LIGHT[5];
+						magNum[5]--;
 					}
 					return g;
 				}();
@@ -89,7 +91,7 @@
 			//console.log(svg);
 			return svg;
 		}
-*/
+		*/
 		for (var i = P.NUMOFTRACE; i--; i > 0) {
 			var distance = Math.random() * P.MAXRANGE,
 				degree = Math.random() * 360,
@@ -113,13 +115,19 @@
 				opacity: m.opacity
 			});*/
 		//});
-		setInterval(function() {
+		setTimeout(function() {
+			//reset the magnitude counter
+			magNum = P.MAGNITUDE.NUM;
+
+			//loops 
 			paper.forEach(function(el) {
 				//console.log(el);
 				var d = el.attrs.arc[1],
 					dis = el.attrs.arc[2],
 					al = el.attrs.arc[3] + 10;
-				//console.log(dis);
+				console.log(d);
+				console.log(dis);
+				console.log(al);
 				el.animate({
 					arc: [P.P, d, dis, al]
 				}, 1000);
