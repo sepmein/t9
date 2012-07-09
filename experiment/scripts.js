@@ -4,9 +4,9 @@ window.onload = (function() {
 
 	var preference = {
 		P: [640, 400],
-		ALPHA: 0.1,
+		ALPHA: 0,
 		MAXRANGE: 1000,
-		NUMOFTRACE: 100,
+		NUMOFTRACE: 3000,
 		MAGNITUDE: {
 			NUM: [10, 23, 67, 229, 738, 2420],
 			LIGHT: [1, 1 / 1.35, 1 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35 / 1.35 / 1.35 / 1.35]
@@ -17,11 +17,10 @@ window.onload = (function() {
 
 		paper.customAttributes.arc = function(origin, degree, distance, alpha) {
 			var coords = getCoords(origin, degree, distance, alpha);
-			//a = (90 - alpha) * Math.PI / 180;
 			//第二个参数的区县算法需要改进，0～180,180～360,360～540。。。
 			var a = Math.floor(alpha / 180) % 2;
-			console.log(alpha);
-			console.log(a);
+			//console.log(alpha);
+			//console.log(a);
 			var path = [
 				['M', coords[0][0], coords[0][1]],
 				['a', distance, distance, 0, a, 1, (coords[1][0] - coords[0][0]), (coords[1][1] - coords[0][1])]
@@ -86,18 +85,6 @@ window.onload = (function() {
 			return m;
 		}
 
-		/*		function getRandomSVGString() {
-			var origin = P.P,
-				degree = Math.random() * 360,
-				distance = Math.random() * P.MAXRANGE;
-			var coords = [getCoords(origin, degree, distance), getCoords(origin, degree + P.ALPHA, distance)];
-			//console.log(coords);
-			var svg = 'm' + coords[0][0] + ',' + coords[0][1] + 'a' + distance + ',' + distance + ',0,0,1,' + (coords[1][0] - coords[0][0]) + ',' + (coords[1][1] - coords[0][1]);
-			//console.log(svg);
-			return svg;
-		}
-		*/
-
 		var set = paper.set();
 
 		for (var i = P.NUMOFTRACE; i--; i > 0) {
@@ -111,20 +98,6 @@ window.onload = (function() {
 			}));
 		}
 
-		//console.log(set);
-		/*paper.forEach(function(el) {
-			var m = magnitude();
-			el.attr({
-				stroke: "white",
-				"stroke-width": m.strokeWidth,
-				opacity: m.opacity
-			});*/
-		/*el.glow({
-				width: m.glowWidth,
-				color: 'grey',
-				opacity: m.opacity
-			});*/
-		//});
 		setInterval(function() {
 			set.forEach(function(el) {
 				//console.log(el);
@@ -138,20 +111,8 @@ window.onload = (function() {
 				//console.log(animate);
 				el.animate(animate);
 			});
-		}, 0.07);
+		}, 0.01);
 
-		/*setTimeout(function() {
-			
-			
-			var el = set[0];
-			var arc = el.attrs.arc;
-			//var animateOb = Raphael.animate({});
-			el.animate([{
-				arc: [P.P, arc[1], arc[2], arc[3] + 30]
-			}], 2000, "bounce", function() {});
-			
-		}, 1000);
-		*/
 	}
 
 	starTrace(preference);
