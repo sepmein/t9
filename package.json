@@ -6,10 +6,9 @@
 		"start": "NODE_ENV=production node app.js"
 	},
 	"dependencies": {
-		"express": "latest",
+		"express": "3.0.0beta4",
 		"mongoose": "latest",
 		"jade": "latest",
-		"session-mongoose": "latest",
-		"aws2js": "latest"
+		"session-mongoose": "latest"
 	}
 }
