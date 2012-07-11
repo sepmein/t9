@@ -5,7 +5,7 @@ var preference = {
 	P: [640, 400],
 	ALPHA: 0,
 	MAXRANGE: 1000,
-	NUMOFTRACE: 10,
+	NUMOFTRACE: 1000,
 	MAGNITUDE: {
 		NUM: [10, 23, 67, 229, 738, 2420],
 		LIGHT: [1, 1 / 1.35, 1 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35 / 1.35 / 1.35, 1 / 1.35 / 1.35 / 1.35 / 1.35 / 1.35 / 1.35]
@@ -42,14 +42,14 @@ function starTrace(P) {
 			[],
 			[]
 		];
-		console.log('[FN]:getCoords - '+o[0]+' '+d+' '+dis+' '+al);
+		//console.log('[FN]:getCoords - '+640+' '+d+' '+dis+' '+al);
 		var radians = (d / 180) * Math.PI,
 			alpha = al % 360,
 			radiansPlus = ((d + alpha) / 180) * Math.PI;
-		coords[0][0] = o[0] + Math.cos(radians) * dis;
-		coords[0][1] = o[1] + Math.sin(radians) * dis;
-		coords[1][0] = o[0] + Math.cos(radiansPlus) * dis;
-		coords[1][1] = o[1] + Math.sin(radiansPlus) * dis;
+		coords[0][0] = 640 + Math.cos(radians) * dis;
+		coords[0][1] = 400 + Math.sin(radians) * dis;
+		coords[1][0] = 640 + Math.cos(radiansPlus) * dis;
+		coords[1][1] = 400 + Math.sin(radiansPlus) * dis;
 		//console.log(coords);
 		return coords;
 	}
@@ -107,11 +107,11 @@ function starTrace(P) {
 			var animate = Raphael.animation([{
 				arc: [[640,400], d, dis, al + 0.12]
 			}]);
-			console.log([[640,400], d, dis, (al + 30)]);
-			console.log(paper.customAttributes.arc([[640,400], d, dis, (al + 30)]));
+			//console.log([[640,400], d, dis, (al + 30)]);
+			//console.log(paper.customAttributes.arc([[640,400], d, dis, (al + 30)]));
 			el.animate({
-				arc: [[640,400], d, dis, (al + 30)]
-			}, 1000, 'linear');
+				arc: [[640,400], d, dis, (al + 360)]
+			}, 1200000, 'linear');
 		});
 	})();
 
