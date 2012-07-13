@@ -1,4 +1,6 @@
-var ses = require('aws2js').load('ses', 'AKIAIBEFEBQPBURFZBHQ', 'LP+3Hme+TgYrYTW7ccOphS9sdXDvNPBqMH8cyRP9');
+var sesKey = require('.././configure/key.js').ses;
+
+var ses = require('aws2js').load('ses', sesKey.key, sesKey.pass);
 
 var email = email || {};
 

@@ -43,7 +43,7 @@ users.all = function(callback) {
 	var query = U.find({}, {
 		'user': 1
 	});
-	query.run(function(err, docs) {
+	query.exec(function(err, docs) {
 		if (!err) {
 			callback(OK, docs);
 		} else {
@@ -56,7 +56,7 @@ users.register = function(user, password, callback) {
 	var query = U.find({
 		'user': user
 	});
-	query.run(function(err, docs) {
+	query.exec(function(err, docs) {
 		//lack of err handler, add it later
 		if (docs.length > 0) {
 			//console.dir(docs);
@@ -81,7 +81,7 @@ users.authenticate = function(user, password, callback) {
 	var query = U.findOne({
 		'user': user
 	});
-	query.run(function(err, docs) {
+	query.exec(function(err, docs) {
 		if (err) {
 			callback(NO, err);
 		} else if (!docs) {
@@ -101,7 +101,7 @@ users.findById = function(id, callback) {
 	}, {
 		user: 1
 	});
-	query.run(function(err, doc) {
+	query.exec(function(err, doc) {
 		if (err) {
 			callback(NO, err);
 		} else if (!doc) {
@@ -118,7 +118,7 @@ users.findByUser = function(user, callback) {
 	}, {
 		_id: 1
 	});
-	query.run(function(err, doc) {
+	query.exec(function(err, doc) {
 		if (err) {
 			callback(NO, err);
 		} else if (!doc) {
@@ -159,7 +159,7 @@ users.getFriends = function(user, callback) {
 	}, {
 		friends: 1
 	});
-	query.run(function(err, doc) {
+	query.exec(function(err, doc) {
 		if (err) {
 			callback(NO, err);
 		} else if (!doc) {

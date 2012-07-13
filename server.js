@@ -5,6 +5,7 @@ var sessionStore = new SessionMongoose({
 	url: "mongodb://localhost/session",
 	interval: 60000 * 60 * 24 * 30 * 6
 });
+var sessionSecret = require('./configure/key.js').sessionSecret;
 
 
 function start(route) {
@@ -20,7 +21,7 @@ function start(route) {
 		app.use(express.methodOverride());
 		app.use(express.cookieParser());
 		app.use(express.session({
-			secret: 'Crimson~87',
+			secret: sessionSecret,
 			store: sessionStore,
 			cookie: {
 				maxAge: 60000 * 60 * 24 * 30 * 6
@@ -47,8 +48,9 @@ function start(route) {
 	app.listen(port);
 
 	route(app);
-     
-	console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+    
+    //Api change express
+	//console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 };
 
 exports.start = start;

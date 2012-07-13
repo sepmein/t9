@@ -38,7 +38,7 @@ coupon.add = function(requester, callback) {
 	var query = C.find({
 		requester: requester
 	});
-	query.run(function(err, doc) {
+	query.exec(function(err, doc) {
 		if (err) {
 			callback(NO, err);
 		} else {
@@ -73,7 +73,7 @@ coupon.generate = function(callback) {
 	query.exists('coupon', false);
 	query.asc('reqTime');
 	query.limit(1);
-	query.run(function(err, doc) {
+	query.exec(function(err, doc) {
 		if (!err && doc.length != 0) {
 			//update coupon code & notify user
 			var conditions = {
