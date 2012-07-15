@@ -9,6 +9,7 @@
 		"express": "3.0.0beta4",
 		"mongoose": "latest",
 		"jade": "latest",
-		"session-mongoose": "latest"
+		"session-mongoose": "latest",
+		"aws-lib": "latest"
 	}
 }

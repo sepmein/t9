@@ -1,16 +1,19 @@
+//更换aws2js库至aws-lib
 var sesKey = require('.././configure/key.js').ses;
 
-var ses = require('aws2js').load('ses', sesKey.key, sesKey.pass);
+var ses = require('aws-lib').createSESClient(sesKey.key, sesKey.pass);
 
 var email = email || {};
 
 function send(to, template, locals) {
-	ses.request('SendEmail', {
+	var sendArgs = {
 		'Destination.ToAddresses.member.1': to,
 		'Message.Body.Html.Data': template.Body(locals),
 		'Message.Subject.Data': template.Subject(),
-		'Source': "no.reply.kokiya@gmail.com"
-	}, function(err, response) {
+		'Source': "no.reply.kokiya@gmail.com",
+		'Message.Body.Html.Charset': 'UTF-8'
+	};
+	ses.call('SendEmail', sendArgs, function(err, response) {
 		if (!err) {
 			console.dir(response);
 		} else {
