@@ -33,7 +33,7 @@ function send(to, template, locals) {
 email.sendCoupon = function(to, coupon) {
 	var sc = require('./template/sendCoupon.js');
 	var locals = {};
-	locals.link = 'http://kokiya.no.de/welcome/?email=' + to + '&coupon=' + coupon;
+	locals.link = 'http://localhost:8000/welcome/?email=' + to + '&coupon=' + coupon;
 	console.log('generated locals.link is ' + locals.link);
 	send(to, sc, locals);
 };
