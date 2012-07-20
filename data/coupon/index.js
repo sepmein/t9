@@ -71,7 +71,7 @@ coupon.generate = function(callback) {
 	//找到没有coupon的最早注册者，给他一个coupon
 	var query = C.find();
 	query.exists('coupon', false);
-	query.asc('reqTime');
+	query.sort('reqTime',1);
 	query.limit(1);
 	query.exec(function(err, doc) {
 		if (!err && doc.length != 0) {
