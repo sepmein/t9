@@ -1,3 +1,10 @@
+/**
+ * The Express Server for 
+ *
+ *
+ * 
+ */
+
 var express = require('express');
 //mongoose session store by mongoose session, maybe rewrite it by myself later
 var SessionMongoose = require("session-mongoose");
@@ -6,7 +13,6 @@ var sessionStore = new SessionMongoose({
 	interval: 60000 * 60 * 24 * 30 * 6
 });
 var sessionSecret = require('./configure/key.js').sessionSecret;
-
 
 function start(route) {
 
