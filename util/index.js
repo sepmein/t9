@@ -5,10 +5,10 @@ util.validateEmail = function(email) {
 	return re.test(email);
 };
 
-util.generateCoupon = function() {
+util.generateRandom = function(o) {
 	var s = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	var result = "";
-	for (var i = 6; i > 0; i--) {
+	for (var i = o || 6; i > 0; i--) {
 		result += s.charAt(Math.floor(Math.random() * s.length));
 	};
 	return result;

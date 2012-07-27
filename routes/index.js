@@ -40,4 +40,14 @@ module.exports = function(app) {
 
 	//app.get('/*', handlers.fourOFour);
 
+	//vector
+
+	app.get('/vector/:url' , handlers.renderVector);
+
+	app.post('/vector/:url' , handlers.renderVector);
+
+	app.del('/vector/:url' , handlers.renderVector);
+
+	app.put('/vector/:url' , handlers.renderVector);
+
 };

@@ -201,4 +201,8 @@ var coupon = require('./coupon.js');
 handlers.requireCoupon = coupon.requireCoupon;
 handlers.welcome = coupon.welcome;
 
+//vector 
+var vector = require('./vector.js');
+handlers.renderVector = vector.renderVector;
+
 module.exports = handlers;

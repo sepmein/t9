@@ -66,7 +66,7 @@ coupon.add = function(requester, callback) {
 */
 coupon.generate = function(callback) {
 
-	var generateCoupon = util.generateCoupon();
+	var generateRandom = util.generateRandom();
 
 	//找到没有coupon的最早注册者，给他一个coupon
 	var query = C.find();
@@ -82,7 +82,7 @@ coupon.generate = function(callback) {
 			},
 				update = {
 					$set: {
-						'coupon': generateCoupon
+						'coupon': generateRandom
 					}
 				},
 				options = {
@@ -91,7 +91,7 @@ coupon.generate = function(callback) {
 			C.update(conditions, update, options, function(err, n) {
 				if (!err) {
 					console.dir(doc[0]);
-					callback(OK, doc[0].requester, generateCoupon);
+					callback(OK, doc[0].requester, generateRandom);
 					console.log('number affected :' + n);
 				} else {
 					callback(NO, err);
