@@ -37,17 +37,14 @@ module.exports = function(app) {
 	app.post('/api/lifetags', handlers.postLifeTags);
 
 	//custom 404
-
 	//app.get('/*', handlers.fourOFour);
-
 	//vector
+	app.get('/vector/:url', handlers.renderVector);
 
-	app.get('/vector/:url' , handlers.renderVector);
+	app.post('/vector/:url', handlers.interpretor);
 
-	app.post('/vector/:url' , handlers.renderVector);
+	app.del('/vector/:url', handlers.renderVector);
 
-	app.del('/vector/:url' , handlers.renderVector);
-
-	app.put('/vector/:url' , handlers.renderVector);
+	app.put('/vector/:url', handlers.renderVector);
 
 };
