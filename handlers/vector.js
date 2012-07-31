@@ -59,6 +59,13 @@ vector.interpretor = function(req, res, next) {
 
 		console.log(output.end.Consistency);
 
+		/**
+		*
+		*母液配置
+		*浓度:由原药直接稀释成母液,计量:带计算
+		*
+		*/
+
 	} else {
 		next(new Error('[vector]数据格式有误，请检查'));
 	}
