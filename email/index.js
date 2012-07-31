@@ -28,7 +28,7 @@ function send(to, template, locals) {
 	solved
 		1. coupon变成undefined 
 			A: db.coupons query的coupon还未set.
-			S: use local var generateCoupon 
+			S: use local var generateRandom 
 */
 email.sendCoupon = function(to, coupon) {
 	var sc = require('./template/sendCoupon.js');
