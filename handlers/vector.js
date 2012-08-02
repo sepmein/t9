@@ -111,7 +111,7 @@ vector.interpretor = function(req, res, next) {
 				d /= end.pr;
 			}
 			var ctemp = new Concentration();
-			ctemp.set(d, 'default');
+			ctemp.set(d);
 			end.c.push(ctemp);
 		}
 
@@ -128,7 +128,7 @@ vector.interpretor = function(req, res, next) {
 		//计算中间需要稀释的组数
 		for (var u = 0; Math.pow(10, 4 - u) > end.q; u--) {
 			var cmtemp = new Concentration();
-			cmtemp.set(Math.pow(10, 4 - u), 'default');
+			cmtemp.set(Math.pow(10, 4 - u));
 			middle.c.push(cmtemp);
 		}
 
@@ -143,7 +143,7 @@ vector.interpretor = function(req, res, next) {
 		//取出最后一个中间浓度，配置终浓度的剂量 ＝ 终有效药量／中间最后一组浓度 所有单位已化为默认单位
 		//这是整个计算过程中最复杂的一个中间量，最大的难度是单位换算，现已通过javascript oop解决
 		middle.dTakeLast = new Dose();
-		middle.dTakeLast.set(end.qh / middle.c[middle.c.length - 1].get('default'), 'default');
+		middle.dTakeLast.set(end.qh / middle.c[middle.c.length - 1].get('default'));
 
 		raw.d = new Dose();
 		raw.d.set(middle.c[0].get().data * middle.d.get())
