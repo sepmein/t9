@@ -33,14 +33,14 @@ vector.interpretor = function(req, res, next) {
 		if (this.defaultUnitGroup.hasOwnProperty('unit')) {
 			this.data = data * this.defaultUnitGroup[unit] / this.defaultUnitGroup[this.defaultUnit];
 			this.unit = unit;
-		} else if (unit === 'default') {
+		} else if (!unit) {
 			this.data = data;
 			this.unit = this.defaultUnit;
 		}
 	};
 	Unit.prototype.get = function(unit) {
 		var o = {};
-		if (unit === 'default') {
+		if (!unit) {
 			o.unit = this.defaultUnit;
 			o.data = this.data * this.defaultUnitGroup[this.unit] / this.defaultUnitGroup[this.defaultUnit];
 		} else if (this.defaultUnitGroup.hasOwnProperty(unit)) {
@@ -145,7 +145,8 @@ vector.interpretor = function(req, res, next) {
 		middle.dTakeLast = new Dose();
 		middle.dTakeLast.set(end.qh / middle.c[middle.c.length - 1].get('default'), 'default');
 
-
+		raw.d = new Dose();
+		raw.d.set(middle.c[0].get().data * middle.d.get())
 
 	}
 
