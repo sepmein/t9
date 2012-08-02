@@ -28,7 +28,6 @@ vector.interpretor = function(req, res, next) {
 	//定义单位的javascript oop部分，核心算法
 	//问题：javascript计算容易出现误差
 
-
 	function Unit() {
 		this.defaultUnitGroup = {};
 	}
@@ -75,23 +74,28 @@ vector.interpretor = function(req, res, next) {
 	}
 	Concentration.prototype = new Unit;
 
-	//change this part for test
-	var data = {
-		ConcentrationRaw: {
-			data: 97,
-			unit: 'percent'
-		},
-		PropotionRate: 2,
-		GroupNumber: 5,
-		Dose: {
-			data: 1,
-			unit: 'ml'
-		},
-		ConcentrationHigh: {
-			data: 1.8,
-			unit: 'mgl'
-		}
-	};
+	//finish this part for better api
+	/**
+	* Input data API reference
+	*
+	*{
+	*	ConcentrationRaw: {
+	*		data: Number
+	*		unit: String
+	*	},
+	*	ConcentrationHigh: {
+	*		data: Number
+	*		unit: String
+	*	},
+	*	PropotionRate: Number,
+	*	GroupNumber: Number,
+	*	Dose: {
+	*		data: Number,
+	*		unit: String
+	*	}
+	*/
+	var data = req.body.data;
+
 	console.dir(data);
 	//这部分可以移至middleware
 	//fake
@@ -152,7 +156,7 @@ vector.interpretor = function(req, res, next) {
 		//计算中间需要稀释的组数
 		for (var u = 0; Math.pow(10, 4 - u) > end.qh; u++) {
 			var cmtemp = new Concentration();
-			cmtemp.set(Math.pow(10, 4 - u));
+			cmtemp.set(Math.pow(10, 4 - u), 'mgl');
 			middle.c.push(cmtemp);
 			//	console.log('balbalba');
 		}
@@ -169,7 +173,7 @@ vector.interpretor = function(req, res, next) {
 		//这是整个计算过程中最复杂的一个中间量，最大的难度是单位换算，现已通过javascript oop解决
 		middle.dTakeLast = new Dose();
 		//console.log(middle.c);
-		middle.dTakeLast.set(end.qh / middle.c[middle.c.length - 1].get().data);
+		middle.dTakeLast.set(end.qh / middle.c[middle.c.length - 1].get().data, 'ml');
 
 		raw.d = new Dose();
 		raw.d.set(middle.c[0].get().data * middle.d.get().data / raw.c.get().data);
@@ -189,6 +193,8 @@ vector.interpretor = function(req, res, next) {
 		middle: middle,
 		end: end
 	}
+
+	res.
 
 	console.log(output);
 

@@ -89,24 +89,22 @@ function vector() {
 		raw.c.set(data.ConcentrationRaw.data, data.ConcentrationRaw.unit);
 		//console.log('raw.c是');
 		//console.log(raw.c.get());
-
 		end.ch = new Concentration();
 		end.ch.set(data.ConcentrationHigh.data, data.ConcentrationHigh.unit);
 		//console.log('end.ch是');
 		//console.log(end.ch.get());
-
 		end.pr = data.PropotionRate;
 		end.gn = data.GroupNumber;
 		end.d = new Dose();
 		end.d.set(data.Dose.data, data.Dose.unit);
+		console.log('data.Dose.unit is ' + data.Dose.unit);
 		//console.log(end);
-
 		//将end.Concentration生成由高至低的终浓度数组
 		end.c = [];
 		//由0至组数循环，每组对CH除以i个PR，计算完成后推送至end.Concentration
 		for (var i = 0; i < end.gn; i++) {
 			var d = end.ch.get().data;
-		//	console.log(d);
+			//	console.log(d);
 			var iu = i;
 			while (iu) {
 				iu--;
@@ -118,11 +116,10 @@ function vector() {
 		}
 
 		//console.log(end);
-
 		//dose preparation
 		end.dp = new Dose();
 		end.dp.set(end.d.get().data * end.pr / (end.pr - 1), end.d.get().unit);
-
+		console.log(end.d.get('ml'));
 		//end.quantityHigh 需要的药剂重量
 		end.qh = end.ch.get().data * end.dp.get().data;
 
@@ -132,9 +129,9 @@ function vector() {
 		//计算中间需要稀释的组数
 		for (var u = 0; Math.pow(10, 4 - u) > end.qh; u++) {
 			var cmtemp = new Concentration();
-			cmtemp.set(Math.pow(10, 4 - u));
+			cmtemp.set(Math.pow(10, 4 - u),'mgl');
 			middle.c.push(cmtemp);
-		//	console.log('balbalba');
+			//	console.log('balbalba');
 		}
 
 		//10 ratio dilution times，10倍稀释的次数
@@ -149,7 +146,7 @@ function vector() {
 		//这是整个计算过程中最复杂的一个中间量，最大的难度是单位换算，现已通过javascript oop解决
 		middle.dTakeLast = new Dose();
 		//console.log(middle.c);
-		middle.dTakeLast.set(end.qh / middle.c[middle.c.length - 1].get().data);
+		middle.dTakeLast.set(end.qh / middle.c[middle.c.length - 1].get().data,'ml');
 
 		raw.d = new Dose();
 		raw.d.set(middle.c[0].get().data * middle.d.get().data / raw.c.get().data);
@@ -172,62 +169,5 @@ function vector() {
 
 	console.log(output);
 }
+
 vector();
-
-/*
-function Unit() {
-	this.defaultUnitGroup = {};
-}
-Unit.prototype.set = function(data, unit) {
-	if (this.defaultUnitGroup.hasOwnProperty(unit)) {
-		this.data = data * this.defaultUnitGroup[unit] / this.defaultUnitGroup[this.defaultUnit];
-		this.unit = unit;
-	} else if (!unit) {
-		this.data = data;
-		this.unit = this.defaultUnit;
-	}
-};
-Unit.prototype.get = function(unit) {
-	var o = {};
-	if (!unit) {
-		o.unit = this.defaultUnit;
-		o.data = this.data * this.defaultUnitGroup[this.unit] / this.defaultUnitGroup[this.defaultUnit];
-	} else if (this.defaultUnitGroup.hasOwnProperty(unit)) {
-		o.unit = unit;
-		o.data = this.data * this.defaultUnitGroup[this.unit] / this.defaultUnitGroup[unit];
-	} else {
-		o.unit = this.unit;
-		o.data = this.data;
-	}
-	return o;
-};
-
-function Dose() {
-	this.defaultUnitGroup = {
-		ml: 1,
-		l: 1000
-	};
-	this.defaultUnit = 'l';
-}
-Dose.prototype = new Unit;
-
-function Concentration() {
-	this.defaultUnitGroup = {
-		percent: 10000,
-		mgml: 1000,
-		mgl: 1,
-		ppm: 1
-	};
-	this.defaultUnit = 'mgl';
-}
-Concentration.prototype = new Unit;
-
-
-var d = new Dose();
-d.set(10);
-console.log(d.get());
-d.set(100, 'ml');
-console.log(d.get());
-d.set(234234, 'l');
-console.log(d.get());
-*/
