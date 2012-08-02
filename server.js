@@ -10,38 +10,38 @@ var sessionSecret = require('./configure/key.js').sessionSecret;
 
 function start(route) {
 
-	var app = module.exports = express();
+	var app = express();
+
+	app.engine('jade', require('jade').__express);
 
 	// Configuration
 	// seperation is under consideration
-	app.configure(function() {
-		app.set('views', __dirname + '/views');
-		app.set('view engine', 'jade');
-		app.use(express.bodyParser());
-		app.use(express.methodOverride());
-		app.use(express.cookieParser());
-		app.use(express.session({
-			secret: sessionSecret,
-			store: sessionStore,
-			cookie: {
-				maxAge: 60000 * 60 * 24 * 30 * 6
-			}
-		}));
-		app.use(app.router);
-		app.use(express.static(__dirname + '/public'));
-	});
+	app.set('views', __dirname + '/views');
+	app.set('view engine', 'jade');
+	app.use(express.bodyParser());
+	app.use(express.methodOverride());
+	app.use(express.cookieParser());
+	app.use(express.session({
+		secret: sessionSecret,
+		store: sessionStore,
+		cookie: {
+			maxAge: 60000 * 60 * 24 * 30 * 6
+		}
+	}));
+	app.use(app.router);
+	app.use(express.static('public'));
 
-	app.configure('development', function() {
+	if ('development' == app.get('env')) {
 		app.use(express.errorHandler({
 			dumpExceptions: true,
 			showStack: true
 		}));
-	});
+	}
 
-	app.configure('production', function() {
+	if ('production' == app.get('env')) {
 		//app.enabled('view cache');
 		app.use(express.errorHandler());
-	});
+	}
 
 	var port = process.env.PORT || 8000;
 	//end of configuration
