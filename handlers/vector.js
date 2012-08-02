@@ -146,11 +146,10 @@ vector.interpretor = function(req, res, next) {
 		middle.dTakeLast.set(end.qh / middle.c[middle.c.length - 1].get('default'));
 
 		raw.d = new Dose();
-		raw.d.set(middle.c[0].get().data * middle.d.get())
+		raw.d.set(middle.c[0].get().data * middle.d.get().data / raw.c.get().data);
 
 	}
 
-	console.log(end.c);
 
 	/**
 	 *母液配置
@@ -163,6 +162,9 @@ vector.interpretor = function(req, res, next) {
 		middle: middle,
 		end: end
 	}
+
+	console.log(output);
+
 
 } else {
 	next(new Error('[vector]数据格式有误，请检查'));
