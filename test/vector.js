@@ -70,6 +70,7 @@ function vector() {
 	};
 	console.dir(data);
 	//这部分可以移至middleware
+	//fake
 	var checked = function check(data) {
 			//检查服务器发送数据是否符合要求，若符合返回1，否则返回0
 			return 1;
@@ -86,30 +87,37 @@ function vector() {
 		//将data数据复制到output对象
 		raw.c = new Concentration();
 		raw.c.set(data.ConcentrationRaw.data, data.ConcentrationRaw.unit);
-		console.log('raw.c是');
-		console.log(raw.c);
+		//console.log('raw.c是');
+		//console.log(raw.c.get());
 
 		end.ch = new Concentration();
 		end.ch.set(data.ConcentrationHigh.data, data.ConcentrationHigh.unit);
+		//console.log('end.ch是');
+		//console.log(end.ch.get());
 
 		end.pr = data.PropotionRate;
 		end.gn = data.GroupNumber;
 		end.d = new Dose();
 		end.d.set(data.Dose.data, data.Dose.unit);
+		//console.log(end);
 
 		//将end.Concentration生成由高至低的终浓度数组
 		end.c = [];
 		//由0至组数循环，每组对CH除以i个PR，计算完成后推送至end.Concentration
 		for (var i = 0; i < end.gn; i++) {
 			var d = end.ch.get().data;
-			while (i) {
-				i--;
+		//	console.log(d);
+			var iu = i;
+			while (iu) {
+				iu--;
 				d /= end.pr;
 			}
 			var ctemp = new Concentration();
 			ctemp.set(d);
 			end.c.push(ctemp);
 		}
+
+		//console.log(end);
 
 		//dose preparation
 		end.dp = new Dose();
@@ -122,10 +130,11 @@ function vector() {
 		middle.c = [];
 
 		//计算中间需要稀释的组数
-		for (var u = 0; Math.pow(10, 4 - u) > end.q; u--) {
+		for (var u = 0; Math.pow(10, 4 - u) > end.qh; u++) {
 			var cmtemp = new Concentration();
 			cmtemp.set(Math.pow(10, 4 - u));
 			middle.c.push(cmtemp);
+		//	console.log('balbalba');
 		}
 
 		//10 ratio dilution times，10倍稀释的次数
@@ -139,11 +148,13 @@ function vector() {
 		//取出最后一个中间浓度，配置终浓度的剂量 ＝ 终有效药量／中间最后一组浓度 所有单位已化为默认单位
 		//这是整个计算过程中最复杂的一个中间量，最大的难度是单位换算，现已通过javascript oop解决
 		middle.dTakeLast = new Dose();
-		middle.dTakeLast.set(end.qh / middle.c[middle.c.length - 1].get('default'));
+		//console.log(middle.c);
+		middle.dTakeLast.set(end.qh / middle.c[middle.c.length - 1].get().data);
 
 		raw.d = new Dose();
 		raw.d.set(middle.c[0].get().data * middle.d.get().data / raw.c.get().data);
-
+		//console.log('raw.d is ');
+		//console.log(raw.d);
 	}
 
 
