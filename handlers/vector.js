@@ -76,24 +76,24 @@ vector.interpretor = function(req, res, next) {
 
 	//finish this part for better api
 	/**
-	* Input data API reference
-	*
-	*{
-	*	ConcentrationRaw: {
-	*		data: Number
-	*		unit: String
-	*	},
-	*	ConcentrationHigh: {
-	*		data: Number
-	*		unit: String
-	*	},
-	*	PropotionRate: Number,
-	*	GroupNumber: Number,
-	*	Dose: {
-	*		data: Number,
-	*		unit: String
-	*	}
-	*/
+	 * Input data API reference
+	 *
+	 *{
+	 *	ConcentrationRaw: {
+	 *		data: Number
+	 *		unit: String
+	 *	},
+	 *	ConcentrationHigh: {
+	 *		data: Number
+	 *		unit: String
+	 *	},
+	 *	PropotionRate: Number,
+	 *	GroupNumber: Number,
+	 *	Dose: {
+	 *		data: Number,
+	 *		unit: String
+	 *	}
+	 */
 	var data = req.body.data;
 
 	console.dir(data);
@@ -179,28 +179,26 @@ vector.interpretor = function(req, res, next) {
 		raw.d.set(middle.c[0].get().data * middle.d.get().data / raw.c.get().data);
 		//console.log('raw.d is ');
 		//console.log(raw.d);
+
+
+		/**
+		 *母液配置
+		 *
+		 *浓度:由原药直接稀释成母液,计量:待计算
+		 */
+
+		output = {
+			raw: raw,
+			middle: middle,
+			end: end
+		};
+
+		//res.
+		console.log(output);
+
+	} else {
+		next(new Error('[vector]数据格式有误，请检查'));
 	}
-
-
-	/**
-	 *母液配置
-	 *
-	 *浓度:由原药直接稀释成母液,计量:待计算
-	 */
-
-	output = {
-		raw: raw,
-		middle: middle,
-		end: end
-	}
-
-	res.
-
-	console.log(output);
-
-} else {
-	next(new Error('[vector]数据格式有误，请检查'));
-}
 
 };
 

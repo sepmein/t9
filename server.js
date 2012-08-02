@@ -10,7 +10,7 @@ var sessionSecret = require('./configure/key.js').sessionSecret;
 
 function start(route) {
 
-	var app = module.exports = express.createServer();
+	var app = module.exports = express();
 
 	// Configuration
 	// seperation is under consideration
