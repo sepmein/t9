@@ -30,13 +30,12 @@ vector.interpretor = function(req, res, next) {
 		this.defaultUnitGroup = {};
 	}
 	Unit.prototype.set = function(data, unit) {
-		if (this.defaultUnitGroup.hasOwnProperty('unit')) {
-			this.data = data * this.defaultUnitGroup[unit] / this.defaultUnitGroup[this.defaultUnit];
+		if (this.defaultUnitGroup.hasOwnProperty(unit)) {
 			this.unit = unit;
 		} else if (!unit) {
-			this.data = data;
 			this.unit = this.defaultUnit;
 		}
+		this.data = data;
 	};
 	Unit.prototype.get = function(unit) {
 		var o = {};
@@ -55,8 +54,8 @@ vector.interpretor = function(req, res, next) {
 
 	function Dose() {
 		this.defaultUnitGroup = {
-			ml: 1000,
-			l: 1
+			ml: 1,
+			l: 1000
 		};
 		this.defaultUnit = 'l';
 	}

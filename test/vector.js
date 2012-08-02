@@ -5,18 +5,16 @@ console.log(u);
 function vector() {
 	//定义单位的javascript oop部分，核心算法
 
-
 	function Unit() {
 		this.defaultUnitGroup = {};
 	}
 	Unit.prototype.set = function(data, unit) {
-		if (this.defaultUnitGroup.hasOwnProperty('unit')) {
-			this.data = data * this.defaultUnitGroup[unit] / this.defaultUnitGroup[this.defaultUnit];
+		if (this.defaultUnitGroup.hasOwnProperty(unit)) {
 			this.unit = unit;
 		} else if (!unit) {
-			this.data = data;
 			this.unit = this.defaultUnit;
 		}
+		this.data = data;
 	};
 	Unit.prototype.get = function(unit) {
 		var o = {};
@@ -35,8 +33,8 @@ function vector() {
 
 	function Dose() {
 		this.defaultUnitGroup = {
-			ml: 1000,
-			l: 1
+			ml: 1,
+			l: 1000
 		};
 		this.defaultUnit = 'l';
 	}
@@ -55,7 +53,7 @@ function vector() {
 
 	//change this part for test
 	var data = {
-		ConcentrationRaw:{
+		ConcentrationRaw: {
 			data: 97,
 			unit: 'percent'
 		},
@@ -70,6 +68,7 @@ function vector() {
 			unit: 'mgl'
 		}
 	};
+	console.dir(data);
 	//这部分可以移至middleware
 	var checked = function check(data) {
 			//检查服务器发送数据是否符合要求，若符合返回1，否则返回0
@@ -87,6 +86,8 @@ function vector() {
 		//将data数据复制到output对象
 		raw.c = new Concentration();
 		raw.c.set(data.ConcentrationRaw.data, data.ConcentrationRaw.unit);
+		console.log('raw.c是');
+		console.log(raw.c);
 
 		end.ch = new Concentration();
 		end.ch.set(data.ConcentrationHigh.data, data.ConcentrationHigh.unit);
@@ -160,5 +161,62 @@ function vector() {
 
 	console.log(output);
 }
+vector();
 
-vector()
+/*
+function Unit() {
+	this.defaultUnitGroup = {};
+}
+Unit.prototype.set = function(data, unit) {
+	if (this.defaultUnitGroup.hasOwnProperty(unit)) {
+		this.data = data * this.defaultUnitGroup[unit] / this.defaultUnitGroup[this.defaultUnit];
+		this.unit = unit;
+	} else if (!unit) {
+		this.data = data;
+		this.unit = this.defaultUnit;
+	}
+};
+Unit.prototype.get = function(unit) {
+	var o = {};
+	if (!unit) {
+		o.unit = this.defaultUnit;
+		o.data = this.data * this.defaultUnitGroup[this.unit] / this.defaultUnitGroup[this.defaultUnit];
+	} else if (this.defaultUnitGroup.hasOwnProperty(unit)) {
+		o.unit = unit;
+		o.data = this.data * this.defaultUnitGroup[this.unit] / this.defaultUnitGroup[unit];
+	} else {
+		o.unit = this.unit;
+		o.data = this.data;
+	}
+	return o;
+};
+
+function Dose() {
+	this.defaultUnitGroup = {
+		ml: 1,
+		l: 1000
+	};
+	this.defaultUnit = 'l';
+}
+Dose.prototype = new Unit;
+
+function Concentration() {
+	this.defaultUnitGroup = {
+		percent: 10000,
+		mgml: 1000,
+		mgl: 1,
+		ppm: 1
+	};
+	this.defaultUnit = 'mgl';
+}
+Concentration.prototype = new Unit;
+
+
+var d = new Dose();
+d.set(10);
+console.log(d.get());
+d.set(100, 'ml');
+console.log(d.get());
+d.set(234234, 'l');
+console.log(d.get());
+*/
