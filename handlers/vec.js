@@ -3,16 +3,18 @@ var generateRandom = require('.././util').genereteRandom;
 
 var db = db || {};
 
-//db.vector = require('.././data/vector');
-var vector = vector || {};
+//db.vec = require('.././data/vec');
+var vec = vec || {};
 
-vector.renderVector = function(req, res, next) {
+vec.renderVec = function(req, res, next) {
+	res.render('vec');
 	//进入新建页面
+	/*
 	console.dir(req.params);
 	console.log('hahah');
 	if (!req.params.url) {
 		//res.render();
-		res.end('no url send');
+		res.render('vec');
 		console.log('no url send');
 	} else {
 		//已建，从数据库读取
@@ -21,9 +23,10 @@ vector.renderVector = function(req, res, next) {
 	}
 
 	//req.param()
+	*/
 };
 
-vector.interpretor = function(req, res, next) {
+vec.interpretor = function(req, res, next) {
 
 	//定义单位的javascript oop部分，核心算法
 	//问题：javascript计算容易出现误差
@@ -197,9 +200,9 @@ vector.interpretor = function(req, res, next) {
 		console.log(output);
 
 	} else {
-		next(new Error('[vector]数据格式有误，请检查'));
+		next(new Error('[vec]数据格式有误，请检查'));
 	}
 
 };
 
-module.exports = vector;
+module.exports = vec;

@@ -38,13 +38,13 @@ module.exports = function(app) {
 
 	//custom 404
 	//app.get('/*', handlers.fourOFour);
-	//vector
-	app.get('/vector/:url', handlers.renderVector);
+	//vec
+	app.get('/vec', handlers.renderVec);
 
-	app.post('/vector/:url', handlers.interpretor);
+	app.post('/vec/:url', handlers.interpretor);
 
-	app.del('/vector/:url', handlers.renderVector);
+	app.del('/vec/:url', handlers.renderVec);
 
-	app.put('/vector/:url', handlers.renderVector);
+	app.put('/vec/:url', handlers.renderVec);
 
 };
