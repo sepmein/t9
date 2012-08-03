@@ -26,6 +26,10 @@ vec.renderVec = function(req, res, next) {
 	*/
 };
 
+vec.renderVecStart = function(req, res, next) {
+	res.render('vec/start.jade');
+};
+
 vec.interpretor = function(req, res, next) {
 
 	//定义单位的javascript oop部分，核心算法
@@ -182,7 +186,6 @@ vec.interpretor = function(req, res, next) {
 		raw.d.set(middle.c[0].get().data * middle.d.get().data / raw.c.get().data);
 		//console.log('raw.d is ');
 		//console.log(raw.d);
-
 
 		/**
 		 *母液配置
