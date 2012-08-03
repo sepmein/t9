@@ -23,9 +23,7 @@ handlers.renderIndex = function(req, res, next) {
         //after a longlong chain of callback, s'll be returned
         //这种callback套callback的模式以后优化。但是目前没有办法。
         res.render('index', {
-          locals: {
-            data: koki
-          }
+          data: koki
         });
       }
     });
@@ -152,7 +150,7 @@ handlers.postLifeTags = function(req, res) {
   /*-----------------------------------
     将此部分逻辑移至客户端，服务器端负责处理和验证纯净数据
     -------------------------------------*/
-    console.dir(req.body);
+  console.dir(req.body);
   //format data
   var data = req.body;
   //权宜之计，不能满足多种条件，将来改进
@@ -183,8 +181,8 @@ handlers.postLifeTags = function(req, res) {
 handlers.getComments = function(res, req, next) {};
 
 handlers.getPosts = function(req, res) {
-  db.posts.fetchAll(function(status, info){
-    if(status.ok){
+  db.posts.fetchAll(function(status, info) {
+    if (status.ok) {
       res.json(info);
     } else {
       next(info);
