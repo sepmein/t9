@@ -27,7 +27,7 @@ vec.renderVec = function(req, res, next) {
 };
 
 vec.renderVecStart = function(req, res, next) {
-	res.render('vec/start.jade');
+	res.render('vec/start');
 };
 
 vec.interpretor = function(req, res, next) {
@@ -64,7 +64,8 @@ vec.interpretor = function(req, res, next) {
 	function Dose() {
 		this.defaultUnitGroup = {
 			ml: 1,
-			l: 1000
+			l: 1000,
+			ul: 0.001
 		};
 		this.defaultUnit = 'l';
 	}

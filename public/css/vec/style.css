@@ -1,0 +1,14 @@
+select{
+	border: none;
+	width: 5.5em;
+	background-color: #EEEEEE;
+	border-radius: 0 3px 3px 0;
+	border: 1px solid #CCCCCC;
+}
+select>option{
+	background-color: #EEEEEE;
+}
+#sub{
+	font-size: 2em;
+	letter-spacing: 0.1em;
+}
