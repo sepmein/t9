@@ -260,13 +260,11 @@ vec.interpretor = function(req, res, next) {
 			};
 
 			//res.
-			res.json(output	);
+			res.render('vec/output',output);
 		} else {
 			res.end(err);
 		}
 	});
-
-
 
 };
 
