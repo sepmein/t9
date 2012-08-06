@@ -13,57 +13,66 @@ html
 					h2 开始使用Vec
 					h3 Vec的使用方法非常简单，只需要在下列表单中填写所需要的数据即可
 			section#main.row
-				div.span8
-					form#in.well.form-horizontal
-						fieldset
-							legend 原药
-							div.controlgroup
-								label.control-label.focused(for='consistencyRaw') 原药浓度
-								div.controls
-									div.input-append
-										input.span2#consistencyRaw(type='number')
-										span.add-on %
-									p.help-block some help text for test
-						fieldset
-							legend 终浓度
-							div.controlgroup
-								label.control-label(for='consistencyHigh') 最高浓度
-								div.controls
-									input.span2#consistencyHigh(type='number')
-									select#consistencyHighUnit
-										option mg/mL
-										option mg/L
-										option ppm
-										option %
-									p.help-block some help text for test
-							//div.controlgroup
-								label.control-label(for='consistencyLow') 最低浓度
-								div.controls
-									input.span2#consistencyLow(type='number')
-									p.help-block some help text for test
-							div.controlgroup
-								label.control-label(for='dose') 剂量
-								div.controls
-									input.span2#dose(type='number')
-									select#doseUnit
-										option mL
-										option L
-										option uL
-									p.help-block some help text for test
-							div.controlgroup
-								label.control-label(for='groupNumber') 组数
-								div.controls
-									input.span2#groupNumber(type='number')
-									p.help-block some help text for test
-							div.controlgroup
-								label.control-label(for='propotionRate') 组间比
-								div.controls
-									input.span2#propotionRate(type='number')
-									p.help-block some help text for test
-							div.form-actions
-								button.btn.btn-large.btn-primary#sub(type='submit') 计算
-
-				div.span4
-					h4 Example 
+				section.row
+					div.span8
+						form#in.well.form-horizontal(action='/vec',method='post')
+							fieldset
+								legend 原药
+								div.controlgroup
+									label.control-label.focused(for='concentrationRaw') 原药浓度
+									div.controls
+										div.input-append
+											input.span2#concentrationRaw(type='number',name="concentrationRaw")
+											span.add-on %
+										p.help-block some help text for test
+							fieldset
+								legend 终浓度
+								div.controlgroup
+									label.control-label(for='concentrationHigh') 最高浓度
+									div.controls
+										input.span2#concentrationHigh(type='number',name='concentrationHigh')
+										select#concentrationHighUnit(name='concentrationHighUnit')
+											option mg/mL
+											option mg/L
+											option ppm
+											option %
+										p.help-block some help text for test
+								//div.controlgroup
+									label.control-label(for='concentrationLow') 最低浓度
+									div.controls
+										input.span2#concentrationLow(type='number')
+										p.help-block some help text for test
+								div.controlgroup
+									label.control-label(for='dose') 剂量
+									div.controls
+										input.span2#dose(type='number',name='dose')
+										select#doseUnit(name='doseUnit')
+											option mL
+											option L
+											option uL
+										p.help-block some help text for test
+								div.controlgroup
+									label.control-label(for='groupNumber') 组数
+									div.controls
+										input.span2#groupNumber(type='number',name='groupNumber')
+										p.help-block some help text for test
+								div.controlgroup
+									label.control-label(for='propotionRate') 组间比
+									div.controls
+										input.span2#propotionRate(type='number',name='propotionRate')
+										p.help-block some help text for test
+								div.form-actions
+									button.btn.btn-large.btn-primary#sub(type='submit') 计算
+					div.span4
+						h4 Example
+				section.row
+					div.span12
+						script(type='text/x-handlebars',data-template-name="say-hello")
+							<h1>hello , {{name}}</h1>
 			footer.row
+		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
+		script
+			window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\\/script>');
+		script(src='../js/libs/handlebars-1.0.0.beta.6.js')
+		script(src='../js/libs/ember-1.0.pre.min.js')
 		script(src='../js/vec/scripts.js')

@@ -203,6 +203,7 @@ handlers.welcome = coupon.welcome;
 var vec = require('./vec.js');
 handlers.renderVec = vec.renderVec;
 handlers.renderVecStart = vec.renderVecStart;
+handlers.createVec = vec.createVec;
 handlers.interpretor = vec.interpretor;
 
 module.exports = handlers;

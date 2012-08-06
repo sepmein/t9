@@ -39,13 +39,13 @@ module.exports = function(app) {
 	//custom 404
 	//app.get('/*', handlers.fourOFour);
 	//vec
-	app.get('/vec', handlers.renderVec);
 	app.get('/vec/start', handlers.renderVecStart);
-
-	app.post('/vec/:url', handlers.interpretor);
+	app.get('/vec', handlers.renderVec);
+	app.get('/vec/:url', handlers.interpretor);
+	
+	app.post('/vec', handlers.createVec);
 
 	app.del('/vec/:url', handlers.renderVec);
 
 	app.put('/vec/:url', handlers.renderVec);
-
 };
