@@ -40,9 +40,11 @@ module.exports = function(app) {
 	//app.get('/*', handlers.fourOFour);
 	//vec
 	app.get('/vec/start', handlers.renderVecStart);
+
 	app.get('/vec', handlers.renderVec);
+
 	app.get('/vec/:url', handlers.interpretor);
-	
+
 	app.post('/vec', handlers.createVec);
 
 	app.del('/vec/:url', handlers.renderVec);

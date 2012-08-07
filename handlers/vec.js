@@ -90,7 +90,6 @@ vec.interpretor = function(req, res, next) {
 	//定义单位的javascript oop部分，核心算法
 	//问题：javascript计算容易出现误差
 
-
 	function Unit() {
 		this.defaultUnitGroup = {};
 	}
@@ -170,7 +169,6 @@ vec.interpretor = function(req, res, next) {
 			var dt = d[0].data;
 
 			//console.dir(data);
-
 			//数据格式正确，将其翻译成可阅读的格式，也许这步只需要出现在前端
 			var output = output || {};
 
@@ -244,8 +242,8 @@ vec.interpretor = function(req, res, next) {
 			middle.dTakeLast.set(end.qh / middle.c[middle.c.length - 1].get().data);
 
 			raw.d = new Dose();
-			console.log('middle.c[0].get().data : '+ middle.c[0].get().data + '' + middle.c[0].get().unit);
-			console.log('raw.c.get().data : '+ raw.c.get().data + '' + raw.c.get().unit);
+			console.log('middle.c[0].get().data : ' + middle.c[0].get().data + '' + middle.c[0].get().unit);
+			console.log('raw.c.get().data : ' + raw.c.get().data + '' + raw.c.get().unit);
 			raw.d.set(middle.c[0].get().data * middle.d.get(middle.d.unit).data / raw.c.get().data, middle.d.unit);
 			//console.log('raw.d is ');
 			//console.log(raw.d);
@@ -262,11 +260,11 @@ vec.interpretor = function(req, res, next) {
 			};
 
 			//res.
-			res.render('vec/output',output);
+			res.render('vec/output', output);
 			//res.json(output);
 		} else {
-			res.end(err);
-		}
+			console.log(d);
+			}
 	});
 
 };

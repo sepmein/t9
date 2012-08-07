@@ -58,7 +58,11 @@ vec.find = function find(url, callback) {
 		url: url
 	}, function(err, docs) {
 		if (!err) {
-			callback(1, docs);
+			if(docs.length === 0) {;
+				callback(0, new Error('This vec doesn\'t exists.'))	
+			} else {
+				callback(1, docs);	
+			}
 		} else {
 			callback(0, err);
 		}
