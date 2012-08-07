@@ -1,3 +1,20 @@
+body {
+	background-image: url('/img/crisp_paper_ruffles.png');
+}
+#holder {
+	height: 120px;
+	width: 600px;
+}
+form#in {
+	-webkit-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.3);
+	box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.3);
+}
+.well {
+	background-color: rgb(250, 249, 249);
+}
+.form-actions {
+	background-color: rgb(249,247,247);
+}
 select{
 	border: none;
 	width: 5.5em;
@@ -7,4 +24,8 @@ select{
 }
 #sub{
 	letter-spacing: 0.1em;
+}
+
+.hidden {
+	display: none;
 }

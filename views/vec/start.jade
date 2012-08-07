@@ -9,9 +9,9 @@ html
 	body
 		.container
 			header.row
-				div.span12
-					h2 开始使用Vec
-					h3 Vec的使用方法非常简单，只需要在下列表单中填写所需要的数据即可
+				div.span12#holder
+					h2.hidden VEC
+					h3.hidden hands-free
 			section#main.row
 				section.row
 					div.span8
@@ -54,7 +54,9 @@ html
 								div.controlgroup
 									label.control-label(for='groupNumber') 组数
 									div.controls
-										input.span2#groupNumber(type='number',name='groupNumber',required)
+										div.input-append
+											input.span2#groupNumber(type='number',name='groupNumber',required)
+											span.add-on 组
 										p.help-block some help text for test
 								div.controlgroup
 									label.control-label(for='propotionRate') 组间比
@@ -66,7 +68,25 @@ html
 									| &nbsp;&nbsp;&nbsp;
 									a.cancel.btn.btn-large(href='/vec') 取消
 					div.span4
-						h4 Example
+						h5 <i class="icon-asterisk"></i><b>说明</b>
+						br
+						p Vec目前只支持终浓度为等比方式分布的药剂配制
+						hr
+						h5 <i class="icon-eye-open"></i><b>示例</b>
+						br
+						p 使用95%溴氰聚酯，配制终浓度药剂各1mL：
+						ul
+							li 0.008 mg/L
+							li 0.004 mg/L
+							li 0.002 mg/L
+							li 0.001 mg/L
+							li 0.0005 mg/L
+						p 则在左侧填写：
+						p 原药浓度为：95 %，
+						p 最高浓度为：0.008 mg/L，
+						p 剂量为：   1 mL，
+						p 组数为：   5 组，
+						p 组间比为： 2 ，  0.008/0.004 ＝ 2
 				section.row
 					div.span12
 						script(type='text/x-handlebars',data-template-name="say-hello")
@@ -75,4 +95,5 @@ html
 		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
 		script
 			window.jQuery || document.write('<script src="../js/libs/jquery-1.7.2.min.js"><\/script>');
+		script(src="../js/libs/raphael.js")
 		script(src="../js/vec/start.js")
