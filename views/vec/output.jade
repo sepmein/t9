@@ -13,20 +13,28 @@ html
 				div.span12
 					h4 一、母液配制
 					ol
-						li 从浓度为#{raw.c.data} #{raw.c.unit}的原药中使用电子天秤称量#{raw.d.data} #{raw.d.unit}药剂
-						li 加稀释液定容至#{middle.d.data} #{middle.d.unit}，配制成浓度为#{middle.c[0].data} #{middle.c[0].unit}的母液
+						li 从浓度为#{raw.c.data} #{raw.c.unit}的原药中使用电子天秤称量#{raw.d.data} #{raw.d.unit}药剂。
+						li 加稀释液定容至#{middle.d.data} #{middle.d.unit}，配制成浓度为#{middle.c[0].data} #{middle.c[0].unit}的母液。
 					h4 二、中间过程－10倍稀释
-					h5 经过 <em>#{middle.dt}</em> 次稀释，将母液浓度稀释至接近终浓度
+					h5 经过 <em>#{middle.dt}</em> 次稀释，将母液浓度稀释至接近终浓度。
 					ol
-						each c in middle.c
-							li 从浓度为#{c.data} #{c.unit}的药业中，吸取#{middle.dTake.data} #{middle.dTake.unit}，加稀释液定容至#{middle.d.data} #{middle.d.unit}
+						each c, i in middle.c
+							if(i!= middle.c.length - 1)
+								li 从浓度为#{c.data} #{c.unit}的药液中，吸取#{middle.dTake.data} #{middle.dTake.unit}，加稀释液定容至#{middle.d.data} #{middle.d.unit}。
+							else
+								li 从浓度为#{c.data} #{c.unit}的药液中，吸取#{middle.dTakeLast.data} #{middle.dTakeLast.unit}，加稀释液定容至#{end.dp.data} #{end.dp.unit}，从而配制成终浓度为#{end.ch.data} #{end.ch.unit}的溶剂。
 					h4 三、终浓度配制
 					h5 配制 <em>#{end.gn}</em> 组药剂，组间比值为 <em>#{end.pr}</em>
-
+					ol
+						each c, i in end.c
+							if(i!= end.c.length - 1)
+								li 从浓度为#{c.data} #{c.unit}的药液中，吸取#{end.dTake.data} #{end.dTake.unit}，加稀释液定容至#{end.dp.data} #{end.dp.unit}。
+							else
+								li 配制成终浓度为#{c.data} #{c.unit}的药液，吸取#{end.dTake.data} #{end.dTake.unit}废液，完成整个配制过程。
 			footer.row
 		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
 		script
-			window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\\/script>');
+			window.jQuery || document.write('<script src="../js/libs/jquery-1.7.2.min.js"><\\/script>');
 		script(src='../js/libs/handlebars-1.0.0.beta.6.js')
 		script(src='../js/libs/ember-1.0.pre.min.js')
 		script(src='../js/vec/scripts.js')

@@ -22,7 +22,7 @@ html
 									label.control-label.focused(for='concentrationRaw') 原药浓度
 									div.controls
 										div.input-append
-											input.span2#concentrationRaw(type='number',name="concentrationRaw")
+											input.span2#concentrationRaw(type='number',name="concentrationRaw",step='any',min='0',autofocus,required)
 											span.add-on %
 										p.help-block some help text for test
 							fieldset
@@ -30,10 +30,10 @@ html
 								div.controlgroup
 									label.control-label(for='concentrationHigh') 最高浓度
 									div.controls
-										input.span2#concentrationHigh(type='number',name='concentrationHigh')
+										input.span2#concentrationHigh(type='number',name='concentrationHigh',step='any',min='0',required)
 										select#concentrationHighUnit(name='concentrationHighUnit')
-											option mg/mL
 											option mg/L
+											option mg/mL
 											option ppm
 											option %
 										p.help-block some help text for test
@@ -45,7 +45,7 @@ html
 								div.controlgroup
 									label.control-label(for='dose') 剂量
 									div.controls
-										input.span2#dose(type='number',name='dose')
+										input.span2#dose(type='number',name='dose',step='any',min='0',required)
 										select#doseUnit(name='doseUnit')
 											option mL
 											option L
@@ -54,12 +54,12 @@ html
 								div.controlgroup
 									label.control-label(for='groupNumber') 组数
 									div.controls
-										input.span2#groupNumber(type='number',name='groupNumber')
+										input.span2#groupNumber(type='number',name='groupNumber',required)
 										p.help-block some help text for test
 								div.controlgroup
 									label.control-label(for='propotionRate') 组间比
 									div.controls
-										input.span2#propotionRate(type='number',name='propotionRate')
+										input.span2#propotionRate(type='number',name='propotionRate',step='any',min='0',required)
 										p.help-block some help text for test
 								div.form-actions
 									button.btn.btn-large.btn-primary#sub(type='submit') 计算

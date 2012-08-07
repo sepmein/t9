@@ -123,7 +123,7 @@ vec.interpretor = function(req, res, next) {
 			L: 1000,
 			uL: 0.001
 		};
-		this.defaultUnit = 'L';
+		this.defaultUnit = 'mL';
 	}
 	Dose.prototype = new Unit;
 
@@ -211,16 +211,18 @@ vec.interpretor = function(req, res, next) {
 			//console.log(end);
 			//dose preparation
 			end.dp = new Dose();
-			end.dp.set(end.d.get().data * end.pr / (end.pr - 1), end.d.get().unit);
+			end.dp.set(end.d.get().data * end.pr / (end.pr - 1), end.d.unit);
+			end.dTake = new Dose();
+			end.dTake.set(end.dp.get().data - end.d.get().data);
 
 			//end.quantityHigh 需要的药剂重量
-			end.qh = end.ch.get().data * end.dp.get().data;
+			end.qh = end.ch.get().data * end.dp.get().data / 1000;
 
 			//middle partition
 			middle.c = [];
 
 			//计算中间需要稀释的组数
-			for (var u = 0; Math.pow(10, 4 - u) > end.qh; u++) {
+			for (var u = 0; Math.pow(10, 4 - u) / 1000 > end.qh; u++) {
 				var cmtemp = new Concentration();
 				cmtemp.set(Math.pow(10, 4 - u), 'mg/L');
 				middle.c.push(cmtemp);
@@ -238,8 +240,8 @@ vec.interpretor = function(req, res, next) {
 			//取出最后一个中间浓度，配置终浓度的剂量 ＝ 终有效药量／中间最后一组浓度 所有单位已化为默认单位
 			//这是整个计算过程中最复杂的一个中间量，最大的难度是单位换算，现已通过javascript oop解决
 			middle.dTakeLast = new Dose();
-			//console.log(middle.c);
-			middle.dTakeLast.set(end.qh / middle.c[middle.c.length - 1].get().data, 'mL');
+			console.log(middle.c);
+			middle.dTakeLast.set(end.qh / middle.c[middle.c.length - 1].get().data);
 
 			raw.d = new Dose();
 			console.log('middle.c[0].get().data : '+ middle.c[0].get().data + '' + middle.c[0].get().unit);
@@ -261,6 +263,7 @@ vec.interpretor = function(req, res, next) {
 
 			//res.
 			res.render('vec/output',output);
+			//res.json(output);
 		} else {
 			res.end(err);
 		}
