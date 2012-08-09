@@ -4,7 +4,7 @@ html
 		title 开始使用Vec
 		meta(charset='utf-8')
 		link(rel='stylesheet',href='../css/bootstrap.min.css')
-		link(rel='stylesheet',href='../css/vec/style.css')
+		link(rel='stylesheet',href='../css/vec/start.css')
 		script(src="../js/libs/modernizr-2.5.3.min.js")
 	body
 		.container
@@ -24,7 +24,7 @@ html
 										div.input-append
 											input.span2#concentrationRaw(type='number',name="concentrationRaw",step='any',min='0',autofocus,required)
 											span.add-on %
-										p.help-block some help text for test
+										p.help-block 原药的有效含量
 							fieldset
 								legend 终浓度
 								div.controlgroup
@@ -36,7 +36,7 @@ html
 											option mg/mL
 											option ppm
 											option %
-										p.help-block some help text for test
+										p.help-block 所要配制的终浓度药剂中，浓度最高的药剂的值
 								//div.controlgroup
 									label.control-label(for='concentrationLow') 最低浓度
 									div.controls
@@ -50,19 +50,19 @@ html
 											option mL
 											option L
 											option uL
-										p.help-block some help text for test
+										p.help-block 每终浓度药剂所需配制的剂量
 								div.controlgroup
 									label.control-label(for='groupNumber') 组数
 									div.controls
 										div.input-append
 											input.span2#groupNumber(type='number',name='groupNumber',required)
 											span.add-on 组
-										p.help-block some help text for test
+										p.help-block 所需配制终浓度的组数
 								div.controlgroup
 									label.control-label(for='propotionRate') 组间比
 									div.controls
 										input.span2#propotionRate(type='number',name='propotionRate',step='any',min='0',required)
-										p.help-block some help text for test
+										p.help-block 任意相邻两终浓度组之间的浓度比
 								div.form-actions
 									button.btn.btn-large.btn-primary#sub(type='submit') 计算
 									| &nbsp;&nbsp;&nbsp;

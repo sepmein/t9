@@ -29,3 +29,6 @@ select{
 .hidden {
 	display: none;
 }
+.help-block {
+	color: rgb(175,175,175)
+}

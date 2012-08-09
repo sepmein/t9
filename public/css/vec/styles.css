@@ -1,0 +1,11 @@
+body {
+	background-image: url('/img/crisp_paper_ruffles.png');
+}
+#holder {
+	height: 150px;
+	width: 300px;
+	padding-top: 30px;
+}
+.hidden {
+	display: none;
+}

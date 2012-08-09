@@ -7,7 +7,14 @@ db.vecs = require('.././data/vec');
 var vec = vec || {};
 
 vec.renderVec = function(req, res, next) {
-	res.render('vec');
+	db.vecs.find(0, function(status, d) {
+		if (status && d.length) {
+			res.render('vec', d);
+		} else {
+			res.render('vec', d);
+
+		}
+	});
 	//进入新建页面
 	/*
 	console.dir(req.params);
@@ -27,7 +34,7 @@ vec.renderVec = function(req, res, next) {
 };
 
 vec.renderVecStart = function(req, res, next) {
-	res.render('vec/start');
+	res.render('vec/start.jade');
 };
 
 vec.createVec = function(req, res, next) {
@@ -65,7 +72,7 @@ vec.createVec = function(req, res, next) {
 		newVec.url = generateRandom();
 		newVec.data.concentrationRaw.data = req.body.concentrationRaw;
 		newVec.data.concentrationRaw.unit = 'percent';
-		newVec.data.concentrationHigh.data = req.body.concentrationHigh;
+		newVec.data.concentrationHigh.data = parseFloat(req.body.concentrationHigh, 10);
 		newVec.data.concentrationHigh.unit = req.body.concentrationHighUnit;
 		newVec.data.propotionRate = req.body.propotionRate;
 		newVec.data.groupNumber = req.body.groupNumber;
@@ -114,6 +121,13 @@ vec.interpretor = function(req, res, next) {
 			o.data = this.data;
 		}
 		return o;
+	};
+	Unit.prototype.toPrec = function(numLength) {
+		if (!isNaN(this.data)) {
+			this.data = this.data.toPrecision(numLength);
+		} else {
+			this.data = parseFloat(this.data).toPrecision(numLength);
+		}
 	};
 
 	function Dose() {
@@ -179,12 +193,12 @@ vec.interpretor = function(req, res, next) {
 			//将dt数据复制到output对象
 			raw.c = new Concentration();
 			raw.c.set(dt.concentrationRaw.data, dt.concentrationRaw.unit);
-			console.log('raw.c是');
-			console.log(raw.c.get());
+			//console.log('raw.c是');
+			//console.log(raw.c.get());
 			end.ch = new Concentration();
 			end.ch.set(dt.concentrationHigh.data, dt.concentrationHigh.unit);
-			console.log('end.ch是');
-			console.log(end.ch.get());
+			//console.log('end.ch是');
+			//console.log(end.ch.get());
 			end.pr = dt.propotionRate;
 			end.gn = dt.groupNumber;
 			end.d = new Dose();
@@ -194,7 +208,7 @@ vec.interpretor = function(req, res, next) {
 			end.c = [];
 			//由0至组数循环，每组对CH除以i个PR，计算完成后推送至end.Concentration
 			for (var i = 0; i < end.gn; i++) {
-				var d = end.ch.get().data;
+				var d = parseFloat(end.ch.get().data, 10);
 				//	console.log(d);
 				var iu = i;
 				while (iu) {
@@ -238,12 +252,12 @@ vec.interpretor = function(req, res, next) {
 			//取出最后一个中间浓度，配置终浓度的剂量 ＝ 终有效药量／中间最后一组浓度 所有单位已化为默认单位
 			//这是整个计算过程中最复杂的一个中间量，最大的难度是单位换算，现已通过javascript oop解决
 			middle.dTakeLast = new Dose();
-			console.log(middle.c);
-			middle.dTakeLast.set(end.qh / middle.c[middle.c.length - 1].get().data);
+			//console.log(middle.c);
+			middle.dTakeLast.set(end.qh / middle.c[middle.c.length - 1].get().data * 1000);
 
 			raw.d = new Dose();
-			console.log('middle.c[0].get().data : ' + middle.c[0].get().data + '' + middle.c[0].get().unit);
-			console.log('raw.c.get().data : ' + raw.c.get().data + '' + raw.c.get().unit);
+			//console.log('middle.c[0].get().data : ' + middle.c[0].get().data + '' + middle.c[0].get().unit);
+			//console.log('raw.c.get().data : ' + raw.c.get().data + '' + raw.c.get().unit);
 			raw.d.set(middle.c[0].get().data * middle.d.get(middle.d.unit).data / raw.c.get().data, middle.d.unit);
 			//console.log('raw.d is ');
 			//console.log(raw.d);
@@ -252,7 +266,14 @@ vec.interpretor = function(req, res, next) {
 			 *
 			 *浓度:由原药直接稀释成母液,计量:待计算
 			 */
-
+			raw.d.toPrec(4);
+			middle.dTakeLast.toPrec(4);
+			for (var i = 0; i < end.c.length; i++) {
+				end.c[i].toPrec(4);
+				console.dir(end.c[i].data);
+			}
+			end.dp.toPrec(4);
+			end.dTake.toPrec(4);
 			output = {
 				raw: raw,
 				middle: middle,
@@ -264,7 +285,7 @@ vec.interpretor = function(req, res, next) {
 			//res.json(output);
 		} else {
 			console.log(d);
-			}
+		}
 	});
 
 };

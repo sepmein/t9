@@ -39,9 +39,10 @@ module.exports = function(app) {
 	//custom 404
 	//app.get('/*', handlers.fourOFour);
 	//vec
-	app.get('/vec/start', handlers.renderVecStart);
 
 	app.get('/vec', handlers.renderVec);
+
+	app.get('/vec/start', handlers.renderVecStart);
 
 	app.get('/vec/:url', handlers.interpretor);
 

@@ -13,7 +13,8 @@ var Vec = new Schema({
 			unit: {
 				type: String,
 				enum: ['percent', 'mg/mL', 'mg/L', 'ppm'],
-				default: 'percent'
+			default:
+				'percent'
 			}
 		},
 		concentrationHigh: {
@@ -21,7 +22,8 @@ var Vec = new Schema({
 			unit: {
 				type: String,
 				enum: ['percent', 'mg/mL', 'mg/L', 'ppm'],
-				default: 'mg/L'
+			default:
+				'mg/L'
 			}
 		},
 		propotionRate: Number,
@@ -54,19 +56,29 @@ vec.add = function add(d, callback) {
 };
 
 vec.find = function find(url, callback) {
-	V.find({
-		url: url
-	}, function(err, docs) {
-		if (!err) {
-			if(docs.length === 0) {;
-				callback(0, new Error('This vec doesn\'t exists.'))	
+	function standardFunc(er, dc, cb) {
+		if (!er) {
+			if (dc.length === 0) {;
+				cb(0, new Error('This vec doesn\'t exists.'))
 			} else {
-				callback(1, docs);	
+				cb(1, dc);
 			}
 		} else {
-			callback(0, err);
+			cb(0, err);
 		}
-	});
+	}
+	if (url) {
+		V.find({
+			url: url
+		}, function(err, docs) {
+			standardFunc(err, docs, callback);
+		});
+	} else {
+		V.find().limit(3).exec(function(err, docs) {
+			standardFunc(err, docs, callback);
+		});
+	}
+
 };
 
 module.exports = vec;

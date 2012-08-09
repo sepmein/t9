@@ -24,17 +24,25 @@ html
 							else
 								li 从浓度为#{c.data} #{c.unit}的药液中，吸取#{middle.dTakeLast.data} #{middle.dTakeLast.unit}，加稀释液定容至#{end.dp.data} #{end.dp.unit}，从而配制成终浓度为#{end.ch.data} #{end.ch.unit}的溶剂。
 					h4 三、终浓度配制
-					h5 配制 <em>#{end.gn}</em> 组药剂，组间比值为 <em>#{end.pr}</em>
+					h5 配制 <em>#{end.gn}</em> 组药剂，组间比值为 <em>#{end.pr}</em>，每组溶剂配制 <em>#{end.d.data} #{end.d.unit}</em>
 					ol
 						each c, i in end.c
 							if(i!= end.c.length - 1)
 								li 从浓度为#{c.data} #{c.unit}的药液中，吸取#{end.dTake.data} #{end.dTake.unit}，加稀释液定容至#{end.dp.data} #{end.dp.unit}。
 							else
 								li 配制成终浓度为#{c.data} #{c.unit}的药液，吸取#{end.dTake.data} #{end.dTake.unit}废液，完成整个配制过程。
+					hr
+					h2 下一步
+					p 恭喜，您的配方已经储存至云端，下次使用无需重复填写。
+					p 您只需访问 <a id='url'></a>
+					p 选择打印此列表
+					p 您只需将该地址储存至书签
+					p 或，选择将此地址发至您的邮箱
+
 			footer.row
 		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
 		script
 			window.jQuery || document.write('<script src="../js/libs/jquery-1.7.2.min.js"><\/script>');
 		script(src='../js/libs/handlebars-1.0.0.beta.6.js')
 		script(src='../js/libs/ember-1.0.pre.min.js')
-		script(src='../js/vec/scripts.js')
+		script(src='../js/vec/output.js')
