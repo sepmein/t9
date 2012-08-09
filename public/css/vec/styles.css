@@ -1,5 +1,5 @@
 body {
-	background-image: url('/img/crisp_paper_ruffles.png');
+	background-image: url('/img/irongrip.png');
 }
 #holder {
 	height: 150px;
@@ -8,4 +8,37 @@ body {
 }
 .hidden {
 	display: none;
+}
+.img-wrapper {
+	width: 200px;
+	height: 200px;
+	margin: 0 auto;
+}
+.cut-out{
+	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
+	-moz-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
+	box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
+
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+}
+.img-wrapper#pen {
+	background:url('/img/vec/penlumina200.png') no-repeat center center;
+}
+.img-wrapper#pen:hover {
+	background:url('/img/vec/pen200.png') no-repeat center center;
+}
+
+.img-wrapper#cloud {
+	background:url('/img/vec/cloudlumina200.png') no-repeat center center;
+}
+.img-wrapper#cloud:hover {
+	background:url('/img/vec/cloud200.png') no-repeat center center;
+}
+.img-wrapper#open {
+	background:url('/img/vec/open-sourcelumina200.png') no-repeat center center;
+}
+.img-wrapper#open:hover{
+	background:url('/img/vec/open-source200.png') no-repeat center center;
 }
