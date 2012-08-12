@@ -1,3 +1,6 @@
+* {
+	color: rgb(225,225,225);
+}
 body {
 	background-image: url('/img/irongrip.png');
 }
@@ -5,6 +8,17 @@ body {
 	height: 150px;
 	width: 300px;
 	padding-top: 30px;
+}
+#start {
+
+}
+hgroup{
+	margin-top: 30px;
+	text-align: center;
+}
+h2 {
+	margin-top: 15px;
+	color: rgb(125,125,125);
 }
 .hidden {
 	display: none;
