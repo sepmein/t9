@@ -12,7 +12,6 @@ vec.renderVec = function(req, res, next) {
 			res.render('vec', d);
 		} else {
 			res.render('vec', d);
-
 		}
 	});
 	//进入新建页面

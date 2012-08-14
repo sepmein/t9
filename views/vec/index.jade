@@ -20,16 +20,22 @@ html
 			section.row
 				div.span4
 					div.img-wrapper#pen.cut-out
-					h4 解放双手
-					p Vec的设计理念就是解决复杂的药剂配制计算过程
+					div
+						h4 解放双手
+						p Vec的设计理念就是解决复杂的药剂配制计算过程
 				div.span4
 					div.img-wrapper#cloud.cut-out
-					h4 云端储存
-					p 介绍2 bal alsdkf jalu as dlkfju abalk djfna sdfl  kjbu as ldfkj sdfla ksjdfa lkdf
+					div
+						h4 云端储存
+						p 介绍2 bal alsdkf jalu as dlkfju abalk djfna sdfl  kjbu as ldfkj sdfla ksjdfa lkdf
 				div.span4
 					div.img-wrapper#open.cut-out
-					h4 共享及私有
-					p Vec默认公开你所设计的
+					div
+						h4 共享及私有
+						each dx in d 
+						p Vec默认公开你所设计的
+						p 原药浓度#{d.data.con}
+						a.btn(href=#{d.url}) check
 			section.row
 				each
 
