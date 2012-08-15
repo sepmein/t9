@@ -13,8 +13,8 @@
 	});
 	var c = paper.path().attr({
 		along: 0,
-		'stroke-width': '3',
-		stroke: 'rgb(225,225,225)'
+		'stroke-width': '5',
+		stroke: '#268ABB'
 	});
 	paper.rect(0, 0, 600, 120).attr({
 		fill: '#000',
@@ -29,6 +29,8 @@
 	setTimeout(function() {
 		c.animate({
 			along: logo.getTotalLength()
-		}, 5000);
+		}, 5000,function(){
+			$('p.speech').show('fast');
+		});
 	}, 500);
 })();

@@ -5,12 +5,38 @@ body {
 	background-image: url('/img/irongrip.png');
 }
 #holder {
-	height: 150px;
+	padding-top: 65px;
 	width: 300px;
-	padding-top: 30px;
+	height: 150px;
+}
+p.speech {
+	position: relative;
+	top: -180px;
+	left: 200px;
+	display: none;
+	width: 45px;
+	height: 18px;
+	border: 1px solid #666;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: rgb(200,200,200);
+	color: rgb(150,150,150);
+	text-align: center;
+}
+p.speech:after {
+	position: absolute;
+	top: 18px;
+	left: 8px;
+	width: 0;
+	height: 0;
+	border: 3px solid;
+	border-color: rgb(200,200,200) transparent transparent rgb(200,200,200);
+	content: ' ';
 }
 #start {
-
+	margin: 30px 0 50px 0px;
+	text-align: center;
 }
 hgroup{
 	margin-top: 30px;
@@ -24,18 +50,18 @@ h2 {
 	display: none;
 }
 .img-wrapper {
+	margin: 0 auto;
 	width: 200px;
 	height: 200px;
-	margin: 0 auto;
 }
 .cut-out{
-	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
-	-moz-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
-	box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
 
 	-webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
 	border-radius: 20px;
+	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
+	-moz-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
+	box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
 }
 .img-wrapper#pen {
 	background:url('/img/vec/penlumina200.png') no-repeat center center;
@@ -55,4 +81,24 @@ h2 {
 }
 .img-wrapper#open:hover{
 	background:url('/img/vec/open-source200.png') no-repeat center center;
+}
+#features h4 {
+	margin: 1.5em 0 0.8em 0;
+	color: #268ABB;
+	text-align: center;
+	font-size: 1.5em;
+}
+#features h5 {
+	margin: 0 0 0.7em 0;
+	color: #DBE0E4;
+	text-align: center;
+	font-size: 1.1em;
+}
+#features p {
+
+	padding: 0px 3em;
+	color: #7D7D7D;
+}
+span.coming {
+	color: #7D7D7D
 }

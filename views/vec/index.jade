@@ -11,37 +11,44 @@ html
 			header.row
 			section.row
 				div.span4#holder
+					p.speech 测试版
 				div.span8
 					hgroup
 						h1 生物测定－药剂配制系统
 						h2 给出条件，自动生成配制过程
 					div#start
-						a.btn.btn-large.btn-primary(href='/vec/start') 开始使用
-			section.row
+						a(href='/vec/start')
+							img(src='../img/vec/largeStartButton.png')
+			section.row#features
 				div.span4
 					div.img-wrapper#pen.cut-out
 					div
 						h4 解放双手
-						p Vec的设计理念就是解决复杂的药剂配制计算过程
+						h5 弄懂一次，然后把剩下的事交给VEC
+						p VEC代替你的笔算过程，节省纸张、笔头以及脑细胞（当然最好的前提是你已经学会）。
 				div.span4
 					div.img-wrapper#cloud.cut-out
 					div
 						h4 云端储存
-						p 介绍2 bal alsdkf jalu as dlkfju abalk djfna sdfl  kjbu as ldfkj sdfla ksjdfa lkdf
+						h5 一劳永逸
+						p 无需二次输入。VEC会为您的每次计算生成一个独一无二的地址，只需再次访问该地址便能直接查看计算结果。 
 				div.span4
 					div.img-wrapper#open.cut-out
 					div
-						h4 共享及私有
-						each dx in d 
-						p Vec默认公开你所设计的
-						p 原药浓度#{d.data.con}
-						a.btn(href=#{d.url}) check
+						h4 共享及私有<span class='coming'>（即将到来）</span>
+						h5 为配方们找个主儿
+						p VEC会默认公开你所设计的配制过程，所有人均可查看、修改、删除该配方。但是，您可以申请帐号，创建私有配方。
 			section.row
-				each
-
 			footer.row
 		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
 		script
 			window.jQuery || document.write('<script src="../js/libs/jquery-1.7.2.min.js"><\/script>');
 		script(src="../js/libs/raphael.js")
 		script(src="../js/vec/scripts.js")
+
+
+
+
+
+
+
