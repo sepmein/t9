@@ -1,34 +1,50 @@
-body {
-	background-image: url('/img/crisp_paper_ruffles.png');
-}
-#holder {
-	height: 120px;
-	width: 600px;
-}
-form#in {
-	-webkit-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.3);
-	box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.3);
-}
-.well {
-	background-color: rgb(250, 249, 249);
-}
-.form-actions {
-	background-color: rgb(249,247,247);
-}
-select{
-	border: none;
-	width: 5.5em;
-	background-color: #EEEEEE;
-	border-radius: 0 3px 3px 0;
-	border: 1px solid #CCCCCC;
-}
-#sub{
-	letter-spacing: 0.1em;
+body
+{
+	background-image:url(/img/crisp_paper_ruffles.png);
 }
 
-.hidden {
-	display: none;
+#holder
+{
+	width:600px;
+	height:120px;
 }
-.help-block {
-	color: rgb(175,175,175)
+
+form#in
+{
+	-webkit-box-shadow:0 0 2px 0 rgba(0,0,0,0.3);
+	box-shadow:0 0 2px 0 rgba(0,0,0,0.3);
+}
+
+.well
+{
+	background-color:#faf9f9;
+}
+
+.form-actions
+{
+	background-color:#f9f7f7;
+}
+
+select
+{
+	width:5.5em;
+	border:none;
+	border:1px solid #CCC;
+	border-radius:0 3px 3px 0;
+	background-color:#EEE;
+}
+
+#sub
+{
+	letter-spacing:.1em;
+}
+
+.hidden
+{
+	display:none;
+}
+
+.help-block
+{
+	color:#afafaf;
 }

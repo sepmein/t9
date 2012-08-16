@@ -1,104 +1,142 @@
-* {
-	color: rgb(225,225,225);
-}
-body {
-	background-image: url('/img/irongrip.png');
-}
-#holder {
-	padding-top: 65px;
-	width: 300px;
-	height: 150px;
-}
-p.speech {
-	position: relative;
-	top: -180px;
-	left: 200px;
-	display: none;
-	width: 45px;
-	height: 18px;
-	border: 1px solid #666;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	background-color: rgb(200,200,200);
-	color: rgb(150,150,150);
-	text-align: center;
-}
-p.speech:after {
-	position: absolute;
-	top: 18px;
-	left: 8px;
-	width: 0;
-	height: 0;
-	border: 3px solid;
-	border-color: rgb(200,200,200) transparent transparent rgb(200,200,200);
-	content: ' ';
-}
-#start {
-	margin: 30px 0 50px 0px;
-	text-align: center;
-}
-hgroup{
-	margin-top: 30px;
-	text-align: center;
-}
-h2 {
-	margin-top: 15px;
-	color: rgb(125,125,125);
-}
-.hidden {
-	display: none;
-}
-.img-wrapper {
-	margin: 0 auto;
-	width: 200px;
-	height: 200px;
-}
-.cut-out{
-
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
-	border-radius: 20px;
-	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
-	-moz-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
-	box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
-}
-.img-wrapper#pen {
-	background:url('/img/vec/penlumina200.png') no-repeat center center;
-}
-.img-wrapper#pen:hover {
-	background:url('/img/vec/pen200.png') no-repeat center center;
+*
+{
+	color:#e1e1e1;
 }
 
-.img-wrapper#cloud {
-	background:url('/img/vec/cloudlumina200.png') no-repeat center center;
+body
+{
+	background-image:url(/img/irongrip.png);
 }
-.img-wrapper#cloud:hover {
-	background:url('/img/vec/cloud200.png') no-repeat center center;
-}
-.img-wrapper#open {
-	background:url('/img/vec/open-sourcelumina200.png') no-repeat center center;
-}
-.img-wrapper#open:hover{
-	background:url('/img/vec/open-source200.png') no-repeat center center;
-}
-#features h4 {
-	margin: 1.5em 0 0.8em 0;
-	color: #268ABB;
-	text-align: center;
-	font-size: 1.5em;
-}
-#features h5 {
-	margin: 0 0 0.7em 0;
-	color: #DBE0E4;
-	text-align: center;
-	font-size: 1.1em;
-}
-#features p {
 
-	padding: 0px 3em;
-	color: #7D7D7D;
+#holder
+{
+	padding-top:65px;
+	width:300px;
+	height:150px;
 }
-span.coming {
-	color: #7D7D7D
+
+p.speech
+{
+	position:relative;
+	top:-180px;
+	left:200px;
+	display:none;
+	width:45px;
+	height:18px;
+	border:1px solid #666;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	background-color:#c8c8c8;
+	color:#969696;
+	text-align:center;
+}
+
+p.speech:after
+{
+	position:absolute;
+	top:18px;
+	left:8px;
+	width:0;
+	height:0;
+	border:3px solid;
+	border-color:#c8c8c8 transparent transparent #c8c8c8;
+	content:' ';
+}
+
+#start
+{
+	margin:30px 0 50px;
+	text-align:center;
+}
+
+hgroup
+{
+	margin-top:30px;
+	text-align:center;
+}
+
+h2
+{
+	margin-top:15px;
+	color:#7d7d7d;
+}
+
+.hidden
+{
+	display:none;
+}
+
+.img-wrapper
+{
+	margin:0 auto;
+	width:200px;
+	height:200px;
+}
+
+.cut-out
+{
+	-webkit-border-radius:20px;
+	-moz-border-radius:20px;
+	border-radius:20px;
+	-webkit-box-shadow:0 1px 0 rgba(255,255,255,.2),inset 0 4px 5px rgba(0,0,0,.6),inset 0 1px 0 rgba(0,0,0,.6);
+	-moz-box-shadow:0 1px 0 rgba(255,255,255,.2),inset 0 4px 5px rgba(0,0,0,.6),inset 0 1px 0 rgba(0,0,0,.6);
+	box-shadow:0 1px 0 rgba(255,255,255,.2),inset 0 4px 5px rgba(0,0,0,.6),inset 0 1px 0 rgba(0,0,0,.6);
+}
+
+.img-wrapper#pen
+{
+	background:url(/img/vec/penlumina200.png) no-repeat center center;
+}
+
+.img-wrapper#pen:hover
+{
+	background:url(/img/vec/pen200.png) no-repeat center center;
+}
+
+.img-wrapper#cloud
+{
+	background:url(/img/vec/cloudlumina200.png) no-repeat center center;
+}
+
+.img-wrapper#cloud:hover
+{
+	background:url(/img/vec/cloud200.png) no-repeat center center;
+}
+
+.img-wrapper#open
+{
+	background:url(/img/vec/open-sourcelumina200.png) no-repeat center center;
+}
+
+.img-wrapper#open:hover
+{
+	background:url(/img/vec/open-source200.png) no-repeat center center;
+}
+
+#features h4
+{
+	margin:1.5em 0 .8em;
+	color:#268ABB;
+	text-align:center;
+	font-size:1.5em;
+}
+
+#features h5
+{
+	margin:0 0 .7em;
+	color:#DBE0E4;
+	text-align:center;
+	font-size:1.1em;
+}
+
+#features p
+{
+	padding:0 3em;
+	color:#7D7D7D;
+}
+
+span.coming
+{
+	color:#7D7D7D;
 }
