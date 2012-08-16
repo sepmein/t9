@@ -5,7 +5,7 @@ var ses = require('aws-lib').createSESClient(sesKey.key, sesKey.pass);
 
 var email = email || {};
 
-function send(to, template, locals) {
+function send(to, template, locals, callback) {
 	var sendArgs = {
 		'Destination.ToAddresses.member.1': to,
 		'Message.Body.Html.Data': template.Body(locals),
@@ -13,11 +13,14 @@ function send(to, template, locals) {
 		'Source': "no.reply.kokiya@gmail.com",
 		'Message.Body.Html.Charset': 'UTF-8'
 	};
+	console.log('send email called');
 	ses.call('SendEmail', sendArgs, function(err, response) {
 		if (!err) {
 			console.dir(response);
+			callback(1);
 		} else {
 			console.error(err);
+			callback(0, err);
 		}
 	});
 };
@@ -36,6 +39,14 @@ email.sendCoupon = function(to, coupon) {
 	locals.link = 'http://localhost:8000/welcome/?email=' + to + '&coupon=' + coupon;
 	console.log('generated locals.link is ' + locals.link);
 	send(to, sc, locals);
+};
+
+email.sendUrl = function(to, url, callback) {
+	var sc = require('./template/vecSendUrl.js');
+	var locals = {};
+	locals.link = url;
+	console.log('generated locals.link is ' + locals.link);
+	send(to, sc, locals, callback);
 };
 
 module.exports = email;

@@ -4,9 +4,12 @@ var generateRandom = require('.././util').generateRandom;
 var db = db || {};
 db.vecs = require('.././data/vec');
 
+var email = email || {};
+email.vecSendUrl = require('.././email').sendUrl;
+
 var vec = vec || {};
 
-vec.renderVec = function(req, res, next) {
+vec.renderVec = function renderVec(req, res, next) {
 	db.vecs.find(0, function(status, d) {
 		if (status && d.length) {
 			res.render('vec', d);
@@ -32,11 +35,11 @@ vec.renderVec = function(req, res, next) {
 	*/
 };
 
-vec.renderVecStart = function(req, res, next) {
+vec.renderVecStart = function renderVecStart(req, res, next) {
 	res.render('vec/start.jade');
 };
 
-vec.createVec = function(req, res, next) {
+vec.createVec = function createVec(req, res, next) {
 	//verify
 	//这部分可以移至middleware
 	//fake
@@ -91,7 +94,7 @@ vec.createVec = function(req, res, next) {
 	}
 };
 
-vec.interpretor = function(req, res, next) {
+vec.interpretor = function interpretor(req, res, next) {
 
 	//定义单位的javascript oop部分，核心算法
 	//问题：javascript计算容易出现误差
@@ -287,6 +290,33 @@ vec.interpretor = function(req, res, next) {
 		}
 	});
 
+};
+
+vec.sendUrl = function sendUrl(req, res, next) {
+	/**
+	 * sendUrl api
+	 * 将配方地址发送给特定邮箱
+	 * 
+	 * {
+	 * 		to : String //收件人地址
+	 * 		,url : String //配方地址
+	 * }
+	 * 
+	 */
+	var to = req.body.to;
+	var url = req.body.url;
+	email.vecSendUrl(to, url, function(status, info) {
+		if (status) {
+			res.json({
+				status: 1
+			});
+		} else {
+			res.json({
+				status: 0,
+				err: info
+			});
+		}
+	});
 };
 
 module.exports = vec;

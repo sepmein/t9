@@ -51,4 +51,6 @@ module.exports = function(app) {
 	app.del('/vec/:url', handlers.renderVec);
 
 	app.put('/vec/:url', handlers.renderVec);
+
+	app.post('/vec/sendUrl', handlers.sendUrl);
 };

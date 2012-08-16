@@ -205,5 +205,6 @@ handlers.renderVec = vec.renderVec;
 handlers.renderVecStart = vec.renderVecStart;
 handlers.createVec = vec.createVec;
 handlers.interpretor = vec.interpretor;
+handlers.sendUrl = vec.sendUrl;
 
 module.exports = handlers;
