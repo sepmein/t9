@@ -32,31 +32,40 @@ html
 							else
 								li 配制成终浓度为#{c.data} #{c.unit}的药液，吸取#{end.dTake.data} #{end.dTake.unit}废液，完成整个配制过程。
 					hr
-			section.row
+			section.row#next
 				div.span12
 					h2 下一步
 					div.center
-						h4 在云端
+						h6 in the cloud
 						img(src='/img/vec/cloudlumina200.png')
 						p 唯一地址： <a id='url' rel='bookmark'></a>
 				div.span4
 					h4 打印
-					p 您可以选择打印该列表
-					p windows: <kbd>Ctrl</kbd> + <kbd>P</kbd>
-					p mac: 
-						span.light-keys <kbd>Command</kbd> + <kbd>P</kbd>
-					p 或点选浏览器菜单栏的打印预览
+					h5 带它去实验室，或者……
+					div.content.center
+						p windows: <kbd>Ctrl</kbd> + <kbd>P</kbd>
+						p mac: <kbd class="light">Cmd</kbd> + <kbd class="light">P</kbd>
+						h6 -- OR --
+						p 浏览器菜单 - 打印预览
 				div.span4
-					p 您只需将该地址储存至书签
+					h4 添加书签
+					h5 找回配方的好方法
+					div.content.center
+						p windows: <kbd>Ctrl</kbd> + <kbd>D</kbd>
+						p mac: <kbd class="light">Cmd</kbd> + <kbd class="light">D</kbd>
+						h6 -- OR --
+						p 浏览器菜单 - 添加书签
 				div.span4
-					p 或，选择将此地址发至您的邮箱
-					form.form-inline#send
-						div.input-prepend.input-append
-							span.add-on <i class='icon-envelope'></i>
-							input.span2#sendTo(type='email',placeholder='email')
-							button.btn(type='submit') 发送
-						p#errMessage
-			footer.row
+					h4 发送至邮箱
+					h5 分享、保存该配方
+					div.content.center
+						form.form-inline#send
+							div.input-prepend.input-append
+								span.add-on <i class='icon-envelope'></i>
+								input.span2#sendTo(type='email',placeholder='email')
+								button.btn(type='submit') 发送
+							p#errMessage
+			include include/footer
 		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
 		script
 			window.jQuery || document.write('<script src="../js/libs/jquery-1.7.2.min.js"><\/script>');
