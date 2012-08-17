@@ -9,21 +9,22 @@ html
 	body
 		header.container
 			.row
-				div#holder
+				div#holder.span4
 					p.speech 测试版
-					.guide
-						a(href='#motherliquid') 母液配制
-						a(href='#middle') 中间稀释
-						a(href='#final') 终浓度配置
-						a(href='#next') 下一步
+				div.guide.span8
+					a(href='#motherliquid') 母液配制
+					a(href='#middle') 中间稀释
+					a(href='#final') 终浓度配置
+					a(href='#next') 下一步
 		.container
 			section.row#main
 				div.span12
 					#motherliquid
 						h4 一、母液配制
+						h5 使用电子天平称量一定量的原药，将其定容至1 mL
 						ol
-							li 从浓度为#{raw.c.data} #{raw.c.unit}的原药中使用电子天秤称量#{raw.d.data} #{raw.d.unit}药剂。
-							li 加稀释液定容至#{middle.d.data} #{middle.d.unit}，配制成浓度为#{middle.c[0].data} #{middle.c[0].unit}的母液。
+							li 从浓度为#{raw.c.data} %的原药中使用电子天秤称量#{raw.d.data} #{raw.d.unit}药剂。
+							li 加稀释液定容至1 mL，配制成浓度为#{middle.c[0].data} #{middle.c[0].unit}的母液。
 					#middle
 						h4 二、中间过程－10倍稀释
 						h5 经过 <em>#{middle.dt}</em> 次稀释，将母液浓度稀释至接近终浓度。

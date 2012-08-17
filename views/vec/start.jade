@@ -10,8 +10,7 @@ html
 		.container
 			header.row
 				div.span12#holder
-					h2.hidden VEC
-					h3.hidden hands-free
+					p.speech 测试版
 			section#main.row
 				section.row
 					div.span8
@@ -64,9 +63,9 @@ html
 										input.span2#propotionRate(type='number',name='propotionRate',step='any',min='1',required)
 										p.help-block 任意相邻两终浓度组之间的浓度比
 								div.form-actions
-									button.btn.btn-large.btn-primary#sub(type='submit') 计算
+									button.btn.btn-large.btn-primary#sub(type='submit') <i class='icon-pencil icon-white'></i> 计算
 									| &nbsp;&nbsp;&nbsp;
-									a.cancel.btn.btn-large(href='/vec') 取消
+									a.cancel.btn.btn-large(href='/vec') <i class='icon-remove icon-white'></i> 取消
 					div.span4
 						h5 <i class="icon-asterisk"></i><b>说明</b>
 						br
