@@ -9,11 +9,18 @@ body {
 	height:150px;
 }
 
-#holder .guide {
+#guide 
+{
 	position: absolute;
-	left: 615px;
+	left: 515px;
 	top: 100px;
 }
+
+#guide a
+{
+	font-size: 1.15em;
+}
+
 p.speech
 {
 	position:relative;
@@ -95,14 +102,15 @@ kbd.light, .light-keys kbd, .key.light, .light-keys .key {
 	box-shadow: inset 0 0 1px rgb(255, 255, 255), inset 0 0 .4em rgb(200, 200, 200), 0 .1em 0 rgb(130, 130, 130), 0 .11em 0 rgba(0, 0, 0, .4), 0 .1em .11em rgba(0, 0, 0, .9);
 }
 
-#next>div.span4>h4,h5{
+#next h4{
+	font-size: 1.2em;
 	text-align: center;
 	margin-top: 10px;
 	margin-bottom: 8px;
 }
-#next>div.span4>h4{
-	font-size: 1.2em;
-}
-#next>div.span4>h5{
-	color: rgb(100,100,100)
+#next h5{
+	color: rgb(100,100,100);
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 8px;
 }
