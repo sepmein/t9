@@ -25,7 +25,7 @@ html
 			section.row#main
 				div.span12
 					#motherliquid
-						h4 母液配制
+						h4 #母液配制
 						h5 母液配制是将#{raw.c.data} %原药配置成1%母液的过程。
 						h5 完成该步骤后，再根据需要将母液逐级稀释成合适的浓度。
 						h5 所需工具：原药，电子天秤
@@ -35,7 +35,7 @@ html
 								li 从浓度为#{raw.c.data} %的原药中使用电子天秤称量#{raw.d.data} #{raw.d.unit}药剂。
 								li 加稀释液定容至1 mL，配制成浓度为#{middle.c[0].data} #{middle.c[0].unit}的母液。
 					#middle
-						h4 中间过程
+						h4 #中间过程
 						h5 稀释过程是将母液按每级10倍逐级稀释，直至接近终浓度的过程。
 						h5 从上级浓度的药液中取出#{middle.dTake.data} #{middle.dTake.unit}，稀释至#{middle.d.data} #{middle.d.unit}。该过程重复<em>#{middle.dt-1}</em> 次。
 						h5 <em>#{middle.dt-1}</em> 次后，从最后一次所配制的中浓度药剂中取出#{middle.dTakeLast.data} #{middle.dTakeLast.unit}，加稀释液定容至#{end.dp.data} #{end.dp.unit}，配制成最高浓度的终浓度药剂。
@@ -49,7 +49,7 @@ html
 									else
 										li 从浓度为#{c.data} #{c.unit}的药液中，吸取#{middle.dTakeLast.data} #{middle.dTakeLast.unit}，加稀释液定容至#{end.dp.data} #{end.dp.unit}，从而配制成终浓度为#{end.ch.data} #{end.ch.unit}的溶剂。
 					#final
-						h4 终浓度配制
+						h4 #终浓度配制
 						h5 终浓度配制过程是配置药剂的最后一步，将中间过程稀释的药剂配制成实验所需的浓度；配置成的终浓度药剂需要保存以便后用。
 						h5 该过程需要配制 <em>#{end.gn}</em> 种浓度的药剂。
 						h5 药剂的浓度分别为
@@ -72,7 +72,7 @@ html
 					hr
 			section.row#next
 				div.span12
-					h2 下一步
+					h2.processHead #下一步
 					div.center
 						h6 in the cloud
 						img(src='/img/vec/cloudlumina200.png')

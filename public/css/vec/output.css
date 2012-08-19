@@ -102,6 +102,31 @@ kbd.light, .light-keys kbd, .key.light, .light-keys .key {
 	box-shadow: inset 0 0 1px rgb(255, 255, 255), inset 0 0 .4em rgb(200, 200, 200), 0 .1em 0 rgb(130, 130, 130), 0 .11em 0 rgba(0, 0, 0, .4), 0 .1em .11em rgba(0, 0, 0, .9);
 }
 
+.processHead, #main h4{
+	font-size: 1.5em;
+	margin-top: 1.7em;
+	margin-bottom: 1.5em;
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	-o-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+}
+.processHead:hover, #main h4:hover{
+	color: #268ABB;
+}
+#main h5,h6{
+	font-size: 1.18em;
+	text-indent: 3em;
+	line-height: 1.6em;
+	font-weight: normal;
+}
+#main h6{
+	margin-top: 1em;
+	margin-bottom: 0.5em;
+}
+#main ol{
+	padding-left: 4em;
+}
 #next h4{
 	font-size: 1.2em;
 	text-align: center;
