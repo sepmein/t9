@@ -10,7 +10,7 @@ script
 			};
 		};
 		var set = paper.set();
-		var logo = paper.path('M40 10L75 100L120 10M170 12A44 44 0 1 0 170 98M117 55H280M240 12A44 44 0 1 0 240 98').attr({
+		var logo = paper.path('M40 10L75 100L120 10M170 12A44 44 0 1 0 170 98M117 55H178M240 12A44 44 0 1 0 240 98').attr({
 			opacity: 0,
 			stroke: 'rgb(100,100,100)'
 		});
@@ -36,7 +36,7 @@ script
 		setTimeout(function() {
 			c.animate({
 				along: logo.getTotalLength()
-			}, 5000,function(){
+			}, 3000,function(){
 				$('p.speech').show('fast');
 			});
 		}, 500);
