@@ -140,3 +140,8 @@ span.coming
 {
 	color:#7D7D7D;
 }
+
+hr{
+	border-top: 1px solid #2E2E2E;
+	border-bottom: 1px solid #4D4D4D;
+}
