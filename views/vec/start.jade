@@ -44,7 +44,7 @@ html
 								div.controlgroup
 									label.control-label(for='dose') 剂量
 									div.controls
-										input.span2#dose(type='number',name='dose',step='any',min='0',required)
+										input.span2#dose(type='number',name='dose',step='any',min='0.0000000001',required)
 										select#doseUnit(name='doseUnit')
 											option mL
 											option L
@@ -54,18 +54,32 @@ html
 									label.control-label(for='groupNumber') 组数
 									div.controls
 										div.input-append
-											input.span2#groupNumber(type='number',name='groupNumber',required)
+											input.span2#groupNumber(type='number',name='groupNumber',required,min='1')
 											span.add-on 组
 										p.help-block 所需配制终浓度的组数
 								div.controlgroup
 									label.control-label(for='propotionRate') 组间比
 									div.controls
-										input.span2#propotionRate(type='number',name='propotionRate',step='any',min='1',required)
+										input.span2#propotionRate(type='number',name='propotionRate',step='any',min='1.0000000001',required)
 										p.help-block 任意相邻两终浓度组之间的浓度比
 								div.form-actions
-									button.btn.btn-large.btn-primary#sub(type='submit') <i class='icon-pencil icon-white'></i> 计算
+									a.btn.btn-large.btn-primary#sub <i class='icon-pencil icon-white'></i> 计算
 									| &nbsp;&nbsp;&nbsp;
 									a.cancel.btn.btn-large(href='/vec') <i class='icon-remove icon-white'></i> 取消
+									.modal.fade.in.hide#alert
+										.modal-header
+											button.close(type='button',data-dismiss='modal') x
+											h3 使用须知
+										.modal-body
+											p 虽然经过精心设计以及测试，但是Vec并不能保证计算结果
+												span.badge.badge-success 100%
+												| 准确。
+											p 若在实验前使用Vec，请自行验证Vec生成配方的正确性。以免导致实验失败等不良结果。
+											p 由于未验证配方的正确性所造成的损失，Vec概不负责。望谅解。
+											p Vec会继续改进以提高正确性。
+										.modal-footer
+											a.btn(data-dismiss='modal',href='#') 取消
+											button.btn.btn-primary(href='#',type='submit') 同意并继续
 					div.span4
 						h5 <i class="icon-asterisk"></i><b>说明</b>
 						br
@@ -90,6 +104,7 @@ html
 		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
 		script
 			window.jQuery || document.write('<script src="../js/libs/jquery-1.7.2.min.js"><\/script>');
-		script(src="../js/libs/raphael-min.js")
-		script(src="../js/vec/start.js")
+		script(src='../js/libs/raphael-min.js')
+		script(src='../js/libs/bootstrap.min.js')
+		script(src='../js/vec/start.js')
 		include include/analyticsAndLogoAni
