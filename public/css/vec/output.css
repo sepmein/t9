@@ -114,7 +114,7 @@ kbd.light, .light-keys kbd, .key.light, .light-keys .key {
 .processHead:hover, #main h4:hover{
 	color: #268ABB;
 }
-#main h5,h6{
+#main h5,#main h6{
 	font-size: 1.18em;
 	text-indent: 3em;
 	line-height: 1.6em;
@@ -126,6 +126,9 @@ kbd.light, .light-keys kbd, .key.light, .light-keys .key {
 }
 #main ol{
 	padding-left: 4em;
+}
+#next .span12{
+	margin-bottom: 30px;
 }
 #next h4{
 	font-size: 1.2em;
