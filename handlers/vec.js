@@ -80,7 +80,7 @@ vec.createVec = function createVec(req, res, next) {
 		newVec.data.groupNumber = req.body.groupNumber;
 		newVec.data.dose.data = req.body.dose;
 		newVec.data.dose.unit = req.body.doseUnit;
-		console.dir(newVec);
+		//console.dir(newVec);
 		db.vecs.add(newVec, function(status, err) {
 			if (status) {
 				res.redirect('/vec/' + newVec.url);
@@ -160,7 +160,7 @@ vec.interpretor = function interpretor(req, res, next) {
 	 */
 	db.vecs.find(req.params.url, function(status, d) {
 		if (status) {
-			console.log(d);
+			//console.log(d);
 			//finish this part for better api
 			/**
 			 * Input data API reference
@@ -272,7 +272,7 @@ vec.interpretor = function interpretor(req, res, next) {
 			middle.dTakeLast.toPrec(4);
 			for (var i = 0; i < end.c.length; i++) {
 				end.c[i].toPrec(4);
-				console.dir(end.c[i].data);
+				//console.dir(end.c[i].data);
 			}
 			end.dp.toPrec(4);
 			end.dTake.toPrec(4);
@@ -286,7 +286,7 @@ vec.interpretor = function interpretor(req, res, next) {
 			res.render('vec/output', output);
 			//res.json(output);
 		} else {
-			console.log(d);
+			//console.log(d);
 		}
 	});
 

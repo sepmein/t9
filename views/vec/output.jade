@@ -1,7 +1,7 @@
 doctype 5
 html
 	head
-		title Vec output
+		title 药剂配置过程 - Vec 生物测定，药剂配置系统
 		meta(charset='utf-8')
 		link(rel='stylesheet',href='../css/bootstrap.min.css')
 		link(rel='stylesheet',href='../css/vec/output.css')
@@ -32,7 +32,7 @@ html
 						div.process
 							h6 详细过程：
 							ol
-								li 从浓度为#{raw.c.data} %的原药中使用电子天秤称量#{raw.d.data} #{raw.d.unit}药剂。
+								li 从浓度为#{raw.c.data} %的原药中吸取#{raw.d.data} #{raw.d.unit}药剂。
 								li 加稀释液定容至1 mL，配制成浓度为#{middle.c[0].data} #{middle.c[0].unit}的母液。
 					#middle
 						h4 #中间过程
@@ -106,9 +106,10 @@ html
 								input.span2#sendTo(type='email',placeholder='email')
 								button.btn(type='submit') 发送
 							p#errMessage
-			include include/footer
+		include include/footer
 		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
 		script
 			window.jQuery || document.write('<script src="../js/libs/jquery-1.7.2.min.js"><\/script>');
 		script(src="../js/libs/raphael.js")
 		script(src='../js/vec/output.js')
+		include include/googleAnalytics
