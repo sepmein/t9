@@ -1,0 +1,43 @@
+script
+	var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-28326426-2']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();
+script
+	(function() {
+		var holder = document.getElementById('holder');
+		var paper = Raphael(holder, 300, 150);
+		paper.customAttributes.along = function(a) {
+			return {
+				path: logo.getSubpath(0, a)
+			};
+		};
+		var set = paper.set();
+		var logo = paper.path('M40 10L75 100L120 10M170 12A44 44 0 1 0 170 98M117 55H280M240 12A44 44 0 1 0 240 98').attr({
+			opacity: 0,
+			stroke: 'rgb(100,100,100)'
+		});
+		var c = paper.path().attr({
+			along: 0,
+			'stroke-width': '5',
+			stroke: '#268ABB'
+		});
+		var rect = paper.rect(0, 0, 600, 120).attr({
+			fill: '#000',
+			opacity: 0,
+			href: '/vec',
+			cursor: 'point'
+		});
+		rect.hover(
+			function(){
+				$('p.speech').text('回主页');
+			} ,
+			function(){
+				$('p.speech').text('测试版');
+			});
+
+		setTimeout(function() {
+			c.animate({
+				along: logo.getTotalLength()
+			}, 5000,function(){
+				$('p.speech').show('fast');
+			});
+		}, 500);
+	})();
