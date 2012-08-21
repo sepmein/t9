@@ -16,6 +16,7 @@ function start(route) {
 
 	// Configuration
 	// seperation is under consideration
+
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
 	app.use(express.bodyParser());
@@ -29,6 +30,7 @@ function start(route) {
 		}
 	}));
 	app.use(app.router);
+	app.use(express.compress());
 	app.use(express.static('public'));
 
 	if ('development' == app.get('env')) {
