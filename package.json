@@ -10,6 +10,7 @@
 		"mongoose": "latest",
 		"jade": "latest",
 		"session-mongoose": "latest",
-		"aws-lib": "latest"
+		"aws-lib": "latest",
+		"connect": "latest"
 	}
 }
