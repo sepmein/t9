@@ -1,4 +1,7 @@
 //require partition
+/**
+ * @requires 
+ */
 var generateRandom = require('.././util').generateRandom;
 
 var db = db || {};
@@ -98,7 +101,10 @@ vec.interpretor = function interpretor(req, res, next) {
 
 	//定义单位的javascript oop部分，核心算法
 	//问题：javascript计算容易出现误差
-
+	/**
+	 *
+	 * 
+	 */
 	function Unit() {
 		this.defaultUnitGroup = {};
 	}

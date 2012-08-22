@@ -7,7 +7,7 @@ var util = util || {};
 /**
  * 验证邮件地址，使用正则表达式
  * @method validateEmail
- * @param {String} email Email
+ * @param {String} email Email地址
  * @return {Boolean} 成功返回1，否则返回0
  */
 util.validateEmail = function(email) {
@@ -15,10 +15,16 @@ util.validateEmail = function(email) {
 	return re.test(email);
 };
 
-util.generateRandom = function(o) {
+/**
+ * 生成随机字符串
+ * @method generateRandom
+ * @param {Num} length 生成
+ * @return {String} 长度为length、包含数字及大小写、随机排列的字符串
+ */
+util.generateRandom = function(length) {
 	var s = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	var result = "";
-	for (var i = o || 6; i > 0; i--) {
+	for (var i = length || 6; i > 0; i--) {
 		result += s.charAt(Math.floor(Math.random() * s.length));
 	};
 	return result;
