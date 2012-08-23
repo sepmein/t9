@@ -6,6 +6,7 @@ var sessionStore = new SessionMongoose({
 	interval: 60000 * 60 * 24 * 30 * 6
 });
 var sessionSecret = require('./configure/key.js').sessionSecret;
+var connect = require('connect');
 
 
 function start(route) {
@@ -16,6 +17,7 @@ function start(route) {
 
 	// Configuration
 	// seperation is under consideration
+
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
 	app.use(express.bodyParser());
@@ -29,6 +31,7 @@ function start(route) {
 		}
 	}));
 	app.use(app.router);
+	app.use(connect.compress());
 	app.use(express.static('public'));
 
 	if ('development' == app.get('env')) {
