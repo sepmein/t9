@@ -105,6 +105,7 @@ vec.interpretor = function interpretor(req, res, next) {
 	 *
 	 * 
 	 */
+	//using ES5 style for object inhenritence
 	function Unit() {
 		this.defaultUnitGroup = {};
 	}
