@@ -1,3 +1,7 @@
+/** 
+	描述一组带单位的数字，定义一系列方法，使得单位间的计算变得便捷
+	@class unit
+ */
 var unit = Object.create(null);
 
 unit.description = '';
@@ -8,9 +12,9 @@ Object.defineProperty(unit, 'alias', {
 	value: []
 });
 /**
-检验o是否符合规定，若符合，添加至unit group
-@method addGroup
-@
+	检验o是否符合规定，若符合，添加至unit group
+	@method addGroup
+	@param {Object} unit 
 */
 unit.addUnitToGroup = function(o) {
 	if (1) {
@@ -20,7 +24,8 @@ unit.addUnitToGroup = function(o) {
 	}
 };
 /**
-获取该类型的
+	获取该类型的
+	@method list
 */
 unit.list = function(){
 	var list = [];

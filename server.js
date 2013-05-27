@@ -1,4 +1,5 @@
 var express = require('express');
+console.log(require.resolve('express'));
 //mongoose session store by mongoose session, maybe rewrite it by myself later
 var SessionMongoose = require("session-mongoose");
 var sessionStore = new SessionMongoose({
@@ -17,7 +18,6 @@ function start(route) {
 
 	// Configuration
 	// seperation is under consideration
-
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
 	app.use(express.bodyParser());
@@ -34,19 +34,19 @@ function start(route) {
 	app.use(connect.compress());
 	app.use(express.static('public'));
 
-	if ('development' == app.get('env')) {
+	if('development' == app.get('env')) {
 		app.use(express.errorHandler({
 			dumpExceptions: true,
 			showStack: true
 		}));
 	}
 
-	if ('production' == app.get('env')) {
+	if('production' == app.get('env')) {
 		//app.enabled('view cache');
 		app.use(express.errorHandler());
 	}
 
-	var port = 80;
+	var port = 8000;
 	//end of configuration
 	app.listen(port);
 
